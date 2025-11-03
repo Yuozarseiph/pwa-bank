@@ -279,7 +279,7 @@ export default function Home() {
       <Header />
       <div className="flex justify-center items-start flex-row-reverse lg:gap-6 lg:p-5">
         
-        <div className="w-full md:w-[80%] max-w-[1080px] bg-white rounded-xl p-5 overflow-auto max-h-[calc(100vh-150px)]">
+        <div className="w-full md:w-[80%] max-w-[1080px] bg-white rounded-xl p-5 overflow-auto max-h-[calc(100vh-240px)] lg:max-h-[calc(100vh-150px)]">
           <p className="text-2xl font-bold border-b border-gray-300">خدمات</p>
           <h2 className="mt-5 text-xl font-bold flex items-center gap-2">
             <span className="h-2 w-2 bg-[#0094da] rounded-full inline-block"></span>
