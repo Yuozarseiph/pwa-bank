@@ -67,7 +67,7 @@ const loan = [
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col relative bg-[#f1f5f9] overflow-x-hidden">
+    <div className="flex min-h-dvh flex-col relative bg-[#f1f5f9] overflow-x-hidden">
       <Navbar/>
       <Header />
       <div className="flex justify-center items-start flex-row-reverse p-2 lg:gap-6 lg:p-5">
