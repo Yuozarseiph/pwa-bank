@@ -1,20 +1,17 @@
+// components/Header.jsx (نسخه به‌روزرسانی شده)
 "use client";
 
 import { useState } from "react";
 import Link from "next/link";
-import {
-  CircleUserIcon,
-  BadgePlus,
-  Bell,
-  Menu,
-  Home,
-  Settings,
-  User,
-} from "lucide-react";
+import { Menu, Search } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -31,6 +28,12 @@ export default function Header() {
   const handleLogout = () => {
     setIsLoggedIn(false);
     handleCloseMenu();
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    // منطق جستجو را اینجا پیاده‌سازی کنید
+    console.log("جستجو برای:", searchQuery);
   };
 
   return (
@@ -51,6 +54,27 @@ export default function Header() {
               اپلیکیشن من
             </Link>
           </div>
+
+          {/* فرم جستجو - فقط در صفحات غیراصلی نمایش داده می‌شود */}
+          {!isHomePage && (
+            <div className="flex-1 max-w-md mx-4">
+              <form onSubmit={handleSearch} className="relative">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="جستجو..."
+                  className="w-full px-4 py-2 pr-10 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                />
+                <button
+                  type="submit"
+                  className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                >
+                  <Search className="h-5 w-5" />
+                </button>
+              </form>
+            </div>
+          )}
         </div>
       </header>
 

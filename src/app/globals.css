@@ -38,18 +38,17 @@ html {
 }
 
 body {
-  font-family: "Yekan","Samim", sans-serif;
+  background-color: #f1f5f9;
+  font-family: "Yekan", "Samim", sans-serif;
   -webkit-user-drag: none;
   -khtml-user-drag: none;
   -moz-user-drag: none;
   -o-user-drag: none;
-  user-drag: none;
   overflow-x: hidden;
 }
 
 * {
   scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
 }
 @keyframes float {
   0%,

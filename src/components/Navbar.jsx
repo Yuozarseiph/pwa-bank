@@ -1,6 +1,7 @@
+// components/Navbar.jsx
 'use client';
 
-import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { 
   Home, 
   BadgePlusIcon, 
@@ -10,7 +11,7 @@ import {
 import Link from 'next/link';
 
 export default function Navbar() {
-  const [activeItem, setActiveItem] = useState('خانه');
+  const pathname = usePathname();
 
   const navItems = [
     { id: 1, name: 'خانه', icon: Home, href: '/' },
@@ -25,12 +26,11 @@ export default function Navbar() {
         <div className="flex justify-around items-center py-2">
           {navItems.map((item) => {
             const IconComponent = item.icon;
-            const isActive = activeItem === item.name;
+            const isActive = pathname === item.href;
             
             return (
               <Link href={item.href} key={item.id}>
                 <button
-                  onClick={() => setActiveItem(item.name)}
                   className={`flex flex-col items-center py-2 px-1 flex-1 transition-all duration-200 cursor-pointer ${
                     isActive 
                       ? 'text-[#0094da]' 
