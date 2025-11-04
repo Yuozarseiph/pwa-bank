@@ -325,6 +325,7 @@ const AdDetailPage = ({ adId }) => {
 
                   <button className="p-3 rounded-xl bg-white/20 hover:bg-white/30 transition-all text-white items-center cursor-pointer">
                     <Share className="w-7 h-7 transition-all" />
+
                   </button>
                 </div>
 
@@ -348,6 +349,10 @@ const AdDetailPage = ({ adId }) => {
                       {adData.stats.views.toLocaleString()}
                     </span>
                   </div>
+                  <button className="flex items-center gap-2 text-white/90 cursor-pointer">
+                    <Share className="w-5 h-5" />
+                    <span className="font-medium">پیشنهاد</span>
+                  </button>
                   <div className="flex items-center gap-2 text-white/90">
                     <Clock className="w-5 h-5" />
                     <span className="font-medium">{adData.stats.time}</span>
