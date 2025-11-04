@@ -249,8 +249,8 @@ const AdDetailPage = ({ adId }) => {
         <Navbar />
         <main className="container mx-auto px-4 py-20">
           <div className="max-w-2xl mx-auto text-center">
-            <div className="bg-white rounded-3xl shadow-xl p-12 border-4 border-red-100">
-              <div className="w-24 h-24 bg-linear-to-br from-red-400 to-red-600 rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="bg-white rounded-3xl shadow-xl p-12 border-4 border-[#a9020a]/30">
+              <div className="w-24 h-24 bg-[#a9020a] rounded-full flex items-center justify-center mx-auto mb-6">
                 <AlertCircle className="w-12 h-12 text-white" />
               </div>
               <h1 className="text-4xl font-black text-gray-900 mb-4">
@@ -261,7 +261,7 @@ const AdDetailPage = ({ adId }) => {
               </p>
               <button
                 onClick={() => router.push("/")}
-                className="px-8 py-4 bg-linear-to-r from-[#0094da] to-[#0070a8] text-white rounded-2xl font-bold text-lg hover:shadow-2xl transform hover:scale-105 transition-all"
+                className="px-8 py-4 bg-[#0094da] text-white rounded-2xl font-bold text-lg hover:shadow-2xl transform hover:scale-105 transition-all"
               >
                 بازگشت به صفحه اصلی
               </button>
@@ -289,9 +289,7 @@ const AdDetailPage = ({ adId }) => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-8 space-y-6">
-            <div className="relative bg-linear-to-r from-[#0094da] to-[#0070a8] rounded-3xl p-8 shadow-2xl overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
-              <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -ml-24 -mb-24"></div>
+            <div className="relative bg-[#0094da] rounded-3xl p-8 shadow-2xl overflow-hidden">
               
               <div className="relative z-10">
                 <div className="flex items-start justify-between mb-6">
@@ -381,7 +379,7 @@ const AdDetailPage = ({ adId }) => {
                   className="group relative bg-white rounded-2xl p-6 shadow-md hover:shadow-2xl transition-all border-2 border-transparent hover:border-[#0094da] cursor-pointer"
                 >
                   <div className="flex flex-col items-center text-center gap-3">
-                    <div className="w-14 h-14 rounded-xl bg-linear-to-br from-[#0094da] to-[#0070a8] flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <div className="w-14 h-14 rounded-xl bg-[#0094da] flex items-center justify-center group-hover:scale-110 transition-transform">
                       <feature.icon className="w-7 h-7 text-white" />
                     </div>
                     <span className="text-sm font-bold text-gray-800">
@@ -394,7 +392,7 @@ const AdDetailPage = ({ adId }) => {
 
             <div className="bg-white rounded-3xl shadow-xl p-8 border-2 border-gray-100">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-linear-to-br from-[#0094da] to-[#0070a8] flex items-center justify-center">
+                <div className="w-12 h-12 rounded-xl bg-[#0094da] flex items-center justify-center">
                   <Info className="w-6 h-6 text-white" />
                 </div>
                 <h2 className="text-2xl font-black text-gray-900">توضیحات کامل</h2>
@@ -406,7 +404,7 @@ const AdDetailPage = ({ adId }) => {
 
             <div className="bg-linear-to-br from-blue-50 to-cyan-50 rounded-3xl shadow-xl p-8 border-2 border-blue-100">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-linear-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-xl bg-[#0094da] flex items-center justify-center">
                   <TrendingUp className="w-6 h-6 text-white" />
                 </div>
                 <h2 className="text-2xl font-black text-gray-900">جزئیات وام</h2>
@@ -417,7 +415,7 @@ const AdDetailPage = ({ adId }) => {
                     key={index}
                     className="flex items-center gap-4 p-5 rounded-2xl bg-white shadow-md border-2 border-transparent hover:border-blue-400 transition-all"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-linear-to-br from-blue-400 to-cyan-400 flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-[#0094da] flex items-center justify-center shrink-0">
                       <detail.icon className="w-6 h-6 text-white" />
                     </div>
                     <div className="flex-1">
@@ -447,7 +445,7 @@ const AdDetailPage = ({ adId }) => {
                 <div className="space-y-3">
                   <button
                     onClick={handleContact}
-                    className="w-full group relative overflow-hidden p-5 rounded-2xl bg-linear-to-r from-[#0094da] to-[#0070a8] shadow-lg hover:shadow-2xl transition-all"
+                    className="w-full group relative overflow-hidden p-5 rounded-2xl bg-[#0094da] shadow-lg hover:shadow-2xl transition-all"
                   >
                     <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform"></div>
                     <div className="relative flex items-center justify-center gap-3">
@@ -494,9 +492,9 @@ const AdDetailPage = ({ adId }) => {
                 </div>
               </div>
 
-              <div className="bg-linear-to-br from-amber-50 to-orange-50 rounded-3xl shadow-xl p-6 border-2 border-amber-200">
+              <div className="bg-white rounded-3xl shadow-xl p-6 border-2 border-[#a9020a]/30">
                 <div className="flex items-center gap-3 mb-5">
-                  <div className="w-10 h-10 rounded-xl bg-linear-to-br from-amber-500 to-orange-500 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-xl bg-[#a9020a] flex items-center justify-center">
                     <AlertCircle className="w-5 h-5 text-white" />
                   </div>
                   <h3 className="text-lg font-black text-gray-900">هشدار امنیتی</h3>
@@ -504,7 +502,7 @@ const AdDetailPage = ({ adId }) => {
                 <ul className="space-y-3">
                   {adData.safetyTips.map((tip, index) => (
                     <li key={index} className="flex items-start gap-3 p-3 rounded-xl bg-white/70">
-                      <CheckCircle2 className="w-5 h-5 text-amber-600 mt-0.5 flex shrink-0" />
+                      <CheckCircle2 className="w-5 h-5 text-[#a9020a] mt-0.5 flex shrink-0" />
                       <span className="text-sm text-gray-800 font-medium leading-relaxed">{tip}</span>
                     </li>
                   ))}
