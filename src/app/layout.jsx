@@ -16,13 +16,18 @@ export const metadata = {
   title: "اپلیکیشن من - سامانه خدمات بانکی",
   description: "وب اپلیکیشن خدمات بانکی و مالی",
   manifest: "/manifest.json",
-  themeColor: "#0094da",
-  viewport: "width=device-width, initial-scale=1, user-scalable=no",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
     title: "اپلیکیشن من"
   }
+};
+
+export const viewport = {
+  themeColor: "#0094da",
+  width: "device-width",
+  initialScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({ children }) {
