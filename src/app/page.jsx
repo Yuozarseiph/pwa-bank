@@ -12,15 +12,15 @@ import {
 import Footer from "@/components/Footer";
 import Sidebar from "@/components/SideBar";
 const banks = [
-  { id: 1, lable: "سپه", img: "/banks/sepah.png" },
-  { id: 2, lable: "ملی", img: "/banks/melli.png" },
-  { id: 3, lable: "ملت", img: "/banks/mellat.png" },
-  { id: 4, lable: "ایران زمین", img: "/banks/iran-zamin.png" },
-  { id: 5, lable: "صادرات", img: "/banks/saderat.png" },
-  { id: 6, lable: "بلوبانک", img: "/banks/blu-bank.png" },
-  { id: 7, lable: "بانک رفاه", img: "/banks/bank-refah.png" },
-  { id: 8, lable: "مهر ایران", img: "/banks/Bank-Mehr-Iran.png" },
-  { id: 9, lable: "سامان", img: "/banks/bank-saman.png" },
+  { id: 1, img: "/banks/sepah.png" },
+  { id: 2, img: "/banks/melli.png" },
+  { id: 3, img: "/banks/mellat.png" },
+  { id: 4, img: "/banks/iran-zamin.png" },
+  { id: 5, img: "/banks/saderat.png" },
+  { id: 6, img: "/banks/blu-bank.png" },
+  { id: 7, img: "/banks/bank-refah.png" },
+  { id: 8, img: "/banks/Bank-Mehr-Iran.png" },
+  { id: 9, img: "/banks/bank-saman.png" },
 ];
 const loan = [
   {
@@ -275,17 +275,16 @@ export const loans = [
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col relative bg-[#f1f5f9] overflow-x-hidden">
-      <Navbar />
+      <Navbar key={1} />
       <Header />
       <div className="flex justify-center items-start flex-row-reverse lg:gap-6 lg:p-5">
-        
         <div className="w-full md:w-[80%] max-w-[1080px] bg-white rounded-xl p-5 overflow-auto max-h-[calc(100dvh-240px)] lg:max-h-[calc(100dvh-150px)]">
           <p className="text-2xl font-bold border-b border-gray-300">خدمات</p>
           <h2 className="mt-5 text-xl font-bold flex items-center gap-2">
             <span className="h-2 w-2 bg-[#0094da] rounded-full inline-block"></span>
             بانک های تحت پوشش
           </h2>
-          <ul className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-2 mt-8">
+          <ul className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-12 gap-x-2 gap-y-6 mt-8">
             {banks.map((item) => (
               <li
                 key={item.id}
@@ -300,11 +299,11 @@ export default function Home() {
                     alt={item.lable}
                     className="h-15 w-15 p-1 bg-[#f1f5f9] rounded-xl"
                   />
-                  <h3>{item.lable}</h3>
                 </Link>
               </li>
             ))}
           </ul>
+          <hr className="mt-6 text-gray-300" />
           <h2 className="mt-5 text-xl font-bold">
             <span className="h-2 w-2 bg-[#0094da] rounded-full inline-block"></span>{" "}
             وام با کارمزد
@@ -325,7 +324,8 @@ export default function Home() {
               </li>
             ))}
           </ul>
-          <h2 className="mt-5 text-xl font-bold">جدول مشتریان</h2>
+          <hr className="mt-6 text-gray-300" />
+          <h2 className="mt-5 text-xl font-bold">آگهی های فروش</h2>
           <LoanFilters />
         </div>
         <Sidebar />
