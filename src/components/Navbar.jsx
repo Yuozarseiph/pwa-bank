@@ -15,8 +15,8 @@ export default function Navbar() {
 
   const navItems = [
     { id: 1, name: 'خانه', icon: Home, href: '/' },
-    { id: 2, name: 'ثبت آگهی', icon: BadgePlusIcon, href: '/' },
-    { id: 3, name: 'جدید ترین فروش ها', icon: ShoppingBasketIcon, href: '/' },
+    { id: 2, name: 'ثبت آگهی', icon: BadgePlusIcon, href: '/soon' },
+    { id: 3, name: 'جدید ترین فروش ها', icon: ShoppingBasketIcon, href: '/soon' },
     { id: 4, name: 'پروفایل', icon: UserIcon, href: '/auth' },
   ];
 

@@ -18,13 +18,13 @@ export default function Sidebar() {
       id: 2,
       name: "ثبت آکهی",
       icon: BadgePlusIcon,
-      href: "/",
+      href: "/soon",
     },
     {
       id: 3,
       name: "جدید ترین فروش ها",
       icon: ShoppingBasketIcon,
-      href: "/",
+      href: "/soon",
     },
     { id: 4, name: "پروفایل", icon: UserIcon, href: "/auth" },
   ];
