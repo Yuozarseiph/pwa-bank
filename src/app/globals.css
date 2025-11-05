@@ -34,7 +34,7 @@ html {
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #0094da #ffffff;
+  scrollbar-color: #0095da18 #ffffff;
 }
 
 body {
@@ -61,4 +61,10 @@ body {
   66% {
     transform: translateY(10px) rotate(240deg);
   }
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

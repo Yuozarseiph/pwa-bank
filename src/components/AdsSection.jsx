@@ -52,8 +52,11 @@ const banks = [
 export default function AdsSection() {
   return (
     <div className="mt-8">
-      <h3 className="text-lg font-bold text-gray-800 mb-4">آگهی‌های فروش</h3>
-      <div className="flex flex-col gap-4">
+      <h2 className="mt-5 text-xl font-bold flex items-center gap-2">
+        <span className="h-2 w-2 bg-[#0094da] rounded-full inline-block"></span>
+        آگهی های فروش
+      </h2>
+      <div className="flex flex-col gap-4 mt-5">
         {ads.map((ad) => {
           const bank = banks.find((b) => b.id === ad.bankId);
           return (

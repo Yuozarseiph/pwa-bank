@@ -7,7 +7,6 @@ import {
   Phone,
   MessageCircle,
   Share,
-  Shield,
   CheckCircle2,
   Star,
   Wallet,
@@ -15,12 +14,12 @@ import {
   FileText,
   Timer,
   Percent,
-  AlertCircle,
+  ShieldAlertIcon,
   Users,
   BadgeCheck,
   PiggyBank,
   Info,
-  TrendingUp,
+  ReceiptTextIcon,
   Award,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -322,11 +321,6 @@ const AdDetailPage = ({ adId }) => {
                       </div>
                     </div>
                   </div>
-
-                  <button className="p-3 rounded-xl bg-white/20 hover:bg-white/30 transition-all text-white items-center cursor-pointer">
-                    <Share className="w-7 h-7 transition-all" />
-
-                  </button>
                 </div>
 
                 <h1 className="text-3xl sm:text-4xl font-black text-white mb-4 leading-tight">
@@ -364,7 +358,7 @@ const AdDetailPage = ({ adId }) => {
             <div className="bg-white rounded-2xl p-6 border border-gray-100">
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
-                  <TrendingUp className="w-5 h-5 text-gray-600" />
+                  <ReceiptTextIcon className="w-5 h-5 text-gray-600" />
                 </div>
                 <h2 className="text-xl font-bold text-gray-800">جزئیات وام</h2>
               </div>
@@ -467,7 +461,7 @@ const AdDetailPage = ({ adId }) => {
             <div className="bg-white rounded-3xl shadow-xl p-6 border-2 border-[#a9020a]/30">
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-10 h-10 rounded-xl bg-[#a9020a] flex items-center justify-center">
-                  <AlertCircle className="w-5 h-5 text-white" />
+                  <ShieldAlertIcon className="w-5 h-5 text-white" />
                 </div>
                 <h3 className="text-lg font-black text-gray-900">
                   هشدار امنیتی
