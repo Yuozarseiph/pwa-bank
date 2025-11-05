@@ -33,7 +33,7 @@ const allAdsData = {
     title: "وام قرض الحسنه ۴۰۰ میلیون تومانی",
     bank: {
       name: "بانک سپه",
-      logo: "/banks/sepah.png",
+      logo: "/banks/sepah-low.png",
       rating: 4.8,
       verified: true,
       totalReviews: 2847,
@@ -84,7 +84,7 @@ const allAdsData = {
     title: "وام مسکن ۵۰۰ میلیونی",
     bank: {
       name: "بانک ملی",
-      logo: "/banks/melli.png",
+      logo: "/banks/melli-low.png",
       rating: 4.6,
       verified: true,
       totalReviews: 1923,
@@ -133,7 +133,7 @@ const allAdsData = {
     title: "وام خودرو ۳۰۰ میلیونی",
     bank: {
       name: "بانک ملت",
-      logo: "/banks/mellat.png",
+      logo: "/banks/mellat-low.png",
       rating: 4.5,
       verified: true,
       totalReviews: 1456,

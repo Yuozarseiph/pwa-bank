@@ -39,15 +39,15 @@ const ads = [
 ];
 
 const banks = [
-  { id: 1, img: "/banks/sepah.png" },
-  { id: 2, img: "/banks/melli.png" },
-  { id: 3, img: "/banks/mellat.png" },
-  { id: 4, img: "/banks/iran-zamin.png" },
-  { id: 5, img: "/banks/saderat.png" },
-  { id: 6, img: "/banks/blu-bank.png" },
-  { id: 7, img: "/banks/bank-refah.png" },
-  { id: 8, img: "/banks/Bank-Mehr-Iran.png" },
-  { id: 9, img: "/banks/bank-saman.png" },
+  { id: 1, img: "/banks/sepah-low.png" },
+  { id: 2, img: "/banks/melli-low.png" },
+  { id: 3, img: "/banks/mellat-low.png" },
+  { id: 4, img: "/banks/iran-zamin-low.png" },
+  { id: 5, img: "/banks/saderat-low.png" },
+  { id: 6, img: "/banks/blu-bank-low.png" },
+  { id: 7, img: "/banks/bank-refah-low.png" },
+  { id: 8, img: "/banks/Bank-Mehr-Iran-low.png" },
+  { id: 9, img: "/banks/bank-saman-low.png" },
 ];
 export default function AdsSection() {
   return (

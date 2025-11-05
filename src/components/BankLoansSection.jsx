@@ -3,15 +3,15 @@ import { ChevronLeftIcon, SearchIcon } from "lucide-react";
 import { useState } from "react";
 
 const banks = [
-  { id: 1, img: "/banks/sepah.png", name: "سپه" },
-  { id: 2, img: "/banks/melli.png", name: "ملی" },
-  { id: 3, img: "/banks/mellat.png", name: "ملت" },
-  { id: 4, img: "/banks/iran-zamin.png", name: "ایران زمین" },
-  { id: 5, img: "/banks/saderat.png", name: "صادرات" },
-  { id: 6, img: "/banks/blu-bank.png", name: "بلو بانک" },
-  { id: 7, img: "/banks/bank-refah.png", name: "رفاه" },
-  { id: 8, img: "/banks/Bank-Mehr-Iran.png", name: "مهر ایران" },
-  { id: 9, img: "/banks/bank-saman.png", name: "سامان" },
+  { id: 1, img: "/banks/sepah-low.png", name: "سپه" },
+  { id: 2, img: "/banks/melli-low.png", name: "ملی" },
+  { id: 3, img: "/banks/mellat-low.png", name: "ملت" },
+  { id: 4, img: "/banks/iran-zamin-low.png", name: "ایران زمین" },
+  { id: 5, img: "/banks/saderat-low.png", name: "صادرات" },
+  { id: 6, img: "/banks/blu-bank-low.png", name: "بلو " },
+  { id: 7, img: "/banks/bank-refah-low.png", name: "رفاه" },
+  { id: 8, img: "/banks/Bank-Mehr-Iran-low.png", name: "مهر ایران" },
+  { id: 9, img: "/banks/bank-saman-low.png", name: "سامان" },
 ];
 
 const topNav = [
