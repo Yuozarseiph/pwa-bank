@@ -55,7 +55,7 @@ export default function Home() {
       <Header />
       <div className="flex justify-center items-start flex-row-reverse p-2 lg:gap-6 lg:p-5">
         <div className="w-full md:w-[80%] max-w-[1080px] bg-white rounded-xl p-5">
-          <div className=" overflow-y-auto max-h-[calc(100dvh-240px)] lg:max-h-[calc(100dvh-230px)] overscroll-contain touch-pan-y p-2">
+          <div className=" overflow-y-auto max-h-[calc(100dvh-290px)] lg:max-h-[calc(100dvh-230px)] overscroll-contain touch-pan-y p-2">
             <BankLoansSection />
             <hr className="mt-6 text-gray-300" />
             <ul className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-2 mt-8">
