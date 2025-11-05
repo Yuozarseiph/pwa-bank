@@ -26,7 +26,7 @@ export default function Sidebar() {
       icon: ShoppingBasketIcon,
       href: "/",
     },
-    { id: 4, name: "پروفایل", icon: UserIcon, href: "/" },
+    { id: 4, name: "پروفایل", icon: UserIcon, href: "/auth" },
   ];
 
   return (

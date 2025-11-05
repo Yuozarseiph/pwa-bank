@@ -26,6 +26,7 @@ import { useRouter } from "next/navigation";
 import Header from "./Header";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import Loading from "./Loading";
 
 const allAdsData = {
   1: {
@@ -40,7 +41,8 @@ const allAdsData = {
     },
     price: "۴۰۰,۰۰۰,۰۰۰",
     currency: "تومان",
-    description: "ارائه وام قرض الحسنه با شرایط ویژه برای بازنشستگان و کارمندان دولت. امکان بازپرداخت تا ۵ سال با سود پایین و بدون نیاز به ضامن.",
+    description:
+      "ارائه وام قرض الحسنه با شرایط ویژه برای بازنشستگان و کارمندان دولت. امکان بازپرداخت تا ۵ سال با سود پایین و بدون نیاز به ضامن.",
     fullDescription: `این وام با بهترین شرایط و کمترین نرخ سود در بازار ارائه می‌شود. متقاضیان می‌توانند تا سقف ۴۰۰ میلیون تومان از این تسهیلات استفاده کنند.
 
 ویژگی‌های برجسته:
@@ -91,7 +93,8 @@ const allAdsData = {
     },
     price: "۵۰۰,۰۰۰,۰۰۰",
     currency: "تومان",
-    description: "وام مسکن با سود پایین برای جوانان متأهل. امکان بازپرداخت تا ۱۰ سال با شرایط ویژه.",
+    description:
+      "وام مسکن با سود پایین برای جوانان متأهل. امکان بازپرداخت تا ۱۰ سال با شرایط ویژه.",
     fullDescription: `وام مسکن ویژه برای خانواده‌های جوان که قصد خرید یا ساخت مسکن دارند.
 
 ویژگی‌های برجسته:
@@ -140,7 +143,8 @@ const allAdsData = {
     },
     price: "۳۰۰,۰۰۰,۰۰۰",
     currency: "تومان",
-    description: "خرید خودرو با وام بلندمدت و اقساط راحت. بدون نیاز به ضامن تا ۱۵۰ میلیون.",
+    description:
+      "خرید خودرو با وام بلندمدت و اقساط راحت. بدون نیاز به ضامن تا ۱۵۰ میلیون.",
     fullDescription: `وام خودرو با شرایط مناسب برای خرید خودروهای صفر و کارکرده.
 
 ویژگی‌های برجسته:
@@ -183,16 +187,17 @@ const AdDetailPage = ({ adId }) => {
   const router = useRouter();
   const [showContactInfo, setShowContactInfo] = useState(false);
   const adData = allAdsData[String(adId)];
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (showContactInfo) {
-      document.body.classList.add('no-scroll');
+      document.body.classList.add("no-scroll");
     } else {
-      document.body.classList.remove('no-scroll');
+      document.body.classList.remove("no-scroll");
     }
 
     return () => {
-      document.body.classList.remove('no-scroll');
+      document.body.classList.remove("no-scroll");
     };
   }, [showContactInfo]);
 
@@ -201,6 +206,17 @@ const AdDetailPage = ({ adId }) => {
       window.location.href = `tel:${adData.contact.phone}`;
     }
   };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 600);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   const handleMessage = () => {
     if (adData?.contact?.email) {
@@ -250,9 +266,9 @@ const AdDetailPage = ({ adId }) => {
           overflow: hidden;
         }
       `}</style>
-      
+
       <Header />
-      
+
       <div className="lg:hidden fixed top-16 left-0 right-0 z-50 bg-white shadow-lg border-b border-gray-200">
         <div className="container mx-auto px-4 py-2">
           <button

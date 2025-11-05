@@ -1,3 +1,4 @@
+"use client";
 import Header from "@/components/Header";
 import AdsSection from "@/components/AdsSection";
 import Navbar from "@/components/Navbar";
@@ -5,7 +6,9 @@ import Link from "next/link";
 import { HouseIcon, HandCoinsIcon, CarIcon, PlaneIcon } from "lucide-react";
 import Footer from "@/components/Footer";
 import Sidebar from "@/components/SideBar";
-import BankLoansSection from "@/components/BankLoansSection";
+import BankList from "@/components/BankList";
+import { useEffect, useState } from "react";
+import Loading from "@/components/Loading";
 
 const loan = [
   {
@@ -49,6 +52,18 @@ const loan = [
 ];
 
 export default function Home() {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div className="flex min-h-dvh flex-col relative bg-[#f1f5f9] overflow-x-hidden">
       <Navbar />
@@ -56,7 +71,7 @@ export default function Home() {
       <div className="flex justify-center items-start flex-row-reverse p-2 lg:gap-6 lg:p-5">
         <div className="w-full md:w-[80%] max-w-[1080px] bg-white rounded-xl p-5">
           <div className=" overflow-y-auto max-h-[calc(100dvh-290px)] lg:max-h-[calc(100dvh-230px)] overscroll-contain touch-pan-y p-2">
-            <BankLoansSection />
+            <BankList />
             <hr className="mt-6 text-gray-300" />
             <ul className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-2 mt-8">
               {loan.map((item) => (

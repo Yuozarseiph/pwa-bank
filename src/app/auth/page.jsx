@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import { RectangleEllipsis } from "lucide-react";
 import Link from "next/link";
+import Loading from "@/components/Loading";
 
 export default function Login() {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -17,6 +18,7 @@ export default function Login() {
   const [isCodeSent, setIsCodeSent] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const [isPasswordLogin, setIsPasswordLogin] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const inputRefs = useRef([]);
 
@@ -138,6 +140,17 @@ export default function Login() {
       inputRefs.current[0].focus();
     }
   }, [isCodeSent]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <main className="bg-[#0094da] w-full h-screen grid place-content-center">
