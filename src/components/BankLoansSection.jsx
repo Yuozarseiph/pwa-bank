@@ -25,7 +25,7 @@ const topNav = [
 const loanBank = [
   {
     id: 1,
-    icon: "/banks/melli.png",
+    icon: "/banks/melli-low.png",
     bank: "ملی",
     percent: 0,
     price: 15000000,
@@ -33,7 +33,7 @@ const loanBank = [
   },
   {
     id: 2,
-    icon: "/banks/melli.png",
+    icon: "/banks/melli-low.png",
     bank: "ملی",
     percent: 4,
     price: 25000000,
@@ -41,7 +41,7 @@ const loanBank = [
   },
   {
     id: 3,
-    icon: "/banks/melli.png",
+    icon: "/banks/melli-low.png",
     bank: "ملی",
     percent: 18,
     price: 30000000,
@@ -49,7 +49,7 @@ const loanBank = [
   },
   {
     id: 4,
-    icon: "/banks/melli.png",
+    icon: "/banks/melli-low.png",
     bank: "ملی",
     percent: 0,
     price: 20000000,
@@ -57,7 +57,7 @@ const loanBank = [
   },
   {
     id: 5,
-    icon: "/banks/melli.png",
+    icon: "/banks/melli-low.png",
     bank: "ملی",
     percent: 4,
     price: 18000000,
@@ -65,7 +65,7 @@ const loanBank = [
   },
   {
     id: 6,
-    icon: "/banks/melli.png",
+    icon: "/banks/melli-low.png",
     bank: "ملی",
     percent: 20,
     price: 40000000,
@@ -73,7 +73,7 @@ const loanBank = [
   },
   {
     id: 7,
-    icon: "/banks/melli.png",
+    icon: "/banks/melli-low.png",
     bank: "ملی",
     percent: 24,
     price: 22000000,
@@ -81,7 +81,7 @@ const loanBank = [
   },
   {
     id: 8,
-    icon: "/banks/sepah.png",
+    icon: "/banks/sepah-low.png",
     bank: "سپه",
     percent: 0,
     price: 28000000,
@@ -89,7 +89,7 @@ const loanBank = [
   },
   {
     id: 9,
-    icon: "/banks/sepah.png",
+    icon: "/banks/sepah-low.png",
     bank: "سپه",
     percent: 4,
     price: 10000000,
@@ -97,7 +97,7 @@ const loanBank = [
   },
   {
     id: 10,
-    icon: "/banks/mellat.png",
+    icon: "/banks/mellat-low.png",
     bank: "ملت",
     percent: 18,
     price: 35000000,
@@ -105,7 +105,7 @@ const loanBank = [
   },
   {
     id: 11,
-    icon: "/banks/mellat.png",
+    icon: "/banks/mellat-low.png",
     bank: "ملت",
     percent: 20,
     price: 15000000,
@@ -113,7 +113,7 @@ const loanBank = [
   },
   {
     id: 12,
-    icon: "/banks/iran-zamin.png",
+    icon: "/banks/iran-zamin-low.png",
     bank: "ایران زمین",
     percent: 24,
     price: 50000000,
@@ -121,7 +121,7 @@ const loanBank = [
   },
   {
     id: 13,
-    icon: "/banks/saderat.png",
+    icon: "/banks/saderat-low.png",
     bank: "صادرات",
     percent: 4,
     price: 32000000,
@@ -129,7 +129,7 @@ const loanBank = [
   },
   {
     id: 14,
-    icon: "/banks/blu-bank.png",
+    icon: "/banks/blu-bank-low.png",
     bank: "بلو بانک",
     percent: 24,
     price: 12000000,
@@ -137,7 +137,7 @@ const loanBank = [
   },
   {
     id: 15,
-    icon: "/banks/bank-refah.png",
+    icon: "/banks/bank-refah-low.png",
     bank: "رفاه",
     percent: 18,
     price: 16000000,
@@ -145,7 +145,7 @@ const loanBank = [
   },
   {
     id: 16,
-    icon: "/banks/Bank-Mehr-Iran.png",
+    icon: "/banks/Bank-Mehr-Iran-low.png",
     bank: "مهر ایران",
     percent: 20,
     price: 26000000,
@@ -153,7 +153,7 @@ const loanBank = [
   },
   {
     id: 17,
-    icon: "/banks/bank-saman.png",
+    icon: "/banks/bank-saman-low.png",
     bank: "سامان",
     percent: 24,
     price: 38000000,
@@ -161,7 +161,7 @@ const loanBank = [
   },
   {
     id: 18,
-    icon: "/banks/bank-refah.png",
+    icon: "/banks/bank-refah-low.png",
     bank: "رفاه",
     percent: 0,
     price: 14000000,
@@ -169,7 +169,7 @@ const loanBank = [
   },
   {
     id: 19,
-    icon: "/banks/Bank-Mehr-Iran.png",
+    icon: "/banks/Bank-Mehr-Iran-low.png",
     bank: "مهر ایران",
     percent: 18,
     price: 19000000,
@@ -177,7 +177,7 @@ const loanBank = [
   },
   {
     id: 20,
-    icon: "/banks/bank-saman.png",
+    icon: "/banks/bank-saman-low.png",
     bank: "سامان",
     percent: 24,
     price: 45000000,
