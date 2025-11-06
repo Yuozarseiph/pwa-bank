@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   Home,
   BadgePlusIcon,
@@ -8,9 +7,10 @@ import {
   UserIcon,
 } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Sidebar() {
-  const [activeItem, setActiveItem] = useState("خانه");
+  const pathname = usePathname();
 
   const navItems = [
     { id: 1, name: "خانه", icon: Home, href: "/" },
@@ -18,7 +18,7 @@ export default function Sidebar() {
       id: 2,
       name: "ثبت آکهی",
       icon: BadgePlusIcon,
-      href: "/soon",
+      href: "/new-ad",
     },
     {
       id: 3,
@@ -28,6 +28,13 @@ export default function Sidebar() {
     },
     { id: 4, name: "پروفایل", icon: UserIcon, href: "/auth" },
   ];
+
+  const isActive = (href) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+    return pathname.startsWith(href);
+  };
 
   return (
     <nav className="hidden sticky lg:block bg-white border border-gray-300 z-45 lg:w-[450px] lg:h-fit rounded-xl">
@@ -41,11 +48,10 @@ export default function Sidebar() {
             <Link
               href={item.href}
               className={`flex items-center px-4 py-3 text-lg font-medium rounded-xl h-15 transition-all duration-100 ${
-                activeItem === item.name
+                isActive(item.href)
                   ? "text-black bg-blue-50 border border-[#0496da]"
                   : "text-gray-600 border-[#0496da] hover:bg-gray-50"
               }`}
-              onClick={() => setActiveItem(item.name)}
             >
               <item.icon className="h-5 w-5 ml-3" />
               <span>{item.name}</span>

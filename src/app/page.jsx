@@ -56,7 +56,7 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 250);
 
     return () => clearTimeout(timer);
   }, []);
@@ -68,7 +68,7 @@ export default function Home() {
     <div className="flex min-h-dvh flex-col relative bg-[#f1f5f9] overflow-x-hidden lg:pt-20">
       <Navbar />
       <Header />
-      <div className="flex relative justify-center items-start flex-row-reverse  p-2 lg:gap-6 lg:p-5">
+      <div className="flex justify-center items-start flex-row-reverse  p-2 lg:gap-6 lg:p-5">
         <div className="w-full md:w-[80%] max-w-[1080px] bg-white rounded-xl p-5 mb-22">
           <div className="  h-fit  overscroll-contain touch-pan-y p-2">
             <BankList />
@@ -83,7 +83,9 @@ export default function Home() {
                     href="/"
                     className="flex flex-col justify-center items-center gap-3 cursor-pointer w-20"
                   >
-                    <div className="h-16 w-16 sm:h-18 sm:w-18 md:h-20 md:w-20">{item.img}</div>
+                    <div className="h-16 w-16 sm:h-18 sm:w-18 md:h-20 md:w-20">
+                      {item.img}
+                    </div>
                     <h3 className="max-w-[100px] truncate text-sm sm:text-[16px] lg:text-lg">
                       {item.lable.length > 10
                         ? `${item.lable.substring(0, 10)}...`
@@ -97,7 +99,7 @@ export default function Home() {
             <AdsSection />
           </div>
         </div>
-        <Sidebar />
+          <Sidebar />
       </div>
       <Footer />
     </div>

@@ -30,7 +30,7 @@ const BankList = () => {
         <span className="h-2 w-2 bg-[#0094da] rounded-full inline-block"></span>
         بانک های تحت پوشش
       </h2>
-      <ul className="grid grid-cols-4 gap-3 sm:grid-cols-5 sm:gap-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 mt-8">
+      <ul className="grid grid-cols-4 gap-1 sm:grid-cols-5 sm:gap-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 mt-8">
         {banks.map((item) => (
           <li
             key={item.id}
