@@ -43,7 +43,7 @@ const BankList = () => {
               <img
                 src={item.img}
                 alt={item.name}
-                className="h-16 w-16 sm:h-18 sm:w-18 md:h-20 md:w-20 p-1 bg-[#f1f5f9] rounded-xl object-contain"
+                className="h-16 w-16 sm:h-18 sm:w-18 md:h-20 md:w-20 p-2 bg-[#f1f5f9] rounded-xl object-contain"
               />
             </Link>
           </li>

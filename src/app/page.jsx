@@ -15,21 +15,21 @@ const loan = [
     id: 1,
     lable: "وام مسکن",
     img: (
-      <HouseIcon className="h-full w-full p-1 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
+      <HouseIcon className="h-full w-full p-3 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
     ),
   },
   {
     id: 2,
     lable: "وام کسب و کار",
     img: (
-      <HandCoinsIcon className="h-full w-full p-1 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
+      <HandCoinsIcon className="h-full w-full p-3 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
     ),
   },
   {
     id: 3,
     lable: "وام خودرو",
     img: (
-      <CarIcon className="h-full w-full p-1 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
+      <CarIcon className="h-full w-full p-3 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
     ),
   },
   {
@@ -38,7 +38,7 @@ const loan = [
     img: (
       <img
         src="/icons/married.svg"
-        className="h-full w-full p-1 bg-[#f1f5f9] rounded-xl text-[#0094da]"
+        className="h-full w-full p-3 bg-[#f1f5f9] rounded-xl text-[#0094da]"
       />
     ),
   },
@@ -46,7 +46,7 @@ const loan = [
     id: 5,
     lable: "وام سفر",
     img: (
-      <PlaneIcon className="h-full w-full bg-[#f1f5f9] rounded-xl text-[#0094da]" />
+      <PlaneIcon className="h-full w-full p-3 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
     ),
   },
 ];
