@@ -12,6 +12,7 @@ import {
   PhoneIcon,
   XIcon,
 } from "lucide-react";
+import Link from "next/link";
 
 export default function NewAd() {
   const [loading, setLoading] = useState(true);
@@ -588,15 +589,15 @@ export default function NewAd() {
             )}
 
             <div className="flex justify-end gap-4 pt-6">
-              <button
-                type="button"
+              <Link
+                href="/"
                 className="px-6 py-3 border-2 border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition-all duration-300 text-sm font-medium"
               >
                 انصراف
-              </button>
+              </Link>
               <button
                 type="submit"
-                className="px-6 py-3 bg-[#0094da] text-white rounded-lg hover:bg-[#0083c0] transition-all duration-300 text-sm font-medium"
+                className="cursor-pointer px-6 py-3 bg-[#0094da] text-white rounded-lg hover:bg-[#0083c0] transition-all duration-300 text-sm font-medium"
               >
                 ثبت آگهی
               </button>
