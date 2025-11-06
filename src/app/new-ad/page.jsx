@@ -17,6 +17,7 @@ import Link from "next/link";
 export default function NewAd() {
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState({});
+  const [showErrorBox, setShowErrorBox] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -50,11 +51,32 @@ export default function NewAd() {
     return numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
+  const validatePrice = (priceValue) => {
+    const numericValue = parseInt(priceValue.replace(/\D/g, ""));
+
+    if (numericValue < 1000000) {
+      return "مبلغ وام باید حداقل ۱,۰۰۰,۰۰۰ تومان باشد";
+    }
+
+    if (numericValue % 1000 !== 0) {
+      return "مبلغ وام باید مضرب ۱,۰۰۰ باشد";
+    }
+
+    return "";
+  };
+
   const validateForm = () => {
     const newErrors = {};
 
     if (!formData.title.trim()) newErrors.title = "عنوان آگهی الزامی است";
-    if (!formData.price.trim()) newErrors.price = "مبلغ وام الزامی است";
+
+    if (!formData.price.trim()) {
+      newErrors.price = "مبلغ وام الزامی است";
+    } else {
+      const priceError = validatePrice(formData.price);
+      if (priceError) newErrors.price = priceError;
+    }
+
     if (!formData.type) newErrors.type = "نوع وام الزامی است";
     if (!formData.bankId) newErrors.bankId = "انتخاب بانک الزامی است";
     if (!formData.description.trim())
@@ -98,7 +120,14 @@ export default function NewAd() {
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+
+    if (Object.keys(newErrors).length > 0) {
+      setShowErrorBox(true);
+      return false;
+    } else {
+      setShowErrorBox(false);
+      return true;
+    }
   };
 
   const handleInputChange = (e) => {
@@ -110,6 +139,14 @@ export default function NewAd() {
         ...prev,
         [name]: formattedValue,
       }));
+
+      if (value.trim()) {
+        const priceError = validatePrice(value);
+        setErrors((prev) => ({
+          ...prev,
+          price: priceError,
+        }));
+      }
     } else {
       setFormData((prev) => ({
         ...prev,
@@ -118,10 +155,13 @@ export default function NewAd() {
     }
 
     if (errors[name]) {
-      setErrors((prev) => ({
-        ...prev,
-        [name]: "",
-      }));
+      const newErrors = { ...errors };
+      delete newErrors[name];
+      setErrors(newErrors);
+
+      if (Object.keys(newErrors).length === 0) {
+        setShowErrorBox(false);
+      }
     }
   };
 
@@ -130,6 +170,7 @@ export default function NewAd() {
     if (validateForm()) {
       console.log("فرم ثبت شد:", formData);
       alert("آگهی با موفقیت ثبت شد!");
+      setShowErrorBox(false);
     } else {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -137,6 +178,7 @@ export default function NewAd() {
 
   const closeError = () => {
     setErrors({});
+    setShowErrorBox(false);
   };
 
   const banks = [
@@ -168,7 +210,7 @@ export default function NewAd() {
       <Header />
       <div className="flex relative justify-center items-start flex-row-reverse p-2 lg:gap-6 lg:p-5">
         <div className="w-full md:w-[80%] max-w-[1080px] bg-white rounded-xl p-5 md:p-10 mb-22">
-          {Object.keys(errors).length > 0 && (
+          {showErrorBox && Object.keys(errors).length > 0 && (
             <div className="mb-6 p-4 border border-[#a9020a] bg-[#fdf2f2] rounded-lg relative">
               <button
                 onClick={closeError}
@@ -246,13 +288,16 @@ export default function NewAd() {
                     className={`w-full bg-white px-3 py-3 border-2 rounded-lg outline-0 text-sm font-bold placeholder:text-right ${
                       errors.price ? "border-[#a9020a]" : "border-gray-200"
                     }`}
-                    placeholder="مثال: ۴۰۰,۰۰۰,۰۰۰"
+                    placeholder="مثال: ۴۰۰,۰۰۰,۰۰۰ (حداقل ۱,۰۰۰,۰۰۰)"
                   />
                   {errors.price && (
                     <p className="text-[#a9020a] text-xs mt-1 text-right">
                       {errors.price}
                     </p>
                   )}
+                  <p className="text-xs text-gray-500 mt-1 text-right">
+                    مبلغ باید مضرب ۱,۰۰۰ و حداقل ۱,۰۰۰,۰۰۰ تومان باشد
+                  </p>
                 </div>
 
                 <div>
