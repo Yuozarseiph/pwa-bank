@@ -77,11 +77,11 @@ export default function Home() {
               {loan.map((item) => (
                 <li
                   key={item.id}
-                  className="hover:scale-105 transition-all duration-300"
+                  className="flex justify-center items-center hover:scale-105 transition-all duration-300"
                 >
                   <Link
                     href="/"
-                    className="flex flex-col justify-center items-center gap-3 cursor-pointer w-20"
+                    className="flex flex-col justify-center items-center gap-1 cursor-pointer w-20"
                   >
                     <div className="h-16 w-16 sm:h-18 sm:w-18 md:h-20 md:w-20">
                       {item.img}
