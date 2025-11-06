@@ -15,21 +15,21 @@ const loan = [
     id: 1,
     lable: "وام مسکن",
     img: (
-      <HouseIcon className="h-20 w-20 p-1 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
+      <HouseIcon className="h-full w-full p-1 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
     ),
   },
   {
     id: 2,
     lable: "وام کسب و کار",
     img: (
-      <HandCoinsIcon className="h-20 w-20 p-1 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
+      <HandCoinsIcon className="h-full w-full p-1 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
     ),
   },
   {
     id: 3,
     lable: "وام خودرو",
     img: (
-      <CarIcon className="h-20 w-20 p-1 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
+      <CarIcon className="h-full w-full p-1 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
     ),
   },
   {
@@ -38,7 +38,7 @@ const loan = [
     img: (
       <img
         src="/icons/married.svg"
-        className="h-20 w-20 p-1 bg-[#f1f5f9] rounded-xl text-[#0094da]"
+        className="h-full w-full p-1 bg-[#f1f5f9] rounded-xl text-[#0094da]"
       />
     ),
   },
@@ -46,7 +46,7 @@ const loan = [
     id: 5,
     lable: "وام سفر",
     img: (
-      <PlaneIcon className="h-20 w-20 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
+      <PlaneIcon className="h-full w-full bg-[#f1f5f9] rounded-xl text-[#0094da]" />
     ),
   },
 ];
@@ -73,7 +73,7 @@ export default function Home() {
           <div className="  h-fit  overscroll-contain touch-pan-y p-2">
             <BankList />
             <hr className="mt-6 text-gray-300" />
-            <ul className="flex flex-wrap gap-2 mt-8">
+            <ul className="grid grid-cols-4 gap-3 sm:grid-cols-5 sm:gap-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 mt-8">
               {loan.map((item) => (
                 <li
                   key={item.id}
@@ -83,8 +83,8 @@ export default function Home() {
                     href="/"
                     className="flex flex-col justify-center items-center gap-3 cursor-pointer w-20"
                   >
-                    {item.img}
-                    <h3 className="max-w-[100px] truncate">
+                    <div className="h-16 w-16 sm:h-18 sm:w-18 md:h-20 md:w-20">{item.img}</div>
+                    <h3 className="max-w-[100px] truncate text-sm sm:text-[16px] lg:text-lg">
                       {item.lable.length > 10
                         ? `${item.lable.substring(0, 10)}...`
                         : item.lable}

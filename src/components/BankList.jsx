@@ -30,25 +30,25 @@ const BankList = () => {
         <span className="h-2 w-2 bg-[#0094da] rounded-full inline-block"></span>
         بانک های تحت پوشش
       </h2>
-        <ul className="flex flex-wrap mt-8 w-fit">
-          {banks.map((item) => (
-            <li
-              key={item.id}
-              className="hover:scale-105 transition-all duration-300"
+      <ul className="grid grid-cols-4 gap-3 sm:grid-cols-5 sm:gap-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 mt-8">
+        {banks.map((item) => (
+          <li
+            key={item.id}
+            className="hover:scale-105 transition-all duration-300 flex justify-center"
+          >
+            <Link
+              href={`/banks/${item.slug}`}
+              className="flex justify-center items-center cursor-pointer"
             >
-              <Link
-                href={`/banks/${item.slug}`}
-                className="flex justify-center items-center cursor-pointer p-1"
-              >
-                <img
-                  src={item.img}
-                  alt={item.name}
-                  className="h-20 w-20 p-1 bg-[#f1f5f9] rounded-xl"
-                />
-              </Link>
-            </li>
-          ))}
-        </ul>
+              <img
+                src={item.img}
+                alt={item.name}
+                className="h-16 w-16 sm:h-18 sm:w-18 md:h-20 md:w-20 p-1 bg-[#f1f5f9] rounded-xl object-contain"
+              />
+            </Link>
+          </li>
+        ))}
+      </ul>
     </>
   );
 };
