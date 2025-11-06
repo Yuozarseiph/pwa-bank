@@ -15,21 +15,21 @@ const loan = [
     id: 1,
     lable: "وام مسکن",
     img: (
-      <HouseIcon className="h-15 w-15 p-1 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
+      <HouseIcon className="h-20 w-20 p-1 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
     ),
   },
   {
     id: 2,
     lable: "وام کسب و کار",
     img: (
-      <HandCoinsIcon className="h-15 w-15 p-1 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
+      <HandCoinsIcon className="h-20 w-20 p-1 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
     ),
   },
   {
     id: 3,
     lable: "وام خودرو",
     img: (
-      <CarIcon className="h-15 w-15 p-1 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
+      <CarIcon className="h-20 w-20 p-1 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
     ),
   },
   {
@@ -38,7 +38,7 @@ const loan = [
     img: (
       <img
         src="/icons/married.svg"
-        className="h-15 w-15 p-1 bg-[#f1f5f9] rounded-xl text-[#0094da]"
+        className="h-20 w-20 p-1 bg-[#f1f5f9] rounded-xl text-[#0094da]"
       />
     ),
   },
@@ -46,7 +46,7 @@ const loan = [
     id: 5,
     lable: "وام سفر",
     img: (
-      <PlaneIcon className="h-15 w-15 p-1 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
+      <PlaneIcon className="h-20 w-20 bg-[#f1f5f9] rounded-xl text-[#0094da]" />
     ),
   },
 ];
@@ -65,26 +65,30 @@ export default function Home() {
     return <Loading />;
   }
   return (
-    <div className="flex min-h-dvh flex-col relative bg-[#f1f5f9] overflow-x-hidden">
+    <div className="flex min-h-dvh flex-col relative bg-[#f1f5f9] overflow-x-hidden lg:pt-20">
       <Navbar />
       <Header />
-      <div className="flex justify-center items-start flex-row-reverse p-2 lg:gap-6 lg:p-5">
+      <div className="flex relative justify-center items-start flex-row-reverse  p-2 lg:gap-6 lg:p-5">
         <div className="w-full md:w-[80%] max-w-[1080px] bg-white rounded-xl p-5 mb-22">
-          <div className=" lg:overflow-y-auto h-fit lg:max-h-[calc(100dvh-230px)] overscroll-contain touch-pan-y p-2">
+          <div className="  h-fit  overscroll-contain touch-pan-y p-2">
             <BankList />
             <hr className="mt-6 text-gray-300" />
-            <ul className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-2 mt-8">
+            <ul className="flex flex-wrap gap-2 mt-8">
               {loan.map((item) => (
                 <li
                   key={item.id}
-                  className=" hover:scale-105 transition-all duration-300"
+                  className="hover:scale-105 transition-all duration-300"
                 >
                   <Link
                     href="/"
-                    className="flex flex-col justify-center items-center gap-3 cursor-pointer"
+                    className="flex flex-col justify-center items-center gap-3 cursor-pointer w-20"
                   >
                     {item.img}
-                    <h3>{item.lable}</h3>
+                    <h3 className="max-w-[100px] truncate">
+                      {item.lable.length > 10
+                        ? `${item.lable.substring(0, 10)}...`
+                        : item.lable}
+                    </h3>
                   </Link>
                 </li>
               ))}

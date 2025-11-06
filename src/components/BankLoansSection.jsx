@@ -1,11 +1,12 @@
 "use client";
-import { ChevronLeftIcon, SearchIcon } from "lucide-react";
+import { ArrowRight, ChevronLeftIcon, SearchIcon } from "lucide-react";
 import { useState, useEffect } from "react";
 import Header from "./Header";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Loading from "@/components/Loading";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const topNav = [
   { id: 1, lable: "کارمزد %0", percent: 0 },
@@ -203,6 +204,7 @@ const BankLoansSection = ({ bankSlug }) => {
   const [priceRange, setPriceRange] = useState({ from: "", to: "" });
   const [showAllLoans, setShowAllLoans] = useState(false);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
@@ -292,7 +294,14 @@ const BankLoansSection = ({ bankSlug }) => {
     <div className="">
       <Header />
       <Navbar />
-      <div className="flex flex-col max-w-[1080px] bg-white mx-2 md:mx-auto p-5 rounded-xl mb-25 md:mb-20 md:mt-10 ">
+      <div className="flex flex-col max-w-[1080px] bg-white lg:mx-auto rounded-xl mx-4 p-5 mt-2 mb-25 lg:mb-20 lg:mt-20">
+        <button
+          onClick={() => router.back()}
+          className="group w-fit cursor-pointer mb-8 inline-flex items-center gap-3 px-5 py-3 bg-white rounded-2xl text-gray-700 font-medium hover:text-[#0094da] border-2 border-gray-200 hover:border-[#0094da] transition-all shadow-sm hover:shadow-lg"
+        >
+          <ArrowRight className="w-5 h-5" />
+          <span>بازگشت</span>
+        </button>
         <div className="flex items-center gap-4 mb-8">
           <img
             src={currentBank.img}

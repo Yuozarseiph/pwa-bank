@@ -1,7 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { ArrowRight, Calendar, ChartLineIcon, BadgeDollarSignIcon } from "lucide-react";
+import {
+  ArrowRight,
+  ChartLineIcon,
+  BadgeDollarSignIcon,
+  ArrowLeft,
+} from "lucide-react";
 import Header from "./Header";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
@@ -235,25 +240,32 @@ const LoanDetail = () => {
   }
 
   return (
-    <div className="">
+    <div className="pt-2 px-2 lg:pt-10">
       <Header />
       <Navbar />
-      <div className="flex flex-col max-w-[1080px] bg-white mx-2 md:mx-auto p-5 rounded-xl mb-25 md:mb-20 md:mt-10">
+      <div className="flex flex-col max-w-[1080px] bg-white lg:mx-auto rounded-xl mx-4 p-5 mt-2 mb-25 lg:mb-20 lg:mt-13">
+        <button
+          onClick={() => router.back()}
+          className="group w-fit cursor-pointer mb-8 inline-flex items-center gap-3 px-5 py-3 bg-white rounded-2xl text-gray-700 font-medium hover:text-[#0094da] border-2 border-gray-200 hover:border-[#0094da] transition-all shadow-sm hover:shadow-lg"
+        >
+          <ArrowRight className="w-5 h-5" />
+          <span>بازگشت</span>
+        </button>
         <div className="flex items-center gap-2 text-sm text-gray-600 mb-6">
           <button
             onClick={() => router.push("/")}
-            className="hover:text-[#0094da] transition-colors duration-300"
+            className="cursor-pointer hover:text-[#0094da] transition-colors duration-300"
           >
             خانه
           </button>
-          <ArrowRight className="h-4 w-4" />
+          <ArrowLeft className="h-4 w-4" />
           <button
             onClick={() => router.push(`/banks/${loan.bankSlug}`)}
-            className="hover:text-[#0094da] transition-colors duration-300"
+            className="cursor-pointer hover:text-[#0094da] transition-colors duration-300"
           >
             بانک {loan.bank}
           </button>
-          <ArrowRight className="h-4 w-4" />
+          <ArrowLeft className="h-4 w-4" />
           <span className="text-gray-800 font-medium">{loan.description}</span>
         </div>
 

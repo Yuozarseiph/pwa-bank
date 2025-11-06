@@ -22,11 +22,15 @@ import {
   ReceiptTextIcon,
   Award,
 } from "lucide-react";
+
 import { useRouter } from "next/navigation";
 import Header from "./Header";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Loading from "./Loading";
+const LoanType = function (){
+  return <img className="p-2" src="/icons/loan-type.svg" alt="icon"/>
+}
 
 const allAdsData = {
   1: {
@@ -58,7 +62,7 @@ const allAdsData = {
 • عدم چک برگشتی در سیستم بانکی
 • سن بین ۲۵ تا ۶۵ سال`,
     details: [
-      { icon: PiggyBank, label: "نوع وام", value: "قرض الحسنه" },
+      { icon: LoanType, label: "نوع وام", value: "قرض الحسنه" },
       { icon: Wallet, label: "مبلغ", value: "۴۰۰ میلیون تومان" },
       { icon: Timer, label: "مدت بازپرداخت", value: "۱۲ تا ۶۰ ماه" },
       { icon: Percent, label: "نرخ سود", value: "۴٪ سالیانه" },
@@ -108,7 +112,7 @@ const allAdsData = {
 • متأهل بودن
 • عدم مالکیت مسکن قبلی`,
     details: [
-      { icon: PiggyBank, label: "نوع وام", value: "وام مسکن" },
+      { icon: LoanType, label: "نوع وام", value: "وام مسکن" },
       { icon: Wallet, label: "مبلغ", value: "۵۰۰ میلیون تومان" },
       { icon: Timer, label: "مدت بازپرداخت", value: "تا ۱۰ سال" },
       { icon: Percent, label: "نرخ سود", value: "۶٪ سالیانه" },
@@ -158,7 +162,7 @@ const allAdsData = {
 • سابقه کار حداقل ۱ سال
 • حقوق حداقل ۱۰ میلیون تومان`,
     details: [
-      { icon: PiggyBank, label: "نوع وام", value: "وام خودرو" },
+      { icon: LoanType, label: "نوع وام", value: "وام خودرو" },
       { icon: Wallet, label: "مبلغ", value: "۳۰۰ میلیون تومان" },
       { icon: Timer, label: "مدت بازپرداخت", value: "تا ۵ سال" },
       { icon: Percent, label: "نرخ سود", value: "۵٪ سالیانه" },
@@ -260,7 +264,7 @@ const AdDetailPage = ({ adId }) => {
   }
 
   return (
-    <div className="min-h-screen -mt-16 md:mt-0 mb-25 md:mb-16">
+    <div className="min-h-screen lg:pt-20 pb-24 lg:pb-20">
       <style jsx global>{`
         body.no-scroll {
           overflow: hidden;
@@ -291,7 +295,7 @@ const AdDetailPage = ({ adId }) => {
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl mt-20 lg:mt-2 md:py-2">
         <button
           onClick={() => router.back()}
-          className="group mb-8 inline-flex items-center gap-3 px-5 py-3 bg-white rounded-2xl text-gray-700 font-medium hover:text-[#0094da] border-2 border-gray-200 hover:border-[#0094da] transition-all shadow-sm hover:shadow-lg"
+          className="group cursor-pointer mb-8 inline-flex items-center gap-3 px-5 py-3 bg-white rounded-2xl text-gray-700 font-medium hover:text-[#0094da] border-2 border-gray-200 hover:border-[#0094da] transition-all shadow-sm hover:shadow-lg"
         >
           <ArrowRight className="w-5 h-5" />
           <span>بازگشت</span>
@@ -318,22 +322,6 @@ const AdDetailPage = ({ adId }) => {
                         {adData.bank.verified && (
                           <BadgeCheck className="w-6 h-6 text-yellow-300" />
                         )}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`w-4 h-4 ${
-                              i < Math.floor(adData.bank.rating)
-                                ? "fill-yellow-300 text-yellow-300"
-                                : "text-white/30"
-                            }`}
-                          />
-                        ))}
-                        <span className="text-white/90 text-sm font-medium mr-2">
-                          {adData.bank.rating} (
-                          {adData.bank.totalReviews.toLocaleString()})
-                        </span>
                       </div>
                     </div>
                   </div>
@@ -418,30 +406,25 @@ const AdDetailPage = ({ adId }) => {
           <div className="lg:col-span-4">
             <div className="hidden lg:block bg-linear-to-br from-white to-gray-50 rounded-3xl shadow-2xl p-6 border-2 border-gray-100 mb-4">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-xl bg-linear-to-br from-[#0094da] to-[#0070a8] flex items-center justify-center">
-                  <Phone className="w-5 h-5 text-white" />
-                </div>
                 <h3 className="text-xl font-black text-gray-900">
                   ارتباط با اگهی دهنده
                 </h3>
               </div>
 
               <div className="space-y-4">
-                <div className="p-4 rounded-2xl bg-blue-50 border-2 border-blue-100">
-                  <div className="flex items-center justify-between">
+                <div className="rounded-2xl bg-blue-50 hover:bg-blue-100 border transition-all duration-300 border-blue-100">
+                  <button
+                    onClick={handleContact}
+                    className="flex flex-row-reverse items-center justify-end gap-3 py-4 px-3 rounded-xl w-full text-white cursor-pointer transition-all"
+                  >
                     <div className="flex items-center gap-3">
-                      <Phone className="w-6 h-6 text-[#0094da]" />
                       <span className="text-lg font-bold text-gray-800">
                         {adData.contact.phone}
                       </span>
                     </div>
-                    <button
-                      onClick={handleContact}
-                      className="p-3 rounded-xl bg-[#0094da] text-white hover:bg-[#0070a8] transition-all"
-                    >
-                      <Phone className="w-5 h-5" />
-                    </button>
-                  </div>
+
+                    <Phone className="text-[#0094da] w-5 h-5" />
+                  </button>
                 </div>
 
                 <button
@@ -502,14 +485,11 @@ const AdDetailPage = ({ adId }) => {
       </main>
 
       {showContactInfo && (
-        <div className="lg:hidden fixed inset-0 z-[60] bg-black/50 flex items-center justify-center p-4">
+        <div className="lg:hidden fixed inset-0 z-60 bg-black/50 flex items-center justify-center p-4">
           <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-linear-to-br from-[#0094da] to-[#0070a8] flex items-center justify-center">
-                    <Phone className="w-5 h-5 text-white" />
-                  </div>
                   <h3 className="text-xl font-black text-gray-900">
                     اطلاعات تماس
                   </h3>
@@ -523,26 +503,24 @@ const AdDetailPage = ({ adId }) => {
               </div>
 
               <div className="space-y-4">
-                <div className="p-4 rounded-2xl bg-blue-50 border-2 border-blue-100">
-                  <div className="flex items-center justify-between">
+                <div className="rounded-2xl bg-blue-50 hover:bg-blue-100 border transition-all duration-300 border-blue-100">
+                  <button
+                    onClick={handleContact}
+                    className="flex flex-row-reverse items-center justify-center gap-3 py-4 px-3 rounded-xl w-full text-white cursor-pointer transition-all"
+                  >
                     <div className="flex items-center gap-3">
-                      <Phone className="w-6 h-6 text-[#0094da]" />
                       <span className="text-lg font-bold text-gray-800">
                         {adData.contact.phone}
                       </span>
                     </div>
-                    <button
-                      onClick={handleContact}
-                      className="p-3 rounded-xl bg-[#0094da] text-white hover:bg-[#0070a8] transition-all"
-                    >
-                      <Phone className="w-5 h-5" />
-                    </button>
-                  </div>
+
+                    <Phone className="text-[#0094da] w-5 h-5" />
+                  </button>
                 </div>
 
                 <button
                   onClick={handleMessage}
-                  className="w-full p-4 rounded-2xl bg-white border-3 border-[#0094da] hover:bg-[#0094da]/5 transition-all shadow-md hover:shadow-lg"
+                  className="w-full p-4 rounded-2xl bg-white border border-[#0094da] hover:bg-[#0094da]/5 transition-all shadow-md hover:shadow-lg"
                 >
                   <div className="flex items-center justify-center gap-3">
                     <MessageCircle className="w-6 h-6 text-[#0094da]" />
