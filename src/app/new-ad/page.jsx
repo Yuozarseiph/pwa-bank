@@ -69,14 +69,12 @@ export default function NewAd() {
     const newErrors = {};
 
     if (!formData.title.trim()) newErrors.title = "عنوان آگهی الزامی است";
-
     if (!formData.price.trim()) {
       newErrors.price = "مبلغ وام الزامی است";
     } else {
       const priceError = validatePrice(formData.price);
       if (priceError) newErrors.price = priceError;
     }
-
     if (!formData.type) newErrors.type = "نوع وام الزامی است";
     if (!formData.bankId) newErrors.bankId = "انتخاب بانک الزامی است";
     if (!formData.description.trim())
@@ -165,12 +163,83 @@ export default function NewAd() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log("فرم ثبت شد:", formData);
-      alert("آگهی با موفقیت ثبت شد!");
-      setShowErrorBox(false);
+      try {
+        setLoading(true);
+        
+        // ارسال داده به API
+        const response = await fetch('/api/ads', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            title: formData.title,
+            description: formData.description,
+            fullDescription: formData.fullDescription,
+            price: formData.price.replace(/,/g, ''),
+            currency: formData.currency,
+            type: formData.type,
+            bank: {
+              name: banks.find(bank => bank.id == formData.bankId)?.name || "",
+              logo: "/banks/default-bank.png"
+            },
+            contact: {
+              phone: formData.contactPhone,
+              email: formData.contactEmail,
+              address: formData.address
+            },
+            details: [
+              { label: "نوع وام", value: formData.type },
+              { label: "مبلغ", value: formData.price + " " + formData.currency },
+              { label: "مدت بازپرداخت", value: formData.repaymentPeriod },
+              { label: "نرخ سود", value: formData.interestRate },
+              { label: "محدوده سنی", value: `${formData.minAge} تا ${formData.maxAge} سال` },
+              { label: "مدارک", value: formData.documents }
+            ],
+            location: formData.location
+          }),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          console.log("آگهی با موفقیت ثبت شد:", result.data);
+          alert("آگهی با موفقیت ثبت شد!");
+          setShowErrorBox(false);
+          
+          // ریست فرم
+          setFormData({
+            title: "",
+            description: "",
+            fullDescription: "",
+            price: "",
+            currency: "تومان",
+            type: "",
+            bankId: "",
+            bankName: "",
+            location: "",
+            address: "",
+            contactPhone: "",
+            contactEmail: "",
+            loanType: "",
+            repaymentPeriod: "",
+            interestRate: "",
+            minAge: "",
+            maxAge: "",
+            documents: "",
+          });
+        } else {
+          alert("خطا در ثبت آگهی: " + result.error);
+        }
+      } catch (error) {
+        console.error("خطا در ارسال آگهی:", error);
+        alert("خطا در ارتباط با سرور");
+      } finally {
+        setLoading(false);
+      }
     } else {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -247,6 +316,7 @@ export default function NewAd() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
+            {/* بقیه کد فرم بدون تغییر */}
             <div className="bg-gray-50 p-4 md:p-6 rounded-lg border border-blue-300">
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <FileTextIcon className="h-5 w-5" />
@@ -300,6 +370,7 @@ export default function NewAd() {
                   </p>
                 </div>
 
+                {/* بقیه فیلدهای فرم */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     نوع وام <span className="text-[#a9020a]">*</span>
@@ -400,6 +471,7 @@ export default function NewAd() {
               </div>
             </div>
 
+            {/* بخش‌های دیگر فرم */}
             <div className="bg-gray-50 p-4 md:p-6 rounded-lg border border-blue-300">
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <BanknoteIcon className="h-5 w-5" />

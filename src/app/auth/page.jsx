@@ -22,7 +22,7 @@ export default function Login() {
 
   const inputRefs = useRef([]);
 
-  const handlePhoneSubmit = (e) => {
+  const handlePhoneSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -43,11 +43,45 @@ export default function Login() {
       return;
     }
 
-    console.log("شماره تلفن معتبر:", cleanPhone);
-    setIsCodeSent(true);
+    try {
+      // چک کردن وجود کاربر
+      const response = await fetch(`/api/users?search=${cleanPhone}`);
+      const result = await response.json();
+
+      if (result.success && result.data.length > 0) {
+        // کاربر وجود دارد
+        console.log("کاربر یافت شد:", result.data[0]);
+        setIsCodeSent(true);
+      } else {
+        // کاربر جدید - ثبت نام
+        const registerResponse = await fetch("/api/users", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: "کاربر جدید",
+            phone: cleanPhone,
+            email: `${cleanPhone}@example.com`,
+          }),
+        });
+
+        const registerResult = await registerResponse.json();
+
+        if (registerResult.success) {
+          console.log("کاربر جدید ثبت شد:", registerResult.data);
+          setIsCodeSent(true);
+        } else {
+          setError("خطا در ثبت نام: " + registerResult.error);
+        }
+      }
+    } catch (error) {
+      console.error("خطا در ارتباط با سرور:", error);
+      setError("خطا در ارتباط با سرور");
+    }
   };
 
-  const handleCodeSubmit = (e) => {
+  const handleCodeSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -63,11 +97,23 @@ export default function Login() {
       return;
     }
 
-    console.log("کد تأیید:", code);
-    setIsVerified(true);
+    try {
+      // در حالت واقعی اینجا کد با سرور چک می‌شود
+      console.log("کد تأیید:", code);
+
+      // شبیه‌سازی تایید موفق
+      setIsVerified(true);
+
+      // انتقال به صفحه اصلی بعد از تایید
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 2000);
+    } catch (error) {
+      setError("خطا در تایید کد");
+    }
   };
 
-  const handlePasswordSubmit = (e) => {
+  const handlePasswordSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -76,8 +122,20 @@ export default function Login() {
       return;
     }
 
-    console.log("ورود با رمز عبور برای شماره:", phoneNumber);
-    setIsVerified(true);
+    try {
+      // در حالت واقعی اینجا رمز عبور با سرور چک می‌شود
+      console.log("ورود با رمز عبور برای شماره:", phoneNumber);
+
+      // شبیه‌سازی ورود موفق
+      setIsVerified(true);
+
+      // انتقال به صفحه اصلی بعد از ورود
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 2000);
+    } catch (error) {
+      setError("خطا در ورود با رمز عبور");
+    }
   };
 
   const handleResendCode = () => {
@@ -140,6 +198,7 @@ export default function Login() {
       inputRefs.current[0].focus();
     }
   }, [isCodeSent]);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);

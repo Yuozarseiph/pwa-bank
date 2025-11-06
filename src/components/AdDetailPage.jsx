@@ -8,19 +8,18 @@ import {
   MessageCircle,
   Share,
   CheckCircle2,
-  Star,
-  Wallet,
   Eye,
-  FileText,
-  Timer,
-  Percent,
   ShieldAlertIcon,
-  Users,
   BadgeCheck,
-  PiggyBank,
   Info,
   ReceiptTextIcon,
   Award,
+  AlertCircle,
+  FileText,
+  Wallet,
+  Timer,
+  Percent,
+  Users,
 } from "lucide-react";
 
 import { useRouter } from "next/navigation";
@@ -28,170 +27,41 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Loading from "./Loading";
-const LoanType = function (){
-  return <img className="p-2" src="/icons/loan-type.svg" alt="icon"/>
-}
 
-const allAdsData = {
-  1: {
-    id: 1,
-    title: "وام قرض الحسنه ۴۰۰ میلیون تومانی",
-    bank: {
-      name: "بانک سپه",
-      logo: "/banks/sepah-low.png",
-      rating: 4.8,
-      verified: true,
-      totalReviews: 2847,
-    },
-    price: "۴۰۰,۰۰۰,۰۰۰",
-    currency: "تومان",
-    description:
-      "ارائه وام قرض الحسنه با شرایط ویژه برای بازنشستگان و کارمندان دولت. امکان بازپرداخت تا ۵ سال با سود پایین و بدون نیاز به ضامن.",
-    fullDescription: `این وام با بهترین شرایط و کمترین نرخ سود در بازار ارائه می‌شود. متقاضیان می‌توانند تا سقف ۴۰۰ میلیون تومان از این تسهیلات استفاده کنند.
+const LoanType = function () {
+  return <img className="p-2" src="/icons/loan-type.svg" alt="icon" />;
+};
 
-ویژگی‌های برجسته:
-• پرداخت سریع ظرف ۴۸ ساعت پس از تایید مدارک
-• عدم نیاز به ضامن یا وثیقه برای مبالغ تا ۱۰۰ میلیون
-• امکان بازپرداخت انعطاف‌پذیر با اقساط ماهانه
-• مشاوره رایگان توسط کارشناسان متخصص بانکی
-• پشتیبانی ۲۴ ساعته در تمام روزهای هفته
-
-شرایط دریافت:
-• داشتن حداقل ۲ سال سابقه کار ثابت
-• دریافت حقوق از طریق بانک (حداقل ۶ ماه)
-• عدم چک برگشتی در سیستم بانکی
-• سن بین ۲۵ تا ۶۵ سال`,
-    details: [
-      { icon: LoanType, label: "نوع وام", value: "قرض الحسنه" },
-      { icon: Wallet, label: "مبلغ", value: "۴۰۰ میلیون تومان" },
-      { icon: Timer, label: "مدت بازپرداخت", value: "۱۲ تا ۶۰ ماه" },
-      { icon: Percent, label: "نرخ سود", value: "۴٪ سالیانه" },
-      { icon: Users, label: "محدوده سنی", value: "۲۵ تا ۶۵ سال" },
-      { icon: FileText, label: "مدارک", value: "شناسنامه، فیش حقوقی" },
-    ],
-    contact: {
-      phone: "۰۹۱۲۳۴۵۶۷۸۹",
-      email: "loan@sepah-bank.ir",
-      address: "مشهد، بلوار وکیل‌آباد، نبش خیابان ۱۵، بانک سپه",
-    },
-    stats: {
-      views: 1247,
-      time: "۱ ساعت پیش",
-    },
-    safetyTips: [
-      "هرگز پیش‌پرداخت نکنید",
-      "مدارک را فقط در شعبه تحویل دهید",
-      "از طریق سایت رسمی اقدام کنید",
-      "قرارداد را به دقت بخوانید",
-    ],
-  },
-  2: {
-    id: 2,
-    title: "وام مسکن ۵۰۰ میلیونی",
-    bank: {
-      name: "بانک ملی",
-      logo: "/banks/melli-low.png",
-      rating: 4.6,
-      verified: true,
-      totalReviews: 1923,
-    },
-    price: "۵۰۰,۰۰۰,۰۰۰",
-    currency: "تومان",
-    description:
-      "وام مسکن با سود پایین برای جوانان متأهل. امکان بازپرداخت تا ۱۰ سال با شرایط ویژه.",
-    fullDescription: `وام مسکن ویژه برای خانواده‌های جوان که قصد خرید یا ساخت مسکن دارند.
-
-ویژگی‌های برجسته:
-• تا ۵۰۰ میلیون تومان وام
-• بازپرداخت تا ۱۰ سال
-• نرخ سود ترجیحی برای زوج‌های جوان
-• امکان استفاده همزمان با سایر تسهیلات
-
-شرایط دریافت:
-• سن کمتر از ۴۰ سال
-• متأهل بودن
-• عدم مالکیت مسکن قبلی`,
-    details: [
-      { icon: LoanType, label: "نوع وام", value: "وام مسکن" },
-      { icon: Wallet, label: "مبلغ", value: "۵۰۰ میلیون تومان" },
-      { icon: Timer, label: "مدت بازپرداخت", value: "تا ۱۰ سال" },
-      { icon: Percent, label: "نرخ سود", value: "۶٪ سالیانه" },
-      { icon: Users, label: "محدوده سنی", value: "۲۰ تا ۴۰ سال" },
-      { icon: FileText, label: "مدارک", value: "شناسنامه، سند ملک" },
-    ],
-    contact: {
-      phone: "۰۹۱۲۸۸۸۷۷۷۶",
-      email: "housing@bmi.ir",
-      address: "تهران، میدان ولیعصر، بانک ملی مرکزی",
-    },
-    stats: {
-      views: 2134,
-      time: "۲ ساعت پیش",
-    },
-    safetyTips: [
-      "سند ملک را بررسی کنید",
-      "از قیمت‌گذاری رسمی استفاده کنید",
-      "مشاور حقوقی بگیرید",
-      "قرارداد را با دقت بخوانید",
-    ],
-  },
-  3: {
-    id: 3,
-    title: "وام خودرو ۳۰۰ میلیونی",
-    bank: {
-      name: "بانک ملت",
-      logo: "/banks/mellat-low.png",
-      rating: 4.5,
-      verified: true,
-      totalReviews: 1456,
-    },
-    price: "۳۰۰,۰۰۰,۰۰۰",
-    currency: "تومان",
-    description:
-      "خرید خودرو با وام بلندمدت و اقساط راحت. بدون نیاز به ضامن تا ۱۵۰ میلیون.",
-    fullDescription: `وام خودرو با شرایط مناسب برای خرید خودروهای صفر و کارکرده.
-
-ویژگی‌های برجسته:
-• تا ۳۰۰ میلیون تومان وام
-• بازپرداخت تا ۵ سال
-• بدون نیاز به ضامن تا ۱۵۰ میلیون
-• تحویل فوری پس از تایید
-
-شرایط دریافت:
-• داشتن گواهینامه معتبر
-• سابقه کار حداقل ۱ سال
-• حقوق حداقل ۱۰ میلیون تومان`,
-    details: [
-      { icon: LoanType, label: "نوع وام", value: "وام خودرو" },
-      { icon: Wallet, label: "مبلغ", value: "۳۰۰ میلیون تومان" },
-      { icon: Timer, label: "مدت بازپرداخت", value: "تا ۵ سال" },
-      { icon: Percent, label: "نرخ سود", value: "۵٪ سالیانه" },
-      { icon: Users, label: "محدوده سنی", value: "۲۲ تا ۶۰ سال" },
-      { icon: FileText, label: "مدارک", value: "شناسنامه، گواهینامه" },
-    ],
-    contact: {
-      phone: "۰۹۱۲۷۷۷۶۶۶۵",
-      email: "car@bankmellat.ir",
-      address: "اصفهان، میدان امام حسین، بانک ملت",
-    },
-    stats: {
-      views: 892,
-      time: "۳ ساعت پیش",
-    },
-    safetyTips: [
-      "خودرو را کارشناسی کنید",
-      "از قیمت بازار مطلع شوید",
-      "بیمه خودرو الزامی است",
-      "قرارداد را حتما بخوانید",
-    ],
-  },
+// تابع برای گرفتن آیکون بر اساس نوع فیلد
+const getDetailIcon = (label) => {
+  switch (label) {
+    case "نوع وام":
+      return LoanType;
+    case "مبلغ":
+      return Wallet;
+    case "مدت بازپرداخت":
+      return Timer;
+    case "نرخ سود":
+      return Percent;
+    case "محدوده سنی":
+      return Users;
+    case "مدارک":
+      return FileText;
+    default:
+      return FileText;
+  }
 };
 
 const AdDetailPage = ({ adId }) => {
   const router = useRouter();
   const [showContactInfo, setShowContactInfo] = useState(false);
-  const adData = allAdsData[String(adId)];
+  const [adData, setAdData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    fetchAdData();
+  }, [adId]);
 
   useEffect(() => {
     if (showContactInfo) {
@@ -205,22 +75,40 @@ const AdDetailPage = ({ adId }) => {
     };
   }, [showContactInfo]);
 
+  const fetchAdData = async () => {
+    try {
+      setLoading(true);
+      setError("");
+      console.log("📱 در حال دریافت آگهی با آیدی:", adId);
+
+      const response = await fetch(`/api/ads/${adId}`);
+
+      if (!response.ok) {
+        throw new Error(`خطای HTTP: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("📦 پاسخ API:", result);
+
+      if (result.success) {
+        setAdData(result.data);
+      } else {
+        setError(result.error || "خطا در دریافت آگهی");
+        console.error("❌ خطا در دریافت آگهی:", result.error);
+      }
+    } catch (error) {
+      console.error("❌ خطا در ارتباط با سرور:", error);
+      setError("خطا در ارتباط با سرور");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleContact = () => {
     if (adData?.contact?.phone) {
       window.location.href = `tel:${adData.contact.phone}`;
     }
   };
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 600);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (loading) {
-    return <Loading />;
-  }
 
   const handleMessage = () => {
     if (adData?.contact?.email) {
@@ -232,7 +120,11 @@ const AdDetailPage = ({ adId }) => {
     setShowContactInfo(show);
   };
 
-  if (!adData) {
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error || !adData) {
     return (
       <div className="min-h-screen bg-[#f1f5f9]">
         <Header />
@@ -246,8 +138,11 @@ const AdDetailPage = ({ adId }) => {
               <h1 className="text-4xl font-black text-gray-900 mb-4">
                 آگهی یافت نشد
               </h1>
-              <p className="text-lg text-gray-600 mb-8">
-                متأسفانه آگهی مورد نظر شما یافت نشد یا حذف شده است.
+              <p className="text-lg text-gray-600 mb-4">
+                {error || "متأسفانه آگهی مورد نظر شما یافت نشد یا حذف شده است."}
+              </p>
+              <p className="text-sm text-gray-500 mb-8">
+                آیدی درخواستی: {adId}
               </p>
               <button
                 onClick={() => router.push("/")}
@@ -359,6 +254,7 @@ const AdDetailPage = ({ adId }) => {
               </div>
             </div>
 
+            {/* بخش جزئیات وام */}
             <div className="bg-white rounded-2xl p-6 border border-gray-100">
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
@@ -367,27 +263,32 @@ const AdDetailPage = ({ adId }) => {
                 <h2 className="text-xl font-bold text-gray-800">جزئیات وام</h2>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {adData.details.map((detail, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
-                  >
-                    <div className="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center shrink-0">
-                      <detail.icon className="w-5 h-5 text-gray-600" />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-xs text-gray-500 mb-1">
-                        {detail.label}
-                      </p>
-                      <p className="text-sm font-semibold text-gray-800">
-                        {detail.value}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                {adData.details &&
+                  adData.details.map((detail, index) => {
+                    const IconComponent = getDetailIcon(detail.label);
+                    return (
+                      <div
+                        key={index}
+                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                      >
+                        <div className="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center shrink-0">
+                          <IconComponent className="w-5 h-5 text-gray-600" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-xs text-gray-500 mb-1">
+                            {detail.label}
+                          </p>
+                          <p className="text-sm font-semibold text-gray-800">
+                            {detail.value}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
 
+            {/* بخش توضیحات کامل */}
             <div className="bg-white rounded-3xl shadow-xl p-8 border-2 border-gray-100">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 rounded-xl bg-[#0094da] flex items-center justify-center">
@@ -403,6 +304,7 @@ const AdDetailPage = ({ adId }) => {
             </div>
           </div>
 
+          {/* سایدبار */}
           <div className="lg:col-span-4">
             <div className="hidden lg:block bg-linear-to-br from-white to-gray-50 rounded-3xl shadow-2xl p-6 border-2 border-gray-100 mb-4">
               <div className="flex items-center gap-3 mb-6">
@@ -422,7 +324,6 @@ const AdDetailPage = ({ adId }) => {
                         {adData.contact.phone}
                       </span>
                     </div>
-
                     <Phone className="text-[#0094da] w-5 h-5" />
                   </button>
                 </div>
@@ -457,6 +358,7 @@ const AdDetailPage = ({ adId }) => {
               </div>
             </div>
 
+            {/* بخش هشدار امنیتی */}
             <div className="bg-white rounded-3xl shadow-xl p-6 border-2 border-[#a9020a]/30">
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-10 h-10 rounded-xl bg-[#a9020a] flex items-center justify-center">
@@ -467,23 +369,25 @@ const AdDetailPage = ({ adId }) => {
                 </h3>
               </div>
               <ul className="space-y-3">
-                {adData.safetyTips.map((tip, index) => (
-                  <li
-                    key={index}
-                    className="flex items-start gap-3 p-3 rounded-xl bg-white/70"
-                  >
-                    <CheckCircle2 className="w-5 h-5 text-[#a9020a] mt-0.5 flex shrink-0" />
-                    <span className="text-sm text-gray-800 font-medium leading-relaxed">
-                      {tip}
-                    </span>
-                  </li>
-                ))}
+                {adData.safetyTips &&
+                  adData.safetyTips.map((tip, index) => (
+                    <li
+                      key={index}
+                      className="flex items-start gap-3 p-3 rounded-xl bg-white/70"
+                    >
+                      <CheckCircle2 className="w-5 h-5 text-[#a9020a] mt-0.5 flex shrink-0" />
+                      <span className="text-sm text-gray-800 font-medium leading-relaxed">
+                        {tip}
+                      </span>
+                    </li>
+                  ))}
               </ul>
             </div>
           </div>
         </div>
       </main>
 
+      {/* مدال اطلاعات تماس برای موبایل */}
       {showContactInfo && (
         <div className="lg:hidden fixed inset-0 z-60 bg-black/50 flex items-center justify-center p-4">
           <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
@@ -513,7 +417,6 @@ const AdDetailPage = ({ adId }) => {
                         {adData.contact.phone}
                       </span>
                     </div>
-
                     <Phone className="text-[#0094da] w-5 h-5" />
                   </button>
                 </div>

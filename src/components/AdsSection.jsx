@@ -1,55 +1,79 @@
 "use client";
-
 import { Clock, MapPin } from "lucide-react";
 import Link from "next/link";
-const ads = [
-  {
-    id: 1,
-    bankId: 1,
-    title: "وام قرض الحسنه ۴۰۰ میلیون تومانی",
-    description: "ارائه وام قرض الحسنه برای کارمندان و بازنشستگان در مشهد",
-    time: "۱ ساعت قبل",
-    location: "خراسان رضوی",
-    type: "تسهیلات بانکی",
-    price: "۴۰۰,۰۰۰,۰۰۰",
-    bank: "بانک سپه",
-  },
-  {
-    id: 2,
-    bankId: 2,
-    title: "وام مسکن ۵۰۰ میلیونی",
-    description: "وام مسکن با سود پایین برای جوانان متأهل",
-    time: "۲ ساعت قبل",
-    location: "تهران",
-    type: "وام مسکن",
-    price: "۵۰۰,۰۰۰,۰۰۰",
-    bank: "بانک ملی",
-  },
-  {
-    id: 3,
-    bankId: 3,
-    title: "وام خودرو ۳۰۰ میلیونی",
-    description: "خرید خودرو با وام بلندمدت و اقساط راحت",
-    time: "۳ ساعت قبل",
-    location: "اصفهان",
-    type: "وام خودرو",
-    price: "۳۰۰,۰۰۰,۰۰۰",
-    bank: "بانک ملت",
-  },
-];
+import { useState, useEffect } from "react";
 
-const banks = [
-  { id: 1, img: "/banks/sepah-low.png" },
-  { id: 2, img: "/banks/melli-low.png" },
-  { id: 3, img: "/banks/mellat-low.png" },
-  { id: 4, img: "/banks/iran-zamin-low.png" },
-  { id: 5, img: "/banks/saderat-low.png" },
-  { id: 6, img: "/banks/blu-bank-low.png" },
-  { id: 7, img: "/banks/bank-refah-low.png" },
-  { id: 8, img: "/banks/Bank-Mehr-Iran-low.png" },
-  { id: 9, img: "/banks/bank-saman-low.png" },
-];
+// مپ کردن نام بانک‌ها به لوگوی آنها
+const bankLogoMap = {
+  "بانک سپه": "/banks/sepah-low.png",
+  "بانک ملی": "/banks/melli-low.png",
+  "بانک ملت": "/banks/mellat-low.png",
+  "بانک ایران زمین": "/banks/iran-zamin-low.png",
+  "بانک صادرات": "/banks/saderat-low.png",
+  "بلو بانک": "/banks/blu-bank-low.png",
+  "بانک رفاه": "/banks/bank-refah-low.png",
+  "بانک مهر ایران": "/banks/Bank-Mehr-Iran-low.png",
+  "بانک سامان": "/banks/bank-saman-low.png",
+};
+
 export default function AdsSection() {
+  const [ads, setAds] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchAds();
+  }, []);
+
+  const fetchAds = async () => {
+    try {
+      const response = await fetch("/api/ads?limit=3");
+      const result = await response.json();
+
+      if (result.success) {
+        setAds(result.data);
+      } else {
+        console.error("خطا در دریافت آگهی‌ها:", result.error);
+      }
+    } catch (error) {
+      console.error("خطا در ارتباط با سرور:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // تابع برای گرفتن لوگوی بانک بر اساس نام
+  const getBankLogo = (bankName) => {
+    return bankLogoMap[bankName] || "/banks/default-bank.png";
+  };
+
+  if (loading) {
+    return (
+      <div className="mt-8">
+        <h2 className="mt-5 text-xl font-bold flex items-center gap-2">
+          <span className="h-2 w-2 bg-[#0094da] rounded-full inline-block"></span>
+          آگهی های فروش
+        </h2>
+        <div className="flex flex-col gap-4 mt-5">
+          {[1, 2, 3].map((item) => (
+            <div
+              key={item}
+              className="bg-white rounded-xl border border-gray-200 p-4 animate-pulse"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-gray-200 rounded-lg"></div>
+                <div className="flex-1">
+                  <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                  <div className="h-3 bg-gray-200 rounded w-full mb-2"></div>
+                  <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="mt-8">
       <h2 className="mt-5 text-xl font-bold flex items-center gap-2">
@@ -58,20 +82,19 @@ export default function AdsSection() {
       </h2>
       <div className="flex flex-col gap-4 mt-5">
         {ads.map((ad) => {
-          const bank = banks.find((b) => b.id === ad.bankId);
+          const bankLogo = ad.bank?.logo || getBankLogo(ad.bank?.name);
+
           return (
             <Link href={`/ads/${ad.id}`} key={ad.id}>
               <div className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-md transition-all duration-300 cursor-pointer">
                 <div className="flex items-center gap-3">
-                  {bank && (
-                    <div className="flex shrink-0">
-                      <img
-                        src={bank.img}
-                        alt="Bank Logo"
-                        className="w-12 h-12 rounded-lg object-contain bg-gray-50 p-1"
-                      />
-                    </div>
-                  )}
+                  <div className="flex shrink-0">
+                    <img
+                      src={bankLogo}
+                      alt={ad.bank?.name || "بانک"}
+                      className="w-12 h-12 rounded-lg object-contain bg-gray-50 p-1"
+                    />
+                  </div>
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between mb-2">
@@ -79,7 +102,7 @@ export default function AdsSection() {
                         {ad.title}
                       </h4>
                       <span className="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded-md whitespace-nowrap mr-2">
-                        {ad.type}
+                        {ad.type || "وام بانکی"}
                       </span>
                     </div>
                     <p className="text-xs text-gray-600 mb-3 line-clamp-2">
@@ -88,11 +111,11 @@ export default function AdsSection() {
                     <div className="flex items-center gap-4 text-xs text-gray-500">
                       <div className="flex items-center gap-1">
                         <Clock className="h-3 w-3" />
-                        <span>{ad.time}</span>
+                        <span>{ad.stats?.time || "همین الان"}</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <MapPin className="h-3 w-3" />
-                        <span>{ad.location}</span>
+                        <span>{ad.location || ad.bank?.name || "تهران"}</span>
                       </div>
                     </div>
                   </div>

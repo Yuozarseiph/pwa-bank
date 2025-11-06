@@ -12,213 +12,54 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Loading from "./Loading";
 
-const loanBank = [
-  {
-    id: 1,
-    icon: "/banks/melli-low.png",
-    bank: "ملی",
-    bankSlug: "melli",
-    percent: 0,
-    price: 15000000,
-    description: "وام قرض الحسنه بدون بهره",
-  },
-  {
-    id: 2,
-    icon: "/banks/melli-low.png",
-    bank: "ملی",
-    bankSlug: "melli",
-    percent: 4,
-    price: 25000000,
-    description: "وام مسکن با سود کم",
-  },
-  {
-    id: 3,
-    icon: "/banks/melli-low.png",
-    bank: "ملی",
-    bankSlug: "melli",
-    percent: 18,
-    price: 30000000,
-    description: "وام خودرو با اقساط 36 ماهه",
-  },
-  {
-    id: 4,
-    icon: "/banks/melli-low.png",
-    bank: "ملی",
-    bankSlug: "melli",
-    percent: 0,
-    price: 20000000,
-    description: "وام دانشجویی بدون کارمزد",
-  },
-  {
-    id: 5,
-    icon: "/banks/melli-low.png",
-    bank: "ملی",
-    bankSlug: "melli",
-    percent: 4,
-    price: 18000000,
-    description: "وام ازدواج با شرایط ویژه",
-  },
-  {
-    id: 6,
-    icon: "/banks/melli-low.png",
-    bank: "ملی",
-    bankSlug: "melli",
-    percent: 20,
-    price: 40000000,
-    description: "وام مسکن با بازپرداخت طولانی",
-  },
-  {
-    id: 7,
-    icon: "/banks/melli-low.png",
-    bank: "ملی",
-    bankSlug: "melli",
-    percent: 24,
-    price: 22000000,
-    description: "وام درمان و پزشکی",
-  },
-  {
-    id: 8,
-    icon: "/banks/sepah-low.png",
-    bank: "سپه",
-    bankSlug: "sepah",
-    percent: 0,
-    price: 28000000,
-    description: "وام نوسازی مسکن بدون کارمزد",
-  },
-  {
-    id: 9,
-    icon: "/banks/sepah-low.png",
-    bank: "سپه",
-    bankSlug: "sepah",
-    percent: 4,
-    price: 10000000,
-    description: "وام قرض الحسنه ویژه",
-  },
-  {
-    id: 10,
-    icon: "/banks/mellat-low.png",
-    bank: "ملت",
-    bankSlug: "mellat",
-    percent: 18,
-    price: 35000000,
-    description: "وام خودرو با اقساط بلندمدت",
-  },
-  {
-    id: 11,
-    icon: "/banks/mellat-low.png",
-    bank: "ملت",
-    bankSlug: "mellat",
-    percent: 20,
-    price: 15000000,
-    description: "وام ازدواج با ضمانت ساده",
-  },
-  {
-    id: 12,
-    icon: "/banks/iran-zamin-low.png",
-    bank: "ایران زمین",
-    bankSlug: "iran-zamin",
-    percent: 24,
-    price: 50000000,
-    description: "وام تجاری برای کسب و کار",
-  },
-  {
-    id: 13,
-    icon: "/banks/saderat-low.png",
-    bank: "صادرات",
-    bankSlug: "saderat",
-    percent: 4,
-    price: 32000000,
-    description: "وام مسکن با کارمزد پایین",
-  },
-  {
-    id: 14,
-    icon: "/banks/blu-bank-low.png",
-    bank: "بلو بانک",
-    bankSlug: "blu-bank",
-    percent: 24,
-    price: 12000000,
-    description: "وام سفر با شرایط آسان",
-  },
-  {
-    id: 15,
-    icon: "/banks/bank-refah-low.png",
-    bank: "رفاه",
-    bankSlug: "refah",
-    percent: 18,
-    price: 16000000,
-    description: "وام بازنشستگی",
-  },
-  {
-    id: 16,
-    icon: "/banks/Bank-Mehr-Iran-low.png",
-    bank: "مهر ایران",
-    bankSlug: "mehr-iran",
-    percent: 20,
-    price: 26000000,
-    description: "وام خرید مسکن",
-  },
-  {
-    id: 17,
-    icon: "/banks/bank-saman-low.png",
-    bank: "سامان",
-    bankSlug: "saman",
-    percent: 24,
-    price: 38000000,
-    description: "وام سرمایه گذاری",
-  },
-  {
-    id: 18,
-    icon: "/banks/bank-refah-low.png",
-    bank: "رفاه",
-    bankSlug: "refah",
-    percent: 0,
-    price: 14000000,
-    description: "وام تحصیلی بدون کارمزد",
-  },
-  {
-    id: 19,
-    icon: "/banks/Bank-Mehr-Iran-low.png",
-    bank: "مهر ایران",
-    bankSlug: "mehr-iran",
-    percent: 18,
-    price: 19000000,
-    description: "وام خودروی کارکرده",
-  },
-  {
-    id: 20,
-    icon: "/banks/bank-saman-low.png",
-    bank: "سامان",
-    bankSlug: "saman",
-    percent: 24,
-    price: 45000000,
-    description: "وام راه اندازی کسب و کار",
-  },
-];
-
 const LoanDetail = () => {
   const params = useParams();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [loan, setLoan] = useState(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      const foundLoan = loanBank.find(
-        (item) =>
-          item.bankSlug === params.bname && item.id === parseInt(params.post)
-      );
-      setLoan(foundLoan);
-      setLoading(false);
-    }, 400);
-
-    return () => clearTimeout(timer);
+    fetchLoanDetail();
   }, [params.bname, params.post]);
+
+  const fetchLoanDetail = async () => {
+    try {
+      setLoading(true);
+      setError("");
+      
+      if (!params.post) {
+        setError("آیدی وام مشخص نشده است");
+        return;
+      }
+
+      const response = await fetch(`/api/loan/${params.post}`);
+      
+      if (!response.ok) {
+        throw new Error(`خطای HTTP: ${response.status}`);
+      }
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        setLoan(result.data);
+      } else {
+        setError(result.error || "خطا در دریافت اطلاعات وام");
+        console.error("خطا در دریافت وام:", result.error);
+      }
+    } catch (error) {
+      console.error("خطا در ارتباط با سرور:", error);
+      setError("خطا در ارتباط با سرور");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (loading) {
     return <Loading />;
   }
 
-  if (!loan) {
+  if (error || !loan) {
     return (
       <div className="">
         <Header />
@@ -227,6 +68,7 @@ const LoanDetail = () => {
           <h2 className="text-2xl font-bold text-gray-800 mb-4">
             وام یافت نشد
           </h2>
+          <p className="text-gray-600 mb-4">{error}</p>
           <button
             onClick={() => router.back()}
             className="text-[#0094da] hover:text-[#007bb5] transition-colors duration-300"
@@ -251,6 +93,7 @@ const LoanDetail = () => {
           <ArrowRight className="w-5 h-5" />
           <span>بازگشت</span>
         </button>
+        
         <div className="flex items-center gap-2 text-sm text-gray-600 mb-6">
           <button
             onClick={() => router.push("/")}
@@ -289,7 +132,9 @@ const LoanDetail = () => {
                 <div>
                   <p className="text-sm text-gray-600">مبلغ وام</p>
                   <p className="text-lg font-bold text-gray-800">
-                    {loan.price.toLocaleString()} تومان
+                    {typeof loan.price === 'number' 
+                      ? loan.price.toLocaleString() 
+                      : String(loan.price)} تومان
                   </p>
                 </div>
               </div>
@@ -327,7 +172,9 @@ const LoanDetail = () => {
                 <div className="flex justify-between items-center py-2 border-b border-gray-200">
                   <span className="text-gray-600">مبلغ</span>
                   <span className="font-medium">
-                    {loan.price.toLocaleString()} تومان
+                    {typeof loan.price === 'number' 
+                      ? loan.price.toLocaleString() 
+                      : String(loan.price)} تومان
                   </span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b border-gray-200">
@@ -363,54 +210,6 @@ const LoanDetail = () => {
               </ul>
             </div>
           </div>
-
-          {/* <div className="bg-white border border-gray-200 rounded-lg p-6">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">
-              درخواست وام
-            </h3>
-            <form className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  نام کامل
-                </label>
-                <input
-                  type="text"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0094da] focus:border-transparent"
-                  placeholder="نام و نام خانوادگی"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  شماره تماس
-                </label>
-                <input
-                  type="tel"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0094da] focus:border-transparent"
-                  placeholder="09xxxxxxxxx"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  مبلغ درخواستی
-                </label>
-                <input
-                  type="text"
-                  value={loan.price.toLocaleString()}
-                  readOnly
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-[#0094da] hover:bg-[#007bb5] text-white py-3 px-4 rounded-lg transition-colors duration-300 font-medium"
-              >
-                ثبت درخواست
-              </button>
-            </form>
-          </div> */}
         </div>
       </div>
       <Footer />
