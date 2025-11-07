@@ -70,27 +70,18 @@ export default function Home() {
       <Header />
       <div className="flex justify-center items-start flex-row-reverse  p-2 lg:gap-6 lg:p-5">
         <div className="w-full md:w-[80%] max-w-[1080px] bg-white rounded-xl p-5 mb-22">
-          <div className="  h-fit  overscroll-contain touch-pan-y p-2">
+          <div className="h-fit  overscroll-contain touch-pan-y p-2">
             <BankList />
-            <hr className="mt-6 text-gray-300" />
-            <ul className="grid grid-cols-4 gap-3 sm:grid-cols-5 sm:gap-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 mt-8">
+            <hr className="my-6 text-gray-300" />
+            <ul className="grid-list">
               {loan.map((item) => (
                 <li
                   key={item.id}
-                  className="flex justify-center items-center hover:scale-105 transition-all duration-300"
+                  className="hover:scale-105 transition-all duration-400"
                 >
-                  <Link
-                    href="/"
-                    className="flex flex-col justify-center items-center gap-1 cursor-pointer w-20"
-                  >
-                    <div className="h-16 w-16 sm:h-18 sm:w-18 md:h-20 md:w-20">
-                      {item.img}
-                    </div>
-                    <h3 className="max-w-[100px] truncate text-sm sm:text-[16px] lg:text-lg">
-                      {item.lable.length > 10
-                        ? `${item.lable.substring(0, 10)}...`
-                        : item.lable}
-                    </h3>
+                  <Link href="/" className="grid-card">
+                    <div className="grid-icon">{item.img}</div>
+                    <h3 className="grid-title">{item.lable}</h3>
                   </Link>
                 </li>
               ))}
@@ -99,7 +90,7 @@ export default function Home() {
             <AdsSection />
           </div>
         </div>
-          <Sidebar />
+        <Sidebar />
       </div>
       <Footer />
     </div>
