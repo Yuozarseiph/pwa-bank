@@ -1,0 +1,82 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "علی محمدی",
+      "phone": "09123456789",
+      "email": "ali.mohammadi@example.com",
+      "role": "user",
+      "createdAt": "2024-01-15T10:30:00.000Z",
+      "profile": {
+        "avatar": "/avatars/user1.jpg",
+        "location": "تهران",
+        "bio": "علاقه‌مند به سرمایه‌گذاری و امور مالی"
+      }
+    },
+    {
+      "id": 2,
+      "name": "فاطمه احمدی",
+      "phone": "09129876543",
+      "email": "fateme.ahmadi@example.com",
+      "role": "admin",
+      "createdAt": "2024-01-10T14:20:00.000Z",
+      "profile": {
+        "avatar": "/avatars/user2.jpg",
+        "location": "مشهد",
+        "bio": "متخصص امور بانکی و مالی"
+      }
+    },
+    {
+      "id": 3,
+      "name": "محمد رضایی",
+      "phone": "09151234567",
+      "email": "mohammad.rezaei@example.com",
+      "role": "user",
+      "createdAt": "2024-01-20T09:15:00.000Z",
+      "profile": {
+        "avatar": "/avatars/user3.jpg",
+        "location": "اصفهان",
+        "bio": "کارشناس امور وام و تسهیلات"
+      }
+    },
+    {
+      "id": 4,
+      "name": "زهرا کریمی",
+      "phone": "09167654321",
+      "email": "zahra.karimi@example.com",
+      "role": "user",
+      "createdAt": "2024-01-25T16:45:00.000Z",
+      "profile": {
+        "avatar": "/avatars/user4.jpg",
+        "location": "شیراز",
+        "bio": "مشاور مالی و سرمایه‌گذاری"
+      }
+    },
+    {
+      "id": 5,
+      "name": "حسین نجفی",
+      "phone": "09158765432",
+      "email": "hossein.najafi@example.com",
+      "role": "agent",
+      "createdAt": "2024-01-18T11:30:00.000Z",
+      "profile": {
+        "avatar": "/avatars/user5.jpg",
+        "location": "تبریز",
+        "bio": "نماینده رسمی بانک‌های مختلف"
+      }
+    },
+    {
+      "id": 6,
+      "name": "کاربر جدید",
+      "phone": "09107860475",
+      "email": "09107860475@example.com",
+      "role": "user",
+      "createdAt": "2025-11-07T11:19:22.969Z",
+      "profile": {
+        "avatar": "/avatars/default.jpg",
+        "location": "",
+        "bio": ""
+      }
+    }
+  ]
+}

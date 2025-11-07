@@ -198,11 +198,11 @@ const AdDetailPage = ({ adId }) => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-8 space-y-6">
-            <div className="relative bg-[#0094da] rounded-3xl p-8 shadow-2xl overflow-hidden">
+            <div className="relative bg-[#0095da1a] border-2 border-blue-300 rounded-3xl p-8 overflow-hidden">
               <div className="relative z-10">
                 <div className="flex items-start justify-between mb-6">
                   <div className="flex items-center gap-4">
-                    <div className="w-20 h-20 rounded-2xl bg-white shadow-xl flex items-center justify-center">
+                    <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center">
                       <img
                         src={adData.bank.logo}
                         alt={adData.bank.name}
@@ -211,22 +211,19 @@ const AdDetailPage = ({ adId }) => {
                     </div>
                     <div>
                       <div className="flex items-center gap-2 mb-2">
-                        <h3 className="text-xl font-black text-white">
+                        <h3 className="text-xl font-black text-black">
                           {adData.bank.name}
                         </h3>
-                        {adData.bank.verified && (
-                          <BadgeCheck className="w-6 h-6 text-yellow-300" />
-                        )}
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <h1 className="text-3xl sm:text-4xl font-black text-white mb-4 leading-tight">
+                <h1 className="text-3xl sm:text-4xl font-black text-black mb-4 leading-tight">
                   {adData.title}
                 </h1>
 
-                <div className="inline-flex items-baseline gap-3 px-8 py-4 rounded-2xl bg-white shadow-xl">
+                <div className="inline-flex items-baseline gap-3 px-8 py-4 rounded-2xl bg-white">
                   <span className="text-4xl font-black text-[#0094da]">
                     {adData.price}
                   </span>
@@ -236,17 +233,17 @@ const AdDetailPage = ({ adId }) => {
                 </div>
 
                 <div className="flex flex-wrap items-center gap-6 mt-6">
-                  <div className="flex items-center gap-2 text-white/90">
+                  <div className="flex items-center gap-2 text-black/90">
                     <Eye className="w-5 h-5" />
                     <span className="font-medium">
                       {adData.stats.views.toLocaleString()}
                     </span>
                   </div>
-                  <button className="flex items-center gap-2 text-white/90 cursor-pointer">
+                  <button className="flex items-center gap-2 text-black/90 cursor-pointer">
                     <Share className="w-5 h-5" />
                     <span className="font-medium">پیشنهاد</span>
                   </button>
-                  <div className="flex items-center gap-2 text-white/90">
+                  <div className="flex items-center gap-2 text-black/90">
                     <Clock className="w-5 h-5" />
                     <span className="font-medium">{adData.stats.time}</span>
                   </div>
