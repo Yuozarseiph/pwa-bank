@@ -87,12 +87,12 @@ const BankLoansSection = ({ bankSlug }) => {
       const formattedBillions = billions.endsWith(".0")
         ? billions.slice(0, -2)
         : billions;
-      return `${formattedBillions.replace(".", "/")} میلیارد تومان`;
+      return `${formattedBillions.replace(".", "/")} میلیارد`;
     }
 
     if (numPrice >= 1000000) {
       const millions = (numPrice / 1000000).toFixed(0);
-      return `${millions} میلیون تومان`;
+      return `${millions} میلیون`;
     }
 
     return `${numPrice.toLocaleString()} تومان`;
