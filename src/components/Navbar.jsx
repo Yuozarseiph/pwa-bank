@@ -22,7 +22,7 @@ export default function Navbar() {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white flex justify-around items-center px-6 py-3 lg:hidden z-60">
+    <div className="fixed bottom-0 left-0 right-0 bg-white flex border-t-2 border-blue-400 justify-around items-center  lg:hidden z-60">
       {navItems.map((item) => {
         const Icon = item.icon;
         const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
@@ -31,8 +31,8 @@ export default function Navbar() {
           <Link
             key={item.id}
             href={item.href}
-            className={`flex flex-col items-center gap-1 ${
-              isActive ? "text-blue-500" : "text-gray-500"
+            className={`flex w-full flex-col items-center gap-1 px-6 py-3 ${
+              isActive ? "text-blue-500 drop-shadow-lg drop-shadow-blue-300 scale-105" : "text-gray-500"
             }`}
           >
             <Icon size={24} />
