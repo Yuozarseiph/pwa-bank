@@ -132,16 +132,12 @@ export default function Profile() {
                 <h1 className="text-2xl font-bold text-gray-800">
                   {user.name}
                 </h1>
-                <p className="text-sm text-gray-500 mt-1">کاربر سایت</p>
-              </div>
 
-              <button
-                onClick={logout}
-                className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
-              >
-                <LogOut size={18} />
-                خروج
-              </button>
+                <div className="flex gap-2 items-center justify-center">
+                  <p className="text-sm text-gray-600">شناسه کاربری :</p>
+                  <p className="text-lg font-bold text-[#0094da]">{user.id}</p>
+                </div>
+              </div>
             </div>
 
             {/* Contact Info */}
@@ -172,29 +168,13 @@ export default function Profile() {
                 </div>
               </div>
             </div>
-
-            {/* Stats Section */}
-            <div className="grid grid-cols-2 gap-4 mt-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg">
-              {/* User ID */}
-              <div className="text-center">
-                <div className="w-16 h-16 mx-auto bg-[#0094da] rounded-full flex items-center justify-center mb-2">
-                  <User className="text-white" size={32} />
-                </div>
-                <p className="text-2xl font-bold text-[#0094da]">{user.id}</p>
-                <p className="text-sm text-gray-600 mt-1">شناسه کاربری</p>
-              </div>
-
-              {/* Ads Count */}
-              <div className="text-center border-gray-300">
-                <div className="w-16 h-16 mx-auto bg-green-500 rounded-full flex items-center justify-center mb-2">
-                  <ShoppingBag className="text-white" size={32} />
-                </div>
-                <p className="text-2xl font-bold text-green-600">
-                  {user.adsCount || 0}
-                </p>
-                <p className="text-sm text-gray-600 mt-1">تعداد آگهی‌ها</p>
-              </div>
-            </div>
+            <button
+              onClick={logout}
+              className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors mt-10"
+            >
+              <LogOut size={18} />
+              خروج
+            </button>
           </div>
         </div>
 
