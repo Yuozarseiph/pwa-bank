@@ -130,7 +130,6 @@ export default function AdsSection() {
       const result = await response.json();
 
       if (result.success && Array.isArray(result.data)) {
-        // Process ads and fetch percent for each
         const adsWithDetails = await Promise.all(
           result.data.map(async (ad) => {
             const { percent, repaymentPeriod } = await extractDetailsFromAd(

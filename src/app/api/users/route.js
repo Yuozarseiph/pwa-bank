@@ -1,4 +1,5 @@
 // src/app/api/users/route.js
+
 import { NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
@@ -65,6 +66,7 @@ export async function POST(request) {
     const body = await request.json();
     const required = ['name', 'phone', 'email'];
     const missing = required.filter(f => !body[f]);
+
     if (missing.length) {
       return NextResponse.json(
         { success: false, error: `فیلدهای اجباری پر نشده: ${missing.join(', ')}` },
@@ -75,6 +77,7 @@ export async function POST(request) {
     const users = await readUsers();
     const phoneNorm = toEnDigits(body.phone);
     const exists = users.find(u => toEnDigits(u.phone) === phoneNorm || (u.email || '') === body.email);
+
     if (exists) {
       return NextResponse.json(
         { success: false, error: 'شماره تلفن یا ایمیل قبلاً ثبت شده است' },
@@ -83,11 +86,13 @@ export async function POST(request) {
     }
 
     const nextId = (users.reduce((m, u) => Math.max(m, Number(u.id) || 0), 0) + 1);
+    
     const newUser = {
       id: nextId,
       name: body.name,
       phone: body.phone,
       email: body.email,
+      password: body.password || '123456', // Default password
       role: body.role || 'user',
       createdAt: new Date().toISOString(),
       profile: body.profile || { avatar: '/avatars/default.jpg', location: '', bio: '' },

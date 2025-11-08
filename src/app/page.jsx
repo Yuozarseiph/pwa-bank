@@ -65,7 +65,7 @@ export default function Home() {
     return <Loading />;
   }
   return (
-    <div className="flex min-h-dvh flex-col relative bg-[#f1f5f9] overflow-x-hidden lg:pt-20">
+    <div className="flex min-h-dvh flex-col relative bg-[#f1f5f9] overflow-x-hidden lg:pt-20 mt-20 lg:mt-0">
       <Navbar />
       <Header />
       <div className="flex justify-center items-start flex-row-reverse  p-2 lg:gap-6 lg:p-5">
