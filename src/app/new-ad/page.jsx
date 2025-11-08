@@ -87,7 +87,6 @@ export default function NewAd() {
         (city) => city.province_id == formData.provinceId
       );
       setFilteredCities(filtered);
-      // اگر شهر انتخاب شده متعلق به استان فعلی نیست، آن را پاک کن
       if (
         formData.cityId &&
         !filtered.some((city) => city.id == formData.cityId)

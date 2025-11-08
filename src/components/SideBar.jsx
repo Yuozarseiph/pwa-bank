@@ -49,7 +49,7 @@ export default function Sidebar() {
         <Link href={user ? `/profile/${user.id}` : "/auth"}>
           <p className="flex m-2 border border-blue-300 bg-blue-50 p-3 rounded-lg text-lg gap-2 items-center font-light">
             <UserIcon className="text-[#0496da] text-lg" />
-            {user ? user.name : "نام کاربری شما"}
+            {user ? user.name : "ورود به حساب کاربری"}
           </p>
         </Link>
       </div>

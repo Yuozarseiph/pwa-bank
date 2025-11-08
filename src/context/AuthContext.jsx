@@ -27,7 +27,6 @@ export function AuthProvider({ children }) {
         setLoading(false);
       }
     };
-
     checkAuth();
   }, []);
 
@@ -35,12 +34,24 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     if (loading) return;
 
-    const publicPaths = ["/auth", "/", "/soon"];
-    const isPublicPath = publicPaths.some((path) => pathname === path);
+    // Define ONLY routes that need authentication
+    const privateRoutes = [
+      "/profile",
+      "/dashboard", 
+      "/new-ad",
+      "/my-ads",
+      "/settings"
+      // Add any other protected routes here
+    ];
 
-    // Check if trying to access profile route
+    // Check if current path is a private route
+    const isPrivateRoute = privateRoutes.some((route) => 
+      pathname.startsWith(route)
+    );
+
+    // Special handling for profile routes
     const isProfileRoute = pathname.startsWith("/profile/");
-
+    
     if (isProfileRoute) {
       // If not logged in, redirect to auth
       if (!user) {
@@ -62,15 +73,19 @@ export function AuthProvider({ children }) {
       }
     }
 
-    // If user is not logged in and trying to access protected route
-    if (!user && !isPublicPath && !isProfileRoute) {
+    // If user is NOT logged in and trying to access a private route
+    if (!user && isPrivateRoute) {
       router.push("/auth");
+      return;
     }
 
-    // If user is logged in and trying to access auth page
+    // If user IS logged in and trying to access auth page, redirect to profile
     if (user && pathname === "/auth") {
       router.push(`/profile/${user.id}`);
+      return;
     }
+
+    // All other routes are accessible without authentication
   }, [user, pathname, loading, router]);
 
   const login = (userData) => {
