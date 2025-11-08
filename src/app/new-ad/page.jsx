@@ -56,7 +56,9 @@ export default function NewAd() {
 
   const fetchProvinces = async () => {
     try {
-      const response = await fetch("https://iranplacesapi.liara.run/api/provinces");
+      const response = await fetch(
+        "https://iranplacesapi.liara.run/api/provinces"
+      );
       const data = await response.json();
       setProvinces(data);
     } catch (error) {
@@ -66,7 +68,9 @@ export default function NewAd() {
 
   const fetchCities = async () => {
     try {
-      const response = await fetch("https://iranplacesapi.liara.run/api/cities");
+      const response = await fetch(
+        "https://iranplacesapi.liara.run/api/cities"
+      );
       const data = await response.json();
       setCities(data);
     } catch (error) {
@@ -76,11 +80,16 @@ export default function NewAd() {
 
   useEffect(() => {
     if (formData.provinceId && cities.length > 0) {
-      const filtered = cities.filter(city => city.province_id == formData.provinceId);
+      const filtered = cities.filter(
+        (city) => city.province_id == formData.provinceId
+      );
       setFilteredCities(filtered);
       // اگر شهر انتخاب شده متعلق به استان فعلی نیست، آن را پاک کن
-      if (formData.cityId && !filtered.some(city => city.id == formData.cityId)) {
-        setFormData(prev => ({ ...prev, cityId: "" }));
+      if (
+        formData.cityId &&
+        !filtered.some((city) => city.id == formData.cityId)
+      ) {
+        setFormData((prev) => ({ ...prev, cityId: "" }));
       }
     } else {
       setFilteredCities([]);
@@ -197,9 +206,9 @@ export default function NewAd() {
   };
 
   const getLocationName = () => {
-    const province = provinces.find(p => p.id == formData.provinceId);
-    const city = cities.find(c => c.id == formData.cityId);
-    
+    const province = provinces.find((p) => p.id == formData.provinceId);
+    const city = cities.find((c) => c.id == formData.cityId);
+
     if (province && city) {
       return `${province.name}، ${city.name}`;
     } else if (province) {
@@ -308,7 +317,7 @@ export default function NewAd() {
     { id: 6, name: "بلو بانک" },
     { id: 7, name: "بانک رفاه" },
     { id: 8, name: "بانک مهر ایران" },
-    { id: 9, name: "بانک سامان"}
+    { id: 9, name: "بانک سامان" },
   ];
 
   const loanTypes = [
@@ -330,27 +339,39 @@ export default function NewAd() {
       <Navbar />
       <Header />
       <div className="flex relative justify-center items-start flex-row-reverse p-2 lg:gap-6 lg:p-5">
-        <div className="w-full md:w-[80%] max-w-[1080px] bg-white rounded-xl p-5 md:p-10 mb-22">
+        <div className="w-full md:w-[80%] max-w-[1080px] bg-white rounded-xl shadow-sm p-5 md:p-10 mb-22">
           {showErrorBox && Object.keys(errors).length > 0 && (
-            <div className="mb-6 p-4 border border-[#a9020a] bg-[#fdf2f2] rounded-lg relative">
+            <div className="mb-6 p-4 border-2 border-red-200 bg-red-50 rounded-xl relative shadow-sm">
               <button
                 onClick={closeError}
-                className="absolute left-3 top-3 text-[#a9020a] hover:text-[#8a020a]"
+                className="absolute left-3 top-3 text-red-600 hover:text-red-800 transition-colors"
               >
-                <XIcon className="h-4 w-4" />
+                <XIcon className="h-5 w-5" />
               </button>
-              <h3 className="text-[#a9020a] font-bold mb-2 text-right">
+              <h3 className="text-red-700 font-bold mb-3 text-right flex items-center gap-2">
+                <svg
+                  className="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                    clipRule="evenodd"
+                  />
+                </svg>
                 لطفا خطاهای زیر را برطرف کنید:
               </h3>
-              <ul className="list-disc pr-4 space-y-1">
+              <ul className="list-none pr-2 space-y-2">
                 {Object.values(errors).map(
                   (error, index) =>
                     error && (
                       <li
                         key={index}
-                        className="text-[#a9020a] text-sm text-right"
+                        className="text-red-600 text-sm text-right flex items-start gap-2"
                       >
-                        {error}
+                        <span className="text-red-500 mt-0.5">•</span>
+                        <span>{error}</span>
                       </li>
                     )
                 )}
@@ -358,47 +379,61 @@ export default function NewAd() {
             </div>
           )}
 
-          <div className="mb-6">
-            <h1 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">
+          <div className="mb-8">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-3">
               ثبت آگهی جدید
             </h1>
-            <p className="text-sm md:text-base text-gray-600">
+            <p className="text-sm md:text-base text-gray-500">
               اطلاعات وام خود را در فرم زیر وارد کنید
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="bg-gray-50 p-4 md:p-6 rounded-lg border border-blue-300">
-              <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <FileTextIcon className="h-5 w-5" />
+            {/* Main Information Section */}
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 p-5 md:p-7 rounded-xl border-2 border-blue-200 shadow-sm">
+              <h2 className="text-lg md:text-xl font-bold mb-5 flex items-center gap-2 text-gray-800">
+                <FileTextIcon className="h-6 w-6 text-blue-600" />
                 اطلاعات اصلی آگهی
               </h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    عنوان آگهی <span className="text-[#a9020a]">*</span>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                    عنوان آگهی <span className="text-red-600">*</span>
                   </label>
                   <input
                     type="text"
                     name="title"
                     value={formData.title}
                     onChange={handleInputChange}
-                    className={`w-full bg-white px-3 py-3 border-2 rounded-lg outline-0 text-sm font-bold placeholder:text-right ${
-                      errors.title ? "border-[#a9020a]" : "border-gray-200"
+                    className={`w-full bg-white px-4 py-3.5 border-2 rounded-xl outline-none text-sm font-medium placeholder:text-right transition-all duration-200 ${
+                      errors.title
+                        ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
+                        : "border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                     }`}
                     placeholder="مثال: وام قرض الحسنه ۴۰۰ میلیون تومانی"
                   />
                   {errors.title && (
-                    <p className="text-[#a9020a] text-xs mt-1 text-right">
+                    <p className="text-red-600 text-xs mt-1.5 text-right flex items-center gap-1">
+                      <svg
+                        className="w-3.5 h-3.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
                       {errors.title}
                     </p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    مبلغ وام (تومان) <span className="text-[#a9020a]">*</span>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                    مبلغ وام (تومان) <span className="text-red-600">*</span>
                   </label>
                   <input
                     type="text"
@@ -406,31 +441,46 @@ export default function NewAd() {
                     dir="ltr"
                     value={formData.price}
                     onChange={handleInputChange}
-                    className={`w-full bg-white px-3 py-3 border-2 rounded-lg outline-0 text-sm font-bold placeholder:text-right ${
-                      errors.price ? "border-[#a9020a]" : "border-gray-200"
+                    className={`w-full bg-white px-4 py-3.5 border-2 rounded-xl outline-none text-sm font-bold placeholder:text-right transition-all duration-200 ${
+                      errors.price
+                        ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
+                        : "border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                     }`}
-                    placeholder="مثال: ۴۰۰,۰۰۰,۰۰۰ (حداقل ۱,۰۰۰,۰۰۰)"
+                    placeholder="مثال: ۴۰۰,۰۰۰,۰۰۰"
                   />
                   {errors.price && (
-                    <p className="text-[#a9020a] text-xs mt-1 text-right">
+                    <p className="text-red-600 text-xs mt-1.5 text-right flex items-center gap-1">
+                      <svg
+                        className="w-3.5 h-3.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
                       {errors.price}
                     </p>
                   )}
-                  <p className="text-xs text-gray-500 mt-1 text-right">
+                  <p className="text-xs text-gray-500 mt-1.5 text-right">
                     مبلغ باید مضرب ۱,۰۰۰ و حداقل ۱,۰۰۰,۰۰۰ تومان باشد
                   </p>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    نوع وام <span className="text-[#a9020a]">*</span>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                    نوع وام <span className="text-red-600">*</span>
                   </label>
                   <select
                     name="type"
                     value={formData.type}
                     onChange={handleInputChange}
-                    className={`w-full bg-white px-3 py-3 border-2 rounded-lg outline-0 text-sm font-bold ${
-                      errors.type ? "border-[#a9020a]" : "border-gray-200"
+                    className={`w-full bg-white px-4 py-3.5 border-2 rounded-xl outline-none text-sm font-bold transition-all duration-200 ${
+                      errors.type
+                        ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
+                        : "border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                     }`}
                   >
                     <option value="">انتخاب کنید</option>
@@ -441,22 +491,35 @@ export default function NewAd() {
                     ))}
                   </select>
                   {errors.type && (
-                    <p className="text-[#a9020a] text-xs mt-1 text-right">
+                    <p className="text-red-600 text-xs mt-1.5 text-right flex items-center gap-1">
+                      <svg
+                        className="w-3.5 h-3.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
                       {errors.type}
                     </p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    بانک <span className="text-[#a9020a]">*</span>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                    بانک <span className="text-red-600">*</span>
                   </label>
                   <select
                     name="bankId"
                     value={formData.bankId}
                     onChange={handleInputChange}
-                    className={`w-full bg-white px-3 py-3 border-2 rounded-lg outline-0 text-sm font-bold ${
-                      errors.bankId ? "border-[#a9020a]" : "border-gray-200"
+                    className={`w-full bg-white px-4 py-3.5 border-2 rounded-xl outline-none text-sm font-bold transition-all duration-200 ${
+                      errors.bankId
+                        ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
+                        : "border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                     }`}
                   >
                     <option value="">انتخاب بانک</option>
@@ -467,53 +530,86 @@ export default function NewAd() {
                     ))}
                   </select>
                   {errors.bankId && (
-                    <p className="text-[#a9020a] text-xs mt-1 text-right">
+                    <p className="text-red-600 text-xs mt-1.5 text-right flex items-center gap-1">
+                      <svg
+                        className="w-3.5 h-3.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
                       {errors.bankId}
                     </p>
                   )}
                 </div>
 
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    توضیحات کوتاه <span className="text-[#a9020a]">*</span>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                    توضیحات کوتاه <span className="text-red-600">*</span>
                   </label>
                   <textarea
                     name="description"
                     value={formData.description}
                     onChange={handleInputChange}
                     rows="2"
-                    className={`w-full bg-white px-3 py-3 border-2 rounded-lg outline-0 text-sm font-bold placeholder:text-right ${
+                    className={`w-full bg-white px-4 py-3.5 border-2 rounded-xl outline-none text-sm font-medium placeholder:text-right transition-all duration-200 resize-none ${
                       errors.description
-                        ? "border-[#a9020a]"
-                        : "border-gray-200"
+                        ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
+                        : "border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                     }`}
                     placeholder="توضیح مختصر درباره وام"
                   />
                   {errors.description && (
-                    <p className="text-[#a9020a] text-xs mt-1 text-right">
+                    <p className="text-red-600 text-xs mt-1.5 text-right flex items-center gap-1">
+                      <svg
+                        className="w-3.5 h-3.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
                       {errors.description}
                     </p>
                   )}
                 </div>
 
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    توضیحات کامل <span className="text-[#a9020a]">*</span>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                    توضیحات کامل <span className="text-red-600">*</span>
                   </label>
                   <textarea
                     name="fullDescription"
                     value={formData.fullDescription}
                     onChange={handleInputChange}
-                    rows="4"
-                    className={`w-full bg-white px-3 py-3 border-2 rounded-lg outline-0 text-sm font-bold placeholder:text-right ${
+                    rows="5"
+                    className={`w-full bg-white px-4 py-3.5 border-2 rounded-xl outline-none text-sm font-medium placeholder:text-right transition-all duration-200 resize-none ${
                       errors.fullDescription
-                        ? "border-[#a9020a]"
-                        : "border-gray-200"
+                        ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
+                        : "border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                     }`}
                     placeholder="شرایط کامل وام، ویژگی‌ها، مدارک مورد نیاز و..."
                   />
                   {errors.fullDescription && (
-                    <p className="text-[#a9020a] text-xs mt-1 text-right">
+                    <p className="text-red-600 text-xs mt-1.5 text-right flex items-center gap-1">
+                      <svg
+                        className="w-3.5 h-3.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
                       {errors.fullDescription}
                     </p>
                   )}
@@ -521,117 +617,179 @@ export default function NewAd() {
               </div>
             </div>
 
-            <div className="bg-gray-50 p-4 md:p-6 rounded-lg border border-blue-300">
-              <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <BanknoteIcon className="h-5 w-5" />
+            {/* Loan Details Section */}
+            <div className="bg-gradient-to-br from-orange-50 to-orange-100/50 p-5 md:p-7 rounded-xl border-2 border-orange-200 shadow-sm">
+              <h2 className="text-lg md:text-xl font-bold mb-5 flex items-center gap-2 text-gray-800">
+                <BanknoteIcon className="h-6 w-6 text-orange-600" />
                 جزئیات وام
               </h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    مدت بازپرداخت <span className="text-[#a9020a]">*</span>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                    مدت بازپرداخت <span className="text-red-600">*</span>
                   </label>
                   <input
                     type="text"
                     name="repaymentPeriod"
                     value={formData.repaymentPeriod}
                     onChange={handleInputChange}
-                    className={`w-full bg-white px-3 py-3 border-2 rounded-lg outline-0 text-sm font-bold placeholder:text-right ${
+                    className={`w-full bg-white px-4 py-3.5 border-2 rounded-xl outline-none text-sm font-medium placeholder:text-right transition-all duration-200 ${
                       errors.repaymentPeriod
-                        ? "border-[#a9020a]"
-                        : "border-gray-200"
+                        ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
+                        : "border-gray-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
                     }`}
                     placeholder="مثال: ۱۲ تا ۶۰ ماه"
                   />
                   {errors.repaymentPeriod && (
-                    <p className="text-[#a9020a] text-xs mt-1 text-right">
+                    <p className="text-red-600 text-xs mt-1.5 text-right flex items-center gap-1">
+                      <svg
+                        className="w-3.5 h-3.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
                       {errors.repaymentPeriod}
                     </p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    نرخ سود <span className="text-[#a9020a]">*</span>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                    نرخ سود <span className="text-red-600">*</span>
                   </label>
                   <input
                     type="text"
                     name="interestRate"
                     value={formData.interestRate}
                     onChange={handleInputChange}
-                    className={`w-full bg-white px-3 py-3 border-2 rounded-lg outline-0 text-sm font-bold placeholder:text-right ${
+                    className={`w-full bg-white px-4 py-3.5 border-2 rounded-xl outline-none text-sm font-medium placeholder:text-right transition-all duration-200 ${
                       errors.interestRate
-                        ? "border-[#a9020a]"
-                        : "border-gray-200"
+                        ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
+                        : "border-gray-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
                     }`}
                     placeholder="مثال: ۴٪ سالیانه"
                   />
                   {errors.interestRate && (
-                    <p className="text-[#a9020a] text-xs mt-1 text-right">
+                    <p className="text-red-600 text-xs mt-1.5 text-right flex items-center gap-1">
+                      <svg
+                        className="w-3.5 h-3.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
                       {errors.interestRate}
                     </p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    حداقل سن <span className="text-[#a9020a]">*</span>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                    حداقل سن <span className="text-red-600">*</span>
                   </label>
                   <input
                     type="number"
                     name="minAge"
                     value={formData.minAge}
                     onChange={handleInputChange}
-                    className={`w-full bg-white px-3 py-3 border-2 rounded-lg outline-0 text-sm font-bold placeholder:text-right ${
-                      errors.minAge ? "border-[#a9020a]" : "border-gray-200"
+                    className={`w-full bg-white px-4 py-3.5 border-2 rounded-xl outline-none text-sm font-medium placeholder:text-right transition-all duration-200 ${
+                      errors.minAge
+                        ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
+                        : "border-gray-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
                     }`}
                     placeholder="مثال: ۲۵"
                   />
                   {errors.minAge && (
-                    <p className="text-[#a9020a] text-xs mt-1 text-right">
+                    <p className="text-red-600 text-xs mt-1.5 text-right flex items-center gap-1">
+                      <svg
+                        className="w-3.5 h-3.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
                       {errors.minAge}
                     </p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    حداکثر سن <span className="text-[#a9020a]">*</span>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                    حداکثر سن <span className="text-red-600">*</span>
                   </label>
                   <input
                     type="number"
                     name="maxAge"
                     value={formData.maxAge}
                     onChange={handleInputChange}
-                    className={`w-full bg-white px-3 py-3 border-2 rounded-lg outline-0 text-sm font-bold placeholder:text-right ${
-                      errors.maxAge ? "border-[#a9020a]" : "border-gray-200"
+                    className={`w-full bg-white px-4 py-3.5 border-2 rounded-xl outline-none text-sm font-medium placeholder:text-right transition-all duration-200 ${
+                      errors.maxAge
+                        ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
+                        : "border-gray-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
                     }`}
                     placeholder="مثال: ۶۵"
                   />
                   {errors.maxAge && (
-                    <p className="text-[#a9020a] text-xs mt-1 text-right">
+                    <p className="text-red-600 text-xs mt-1.5 text-right flex items-center gap-1">
+                      <svg
+                        className="w-3.5 h-3.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
                       {errors.maxAge}
                     </p>
                   )}
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    مدارک مورد نیاز <span className="text-[#a9020a]">*</span>
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                    مدارک مورد نیاز <span className="text-red-600">*</span>
                   </label>
                   <input
                     type="text"
                     name="documents"
                     value={formData.documents}
                     onChange={handleInputChange}
-                    className={`w-full bg-white px-3 py-3 border-2 rounded-lg outline-0 text-sm font-bold placeholder:text-right ${
-                      errors.documents ? "border-[#a9020a]" : "border-gray-200"
+                    className={`w-full bg-white px-4 py-3.5 border-2 rounded-xl outline-none text-sm font-medium placeholder:text-right transition-all duration-200 ${
+                      errors.documents
+                        ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
+                        : "border-gray-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
                     }`}
                     placeholder="مثال: شناسنامه، فیش حقوقی"
                   />
                   {errors.documents && (
-                    <p className="text-[#a9020a] text-xs mt-1 text-right">
+                    <p className="text-red-600 text-xs mt-1.5 text-right flex items-center gap-1">
+                      <svg
+                        className="w-3.5 h-3.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
                       {errors.documents}
                     </p>
                   )}
@@ -639,23 +797,26 @@ export default function NewAd() {
               </div>
             </div>
 
-            <div className="bg-gray-50 p-4 md:p-6 rounded-lg border border-blue-300">
-              <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <MapPinIcon className="h-5 w-5" />
+            {/* Location Section */}
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 p-5 md:p-7 rounded-xl border-2 border-blue-200 shadow-sm">
+              <h2 className="text-lg md:text-xl font-bold mb-5 flex items-center gap-2 text-gray-800">
+                <MapPinIcon className="h-6 w-6 text-blue-600" />
                 موقعیت
               </h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    استان <span className="text-[#a9020a]">*</span>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                    استان <span className="text-red-600">*</span>
                   </label>
                   <select
                     name="provinceId"
                     value={formData.provinceId}
                     onChange={handleInputChange}
-                    className={`w-full bg-white px-3 py-3 border-2 rounded-lg outline-0 text-sm font-bold ${
-                      errors.provinceId ? "border-[#a9020a]" : "border-gray-200"
+                    className={`w-full bg-white px-4 py-3.5 border-2 rounded-xl outline-none text-sm font-bold transition-all duration-200 ${
+                      errors.provinceId
+                        ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
+                        : "border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                     }`}
                   >
                     <option value="">انتخاب استان</option>
@@ -666,27 +827,46 @@ export default function NewAd() {
                     ))}
                   </select>
                   {errors.provinceId && (
-                    <p className="text-[#a9020a] text-xs mt-1 text-right">
+                    <p className="text-red-600 text-xs mt-1.5 text-right flex items-center gap-1">
+                      <svg
+                        className="w-3.5 h-3.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
                       {errors.provinceId}
                     </p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    شهر <span className="text-[#a9020a]">*</span>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                    شهر <span className="text-red-600">*</span>
                   </label>
                   <select
                     name="cityId"
                     value={formData.cityId}
                     onChange={handleInputChange}
                     disabled={!formData.provinceId}
-                    className={`w-full bg-white px-3 py-3 border-2 rounded-lg outline-0 text-sm font-bold ${
-                      errors.cityId ? "border-[#a9020a]" : "border-gray-200"
-                    } ${!formData.provinceId ? "opacity-50 cursor-not-allowed" : ""}`}
+                    className={`w-full bg-white px-4 py-3.5 border-2 rounded-xl outline-none text-sm font-bold transition-all duration-200 ${
+                      errors.cityId
+                        ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
+                        : "border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                    } ${
+                      !formData.provinceId
+                        ? "opacity-50 cursor-not-allowed bg-gray-50"
+                        : ""
+                    }`}
                   >
                     <option value="">
-                      {formData.provinceId ? "انتخاب شهر" : "ابتدا استان را انتخاب کنید"}
+                      {formData.provinceId
+                        ? "انتخاب شهر"
+                        : "ابتدا استان را انتخاب کنید"}
                     </option>
                     {filteredCities.map((city) => (
                       <option key={city.id} value={city.id}>
@@ -695,28 +875,52 @@ export default function NewAd() {
                     ))}
                   </select>
                   {errors.cityId && (
-                    <p className="text-[#a9020a] text-xs mt-1 text-right">
+                    <p className="text-red-600 text-xs mt-1.5 text-right flex items-center gap-1">
+                      <svg
+                        className="w-3.5 h-3.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
                       {errors.cityId}
                     </p>
                   )}
                 </div>
 
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    آدرس کامل <span className="text-[#a9020a]">*</span>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                    آدرس کامل <span className="text-red-600">*</span>
                   </label>
                   <textarea
                     name="address"
                     value={formData.address}
                     onChange={handleInputChange}
-                    rows="2"
-                    className={`w-full bg-white px-3 py-3 border-2 rounded-lg outline-0 text-sm font-bold placeholder:text-right ${
-                      errors.address ? "border-[#a9020a]" : "border-gray-200"
+                    rows="3"
+                    className={`w-full bg-white px-4 py-3.5 border-2 rounded-xl outline-none text-sm font-medium placeholder:text-right transition-all duration-200 resize-none ${
+                      errors.address
+                        ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
+                        : "border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                     }`}
                     placeholder="آدرس دقیق شعبه بانک"
                   />
                   {errors.address && (
-                    <p className="text-[#a9020a] text-xs mt-1 text-right">
+                    <p className="text-red-600 text-xs mt-1.5 text-right flex items-center gap-1">
+                      <svg
+                        className="w-3.5 h-3.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
                       {errors.address}
                     </p>
                   )}
@@ -724,31 +928,43 @@ export default function NewAd() {
               </div>
             </div>
 
-            <div className="bg-gray-50 p-4 md:p-6 rounded-lg border border-blue-300">
-              <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <PhoneIcon className="h-5 w-5" />
+            {/* Contact Information Section */}
+            <div className="bg-gradient-to-br from-orange-50 to-orange-100/50 p-5 md:p-7 rounded-xl border-2 border-orange-200 shadow-sm">
+              <h2 className="text-lg md:text-xl font-bold mb-5 flex items-center gap-2 text-gray-800">
+                <PhoneIcon className="h-6 w-6 text-orange-600" />
                 اطلاعات تماس
               </h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    شماره تماس <span className="text-[#a9020a]">*</span>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                    شماره تماس <span className="text-red-600">*</span>
                   </label>
                   <input
                     type="tel"
                     name="contactPhone"
                     value={formData.contactPhone}
                     onChange={handleInputChange}
-                    className={`w-full bg-white px-3 py-3 border-2 rounded-lg outline-0 text-sm font-bold placeholder:text-right ${
+                    className={`w-full bg-white px-4 py-3.5 border-2 rounded-xl outline-none text-sm font-medium placeholder:text-right transition-all duration-200 ${
                       errors.contactPhone
-                        ? "border-[#a9020a]"
-                        : "border-gray-200"
+                        ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
+                        : "border-gray-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
                     }`}
                     placeholder="مثال: ۰۹۱۲۳۴۵۶۷۸۹"
                   />
                   {errors.contactPhone && (
-                    <p className="text-[#a9020a] text-xs mt-1 text-right">
+                    <p className="text-red-600 text-xs mt-1.5 text-right flex items-center gap-1">
+                      <svg
+                        className="w-3.5 h-3.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
                       {errors.contactPhone}
                     </p>
                   )}
@@ -756,30 +972,44 @@ export default function NewAd() {
               </div>
             </div>
 
+            {/* Age Range Error (if exists) */}
             {errors.ageRange && (
-              <div className="p-3 border border-[#a9020a] bg-[#fdf2f2] rounded-lg">
-                <p className="text-[#a9020a] text-sm text-right">
+              <div className="p-4 border-2 border-red-200 bg-red-50 rounded-xl shadow-sm">
+                <p className="text-red-700 text-sm text-right flex items-center gap-2">
+                  <svg
+                    className="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
                   {errors.ageRange}
                 </p>
               </div>
             )}
 
-            <div className="flex justify-end gap-4 pt-6">
+            {/* Form Action Buttons */}
+            <div className="flex justify-end gap-4 pt-6 border-t-2 border-gray-100">
               <Link
                 href="/"
-                className="px-6 py-3 border-2 border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition-all duration-300 text-sm font-medium"
+                className="px-8 py-3.5 border-2 border-gray-300 text-gray-700 font-bold rounded-xl hover:bg-gray-50 hover:border-gray-400 transition-all duration-300 text-sm shadow-sm"
               >
                 انصراف
               </Link>
               <button
                 type="submit"
-                className="cursor-pointer px-6 py-3 bg-[#0094da] text-white rounded-lg hover:bg-[#0083c0] transition-all duration-300 text-sm font-medium"
+                className="px-8 py-3.5 bg-gradient-to-l from-[#0094da] to-[#00b4ff] text-white font-bold rounded-xl hover:from-[#0083c0] hover:to-[#009de6] transition-all duration-300 text-sm shadow-md hover:shadow-lg"
               >
                 ثبت آگهی
               </button>
             </div>
           </form>
         </div>
+
         <Sidebar />
       </div>
       <Footer />
