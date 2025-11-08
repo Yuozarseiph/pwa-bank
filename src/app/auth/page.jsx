@@ -240,11 +240,11 @@ export default function Auth() {
   return (
     <main className="bg-[#0094da] w-full h-screen grid place-content-center">
       <div className="bg-white relative mx-1 min-w-[333px] md:w-[450px] h-fit rounded-xl p-5 md:p-10">
-        <div className="absolute -top-[25%] left-1/2 -translate-x-1/2 text-9xl">
+        <div className="absolute -top-[15%] left-1/2 -translate-x-1/2 text-9xl">
           <Link href="/">
             <img
               src="/icons/icon.svg"
-              className="h-40 w-40 bg-white rounded-full"
+              className="h-30 w-30 bg-white rounded-full"
               alt="auth icon"
             />
           </Link>
