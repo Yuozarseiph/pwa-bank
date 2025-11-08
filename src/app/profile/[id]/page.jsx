@@ -185,7 +185,7 @@ export default function Profile() {
               </div>
 
               {/* Ads Count */}
-              <div className="text-center border-r border-gray-300">
+              <div className="text-center border-gray-300">
                 <div className="w-16 h-16 mx-auto bg-green-500 rounded-full flex items-center justify-center mb-2">
                   <ShoppingBag className="text-white" size={32} />
                 </div>
