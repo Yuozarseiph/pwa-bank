@@ -44,12 +44,14 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="hidden sticky lg:block bg-white border border-gray-300 z-45 lg:w-[450px] lg:h-fit rounded-xl">
-      <div className="text-center pb-3">
-        <p className="flex m-2 border border-gray-400 p-2 rounded-lg text-sm gap-2 items-center font-light text-gray-500">
-          <UserIcon className="text-[#a9020a] text-sm" />
-          {user ? user.name : "نام کاربری شما"}
-        </p>
+    <div className="hidden sticky lg:block bg-white border border-blue-300 z-45 lg:w-[450px] lg:h-fit rounded-xl">
+      <div className="text-center p-3">
+        <Link href={user ? `/profile/${user.id}` : "/auth"}>
+          <p className="flex m-2 border border-blue-300 bg-blue-50 p-3 rounded-lg text-lg gap-2 items-center font-light">
+            <UserIcon className="text-[#0496da] text-lg" />
+            {user ? user.name : "نام کاربری شما"}
+          </p>
+        </Link>
       </div>
       <hr className="text-gray-300 mx-5" />
       <ul className="flex flex-row lg:flex-col justify-around items-center p-4 gap-4">
