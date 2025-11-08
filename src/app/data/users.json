@@ -4,43 +4,25 @@
       "id": 1,
       "name": "علی محمدی",
       "phone": "09123456789",
-      "email": "ali.mohammadi@example.com",
       "password": "123456",
-      "role": "user",
       "createdAt": "2024-01-15T10:30:00.000Z",
-      "profile": {
-        "avatar": "/avatars/user1.jpg",
-        "location": "تهران",
-        "bio": "توسعه‌دهنده وب"
-      }
+      "adsCount" : 2
     },
     {
       "id": 2,
       "name": "محمد رضایی",
       "phone": "09151234567",
-      "email": "mohammad.rezaei@example.com",
       "password": "111222",
-      "role": "user",
       "createdAt": "2024-01-20T09:15:00.000Z",
-      "profile": {
-        "avatar": "/avatars/user3.jpg",
-        "location": "مشهد",
-        "bio": "طراح گرافیک"
-      }
+      "adsCount" : 3
     },
     {
       "id": 3,
       "name": "حسین نجفی",
       "phone": "09158765432",
-      "email": "hossein.najafi@example.com",
       "password": "777666",
-      "role": "agent",
       "createdAt": "2024-01-18T11:30:00.000Z",
-      "profile": {
-        "avatar": "/avatars/user5.jpg",
-        "location": "تبریز",
-        "bio": "مشاور فروش"
-      }
+      "adsCount" : 8
     }
   ]
 }

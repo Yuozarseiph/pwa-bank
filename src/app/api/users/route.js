@@ -27,18 +27,14 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get('page') || '1', 10);
     const limit = parseInt(searchParams.get('limit') || '10', 10);
-    const role = searchParams.get('role');
     const search = searchParams.get('search');
 
     let users = await readUsers();
-
-    if (role) users = users.filter(u => u.role === role);
 
     if (search) {
       const q = toEnDigits(search);
       users = users.filter(u =>
         (u.name || '').includes(search) ||
-        (u.email || '').includes(search) ||
         toEnDigits(u.phone || '').includes(q)
       );
     }
@@ -64,7 +60,7 @@ export async function GET(request) {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const required = ['name', 'phone', 'email'];
+    const required = ['name', 'phone'];
     const missing = required.filter(f => !body[f]);
 
     if (missing.length) {
@@ -76,11 +72,11 @@ export async function POST(request) {
 
     const users = await readUsers();
     const phoneNorm = toEnDigits(body.phone);
-    const exists = users.find(u => toEnDigits(u.phone) === phoneNorm || (u.email || '') === body.email);
+    const exists = users.find(u => toEnDigits(u.phone) === phoneNorm);
 
     if (exists) {
       return NextResponse.json(
-        { success: false, error: 'شماره تلفن یا ایمیل قبلاً ثبت شده است' },
+        { success: false, error: 'شماره تلفن قبلاً ثبت شده است' },
         { status: 400 }
       );
     }
@@ -91,11 +87,9 @@ export async function POST(request) {
       id: nextId,
       name: body.name,
       phone: body.phone,
-      email: body.email,
-      password: body.password || '123456', // Default password
-      role: body.role || 'user',
+      password: body.password || '123456',
       createdAt: new Date().toISOString(),
-      profile: body.profile || { avatar: '/avatars/default.jpg', location: '', bio: '' },
+      adsCount: 0,
     };
 
     users.push(newUser);

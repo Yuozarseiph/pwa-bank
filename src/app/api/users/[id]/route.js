@@ -1,4 +1,5 @@
 // src/app/api/users/[id]/route.js
+
 import { NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
@@ -27,7 +28,11 @@ export async function GET(_req, { params }) {
     const numericId = Number(toEnDigits(id));
     const users = await readUsers();
     const user = users.find(u => Number(u.id) === numericId);
-    if (!user) return NextResponse.json({ success: false, error: 'کاربر یافت نشد' }, { status: 404 });
+
+    if (!user) {
+      return NextResponse.json({ success: false, error: 'کاربر یافت نشد' }, { status: 404 });
+    }
+
     return NextResponse.json({ success: true, data: user });
   } catch {
     return NextResponse.json({ success: false, error: 'خطا در خواندن users.json' }, { status: 500 });
@@ -39,28 +44,26 @@ export async function PUT(request, { params }) {
     const { id } = await params;
     const numericId = Number(toEnDigits(id));
     const body = await request.json();
-
     const users = await readUsers();
-    const idx = users.findIndex(u => Number(u.id) === numericId);
-    if (idx === -1) return NextResponse.json({ success: false, error: 'کاربر یافت نشد' }, { status: 404 });
+    const userIndex = users.findIndex(u => Number(u.id) === numericId);
 
-    // جلوگیری از تکرار ایمیل/تلفن
-    const phoneNorm = body.phone ? toEnDigits(body.phone) : null;
-    const conflict = users.find(u =>
-      Number(u.id) !== numericId &&
-      ((phoneNorm && toEnDigits(u.phone) === phoneNorm) || (body.email && u.email === body.email))
-    );
-    if (conflict) {
-      return NextResponse.json(
-        { success: false, error: 'شماره تلفن یا ایمیل قبلاً ثبت شده است' },
-        { status: 400 }
-      );
+    if (userIndex === -1) {
+      return NextResponse.json({ success: false, error: 'کاربر یافت نشد' }, { status: 404 });
     }
 
-    users[idx] = { ...users[idx], ...body, updatedAt: new Date().toISOString() };
+    // Update only allowed fields
+    const updatedUser = {
+      ...users[userIndex],
+      ...(body.name && { name: body.name }),
+      ...(body.phone && { phone: body.phone }),
+      ...(body.password && { password: body.password }),
+      ...(body.adsCount !== undefined && { adsCount: body.adsCount }),
+    };
+
+    users[userIndex] = updatedUser;
     await writeUsers(users);
 
-    return NextResponse.json({ success: true, data: users[idx], message: 'اطلاعات کاربر با موفقیت به‌روزرسانی شد' });
+    return NextResponse.json({ success: true, data: updatedUser, message: 'کاربر با موفقیت به‌روزرسانی شد' });
   } catch {
     return NextResponse.json({ success: false, error: 'خطا در به‌روزرسانی کاربر' }, { status: 500 });
   }
@@ -71,13 +74,14 @@ export async function DELETE(_req, { params }) {
     const { id } = await params;
     const numericId = Number(toEnDigits(id));
     const users = await readUsers();
-    const idx = users.findIndex(u => Number(u.id) === numericId);
-    if (idx === -1) return NextResponse.json({ success: false, error: 'کاربر یافت نشد' }, { status: 404 });
+    const filtered = users.filter(u => Number(u.id) !== numericId);
 
-    const [deleted] = users.splice(idx, 1);
-    await writeUsers(users);
+    if (filtered.length === users.length) {
+      return NextResponse.json({ success: false, error: 'کاربر یافت نشد' }, { status: 404 });
+    }
 
-    return NextResponse.json({ success: true, data: deleted, message: 'کاربر با موفقیت حذف شد' });
+    await writeUsers(filtered);
+    return NextResponse.json({ success: true, message: 'کاربر با موفقیت حذف شد' });
   } catch {
     return NextResponse.json({ success: false, error: 'خطا در حذف کاربر' }, { status: 500 });
   }
