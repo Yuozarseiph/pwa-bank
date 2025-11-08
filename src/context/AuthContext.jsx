@@ -35,7 +35,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     if (loading) return;
 
-    const publicPaths = ["/auth", "/", "/soon", "/new-ad"];
+    const publicPaths = ["/auth", "/", "/soon"];
     const isPublicPath = publicPaths.some((path) => pathname === path);
 
     // Check if trying to access profile route
