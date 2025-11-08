@@ -174,7 +174,7 @@ export default function Profile() {
             </div>
 
             {/* Stats Section */}
-            <div className="grid grid-cols-3 gap-4 mt-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg">
+            <div className="grid grid-cols-2 gap-4 mt-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg">
               {/* User ID */}
               <div className="text-center">
                 <div className="w-16 h-16 mx-auto bg-[#0094da] rounded-full flex items-center justify-center mb-2">
@@ -185,7 +185,7 @@ export default function Profile() {
               </div>
 
               {/* Ads Count */}
-              <div className="text-center border-x border-gray-300">
+              <div className="text-center border-r border-gray-300">
                 <div className="w-16 h-16 mx-auto bg-green-500 rounded-full flex items-center justify-center mb-2">
                   <ShoppingBag className="text-white" size={32} />
                 </div>
@@ -193,17 +193,6 @@ export default function Profile() {
                   {user.adsCount || 0}
                 </p>
                 <p className="text-sm text-gray-600 mt-1">تعداد آگهی‌ها</p>
-              </div>
-
-              {/* Days Since Registration */}
-              <div className="text-center">
-                <div className="w-16 h-16 mx-auto bg-purple-500 rounded-full flex items-center justify-center mb-2">
-                  <Clock className="text-white" size={32} />
-                </div>
-                <p className="text-2xl font-bold text-purple-600">
-                  {daysSinceRegistration}
-                </p>
-                <p className="text-sm text-gray-600 mt-1">روز عضویت</p>
               </div>
             </div>
           </div>
