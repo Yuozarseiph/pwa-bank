@@ -14,6 +14,7 @@ import {
   Clock,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import Loading from "@/components/Loading";
 
 export default function Profile() {
   const params = useParams();
@@ -72,9 +73,7 @@ export default function Profile() {
       <div className="flex min-h-dvh flex-col relative bg-[#f1f5f9] overflow-x-hidden lg:pt-20">
         <Navbar />
         <Header />
-        <div className="flex justify-center items-center flex-1">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0094da]"></div>
-        </div>
+        <Loading />
         <Footer />
       </div>
     );
