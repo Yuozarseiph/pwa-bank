@@ -80,6 +80,249 @@
       "type": "وام خودرو",
       "location": "اصفهان",
       "createdAt": "2024-01-17T09:15:00.000Z"
+    },
+    {
+      "id": 4,
+      "title": "وام کسب‌وکار ۲۰۰ میلیونی",
+      "bank": {
+        "name": "بلو بانک",
+        "logo": "/banks/blu-bank-low.png",
+        "rating": 4.4,
+        "verified": true,
+        "totalReviews": 980
+      },
+      "price": "۲۰۰,۰۰۰,۰۰۰",
+      "currency": "تومان",
+      "description": "ویژه کسب‌وکارهای کوچک با فرایند سریع.",
+      "fullDescription": "تسهیلات سرمایه در گردش با شرایط آسان...",
+      "contact": {
+        "phone": "۰۹۱۲۱۲۳۴۵۶",
+        "email": "sme@bluebank.ir",
+        "address": "تهران، ونک، بلو بانک"
+      },
+      "stats": {
+        "views": 543,
+        "time": "۴ ساعت پیش"
+      },
+      "type": "تسهیلات کسب‌وکار",
+      "location": "تهران",
+      "createdAt": "2024-01-18T15:45:00.000Z"
+    },
+    {
+      "id": 5,
+      "title": "وام خرید خودروی داخلی ۱۵۰ میلیونی",
+      "bank": {
+        "name": "بانک سامان",
+        "logo": "/banks/bank-saman-low.png",
+        "rating": 4.7,
+        "verified": true,
+        "totalReviews": 2156
+      },
+      "price": "۱۵۰,۰۰۰,۰۰۰",
+      "currency": "تومان",
+      "description": "وام خرید خودروی داخلی با شرایط ویژه",
+      "fullDescription": "وام خرید خودروی داخلی با امتیاز بالا، خرید وام به صورت نقدی میباشد...",
+      "contact": {
+        "phone": "۰۹۱۴۵۰۵۶۱۰۲",
+        "email": "car@saman-bank.ir",
+        "address": "اردکان، خیابان صدر آباد، کوچه ۱۵، پلاک ۵۲/۱"
+      },
+      "stats": {
+        "views": 678,
+        "time": "۵ ساعت پیش"
+      },
+      "type": "وام خودرو",
+      "location": "یزد",
+      "createdAt": "2024-01-19T11:30:00.000Z"
+    },
+    {
+      "id": 6,
+      "title": "وام ضروری ۱۰۰ میلیون تومانی",
+      "bank": {
+        "name": "بانک صادرات",
+        "logo": "/banks/saderat-low.png",
+        "rating": 4.3,
+        "verified": true,
+        "totalReviews": 1678
+      },
+      "price": "۱۰۰,۰۰۰,۰۰۰",
+      "currency": "تومان",
+      "description": "وام ضروری برای نیازهای فوری با پرداخت سریع.",
+      "fullDescription": "وام ضروری برای پاسخگویی به نیازهای مالی فوری شما...",
+      "contact": {
+        "phone": "۰۹۱۲۵۵۵۴۴۴۳",
+        "email": "urgent@bsi.ir",
+        "address": "شیراز، خیابان زند، بانک صادرات"
+      },
+      "stats": {
+        "views": 1823,
+        "time": "۱ روز پیش"
+      },
+      "type": "وام ضروری",
+      "location": "فارس",
+      "createdAt": "2024-01-20T08:00:00.000Z"
+    },
+    {
+      "id": 7,
+      "title": "وام قرض‌الحسنه ازدواج ۲۵۰ میلیونی",
+      "bank": {
+        "name": "بانک ملی",
+        "logo": "/banks/melli-low.png",
+        "rating": 4.6,
+        "verified": true,
+        "totalReviews": 1923
+      },
+      "price": "۲۵۰,۰۰۰,۰۰۰",
+      "currency": "تومان",
+      "description": "وام ازدواج بدون بهره برای زوج‌های جوان.",
+      "fullDescription": "وام قرض‌الحسنه ازدواج با شرایط بسیار ویژه برای زوج‌های جوان...",
+      "contact": {
+        "phone": "۰۹۱۲۹۹۹۸۸۸۷",
+        "email": "marriage@bmi.ir",
+        "address": "تبریز، میدان ساعت، بانک ملی"
+      },
+      "stats": {
+        "views": 3421,
+        "time": "۲ روز پیش"
+      },
+      "type": "قرض الحسنه",
+      "location": "آذربایجان شرقی",
+      "createdAt": "2024-01-21T12:15:00.000Z"
+    },
+    {
+      "id": 8,
+      "title": "وام تحصیلی ۸۰ میلیونی",
+      "bank": {
+        "name": "بانک رفاه",
+        "logo": "/banks/bank-refah-low.png",
+        "rating": 4.2,
+        "verified": true,
+        "totalReviews": 892
+      },
+      "price": "۸۰,۰۰۰,۰۰۰",
+      "currency": "تومان",
+      "description": "وام تحصیلی برای دانشجویان دانشگاه‌های دولتی و آزاد.",
+      "fullDescription": "وام تحصیلی با شرایط ویژه برای دانشجویان...",
+      "contact": {
+        "phone": "۰۹۱۲۶۶۶۵۵۵۴",
+        "email": "student@refah-bank.ir",
+        "address": "کرج، میدان آزادی، بانک رفاه"
+      },
+      "stats": {
+        "views": 1567,
+        "time": "۳ روز پیش"
+      },
+      "type": "وام تحصیلی",
+      "location": "البرز",
+      "createdAt": "2024-01-22T10:00:00.000Z"
+    },
+    {
+      "id": 9,
+      "title": "وام مسکن ۶۰۰ میلیونی",
+      "bank": {
+        "name": "بانک ملت",
+        "logo": "/banks/mellat-low.png",
+        "rating": 4.5,
+        "verified": true,
+        "totalReviews": 1456
+      },
+      "price": "۶۰۰,۰۰۰,۰۰۰",
+      "currency": "تومان",
+      "description": "وام مسکن با سقف بالا برای خرید واحدهای بزرگ.",
+      "fullDescription": "وام مسکن با سقف ۶۰۰ میلیون تومان برای خانواده‌های بزرگ...",
+      "contact": {
+        "phone": "۰۹۱۲۳۳۳۲۲۲۱",
+        "email": "bighousing@bankmellat.ir",
+        "address": "کرمان، میدان آزادی، بانک ملت"
+      },
+      "stats": {
+        "views": 2890,
+        "time": "۱ هفته پیش"
+      },
+      "type": "وام مسکن",
+      "location": "کرمان",
+      "createdAt": "2024-01-10T14:30:00.000Z"
+    },
+    {
+      "id": 10,
+      "title": "وام خودروی صفر ۳۵۰ میلیونی",
+      "bank": {
+        "name": "بانک ایران زمین",
+        "logo": "/banks/iran-zamin-low.png",
+        "rating": 4.1,
+        "verified": true,
+        "totalReviews": 745
+      },
+      "price": "۳۵۰,۰۰۰,۰۰۰",
+      "currency": "تومان",
+      "description": "وام خرید خودروی صفر با شرایط پرداخت آسان.",
+      "fullDescription": "وام خرید خودروی صفر کیلومتر با اقساط بلندمدت...",
+      "contact": {
+        "phone": "۰۹۱۲۴۴۴۳۳۳۲",
+        "email": "newcar@izbank.ir",
+        "address": "اهواز، خیابان کیانپارس، بانک ایران زمین"
+      },
+      "stats": {
+        "views": 1234,
+        "time": "۲ هفته پیش"
+      },
+      "type": "وام خودرو",
+      "location": "خوزستان",
+      "createdAt": "2024-01-05T09:45:00.000Z"
+    },
+    {
+      "id": 11,
+      "title": "وام رهن ملک ۷۰۰ میلیونی",
+      "bank": {
+        "name": "بانک سپه",
+        "logo": "/banks/sepah-low.png",
+        "rating": 4.8,
+        "verified": true,
+        "totalReviews": 2847
+      },
+      "price": "۷۰۰,۰۰۰,۰۰۰",
+      "currency": "تومان",
+      "description": "وام با رهن ملک تا سقف ۷۰۰ میلیون تومان.",
+      "fullDescription": "وام بزرگ با رهن گذاشتن ملک مسکونی یا تجاری...",
+      "contact": {
+        "phone": "۰۹۱۲۷۷۷۸۸۸۹",
+        "email": "mortgage@bsi.ir",
+        "address": "رشت، میدان شهرداری، بانک سپه"
+      },
+      "stats": {
+        "views": 987,
+        "time": "۳ هفته پیش"
+      },
+      "type": "وام رهنی",
+      "location": "گیلان",
+      "createdAt": "2024-01-01T16:20:00.000Z"
+    },
+    {
+      "id": 12,
+      "title": "وام نوسازی مسکن ۲۰۰ میلیونی",
+      "bank": {
+        "name": "بانک مهر ایران",
+        "logo": "/banks/Bank-Mehr-Iran-low.png",
+        "rating": 4.0,
+        "verified": true,
+        "totalReviews": 623
+      },
+      "price": "۲۰۰,۰۰۰,۰۰۰",
+      "currency": "تومان",
+      "description": "وام برای تعمیر و بازسازی مسکن.",
+      "fullDescription": "وام نوسازی برای بهسازی و مقاوم‌سازی ساختمان...",
+      "contact": {
+        "phone": "۰۹۱۲۱۱۱۲۲۲۳",
+        "email": "renovation@mehriranbank.ir",
+        "address": "قم، خیابان معلم، بانک مهر ایران"
+      },
+      "stats": {
+        "views": 756,
+        "time": "۱ ماه پیش"
+      },
+      "type": "وام نوسازی",
+      "location": "قم",
+      "createdAt": "2023-12-20T13:10:00.000Z"
     }
   ]
 }

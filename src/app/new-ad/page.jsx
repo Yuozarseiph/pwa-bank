@@ -18,6 +18,9 @@ export default function NewAd() {
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState({});
   const [showErrorBox, setShowErrorBox] = useState(false);
+  const [provinces, setProvinces] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [filteredCities, setFilteredCities] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -27,10 +30,10 @@ export default function NewAd() {
     type: "",
     bankId: "",
     bankName: "",
-    location: "",
+    provinceId: "",
+    cityId: "",
     address: "",
     contactPhone: "",
-    contactEmail: "",
     loanType: "",
     repaymentPeriod: "",
     interestRate: "",
@@ -45,6 +48,44 @@ export default function NewAd() {
     }, 300);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    fetchProvinces();
+    fetchCities();
+  }, []);
+
+  const fetchProvinces = async () => {
+    try {
+      const response = await fetch("https://iranplacesapi.liara.run/api/provinces");
+      const data = await response.json();
+      setProvinces(data);
+    } catch (error) {
+      console.error("خطا در دریافت لیست استان‌ها:", error);
+    }
+  };
+
+  const fetchCities = async () => {
+    try {
+      const response = await fetch("https://iranplacesapi.liara.run/api/cities");
+      const data = await response.json();
+      setCities(data);
+    } catch (error) {
+      console.error("خطا در دریافت لیست شهرها:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (formData.provinceId && cities.length > 0) {
+      const filtered = cities.filter(city => city.province_id == formData.provinceId);
+      setFilteredCities(filtered);
+      // اگر شهر انتخاب شده متعلق به استان فعلی نیست، آن را پاک کن
+      if (formData.cityId && !filtered.some(city => city.id == formData.cityId)) {
+        setFormData(prev => ({ ...prev, cityId: "" }));
+      }
+    } else {
+      setFilteredCities([]);
+    }
+  }, [formData.provinceId, cities]);
 
   const formatNumber = (value) => {
     const numericValue = value.replace(/\D/g, "");
@@ -81,12 +122,11 @@ export default function NewAd() {
       newErrors.description = "توضیحات کوتاه الزامی است";
     if (!formData.fullDescription.trim())
       newErrors.fullDescription = "توضیحات کامل الزامی است";
-    if (!formData.location.trim()) newErrors.location = "استان/شهر الزامی است";
+    if (!formData.provinceId) newErrors.provinceId = "انتخاب استان الزامی است";
+    if (!formData.cityId) newErrors.cityId = "انتخاب شهر الزامی است";
     if (!formData.address.trim()) newErrors.address = "آدرس کامل الزامی است";
     if (!formData.contactPhone.trim())
       newErrors.contactPhone = "شماره تماس الزامی است";
-    if (!formData.contactEmail.trim())
-      newErrors.contactEmail = "ایمیل الزامی است";
     if (!formData.repaymentPeriod.trim())
       newErrors.repaymentPeriod = "مدت بازپرداخت الزامی است";
     if (!formData.interestRate.trim())
@@ -101,13 +141,6 @@ export default function NewAd() {
       !/^09\d{9}$/.test(formData.contactPhone.replace(/\D/g, ""))
     ) {
       newErrors.contactPhone = "شماره تماس معتبر نیست";
-    }
-
-    if (
-      formData.contactEmail &&
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.contactEmail)
-    ) {
-      newErrors.contactEmail = "ایمیل معتبر نیست";
     }
 
     if (formData.minAge && formData.maxAge) {
@@ -163,43 +196,61 @@ export default function NewAd() {
     }
   };
 
+  const getLocationName = () => {
+    const province = provinces.find(p => p.id == formData.provinceId);
+    const city = cities.find(c => c.id == formData.cityId);
+    
+    if (province && city) {
+      return `${province.name}، ${city.name}`;
+    } else if (province) {
+      return province.name;
+    }
+    return "";
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
       try {
         setLoading(true);
-        
-        // ارسال داده به API
-        const response = await fetch('/api/ads', {
-          method: 'POST',
+
+        const response = await fetch("/api/ads", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             title: formData.title,
             description: formData.description,
             fullDescription: formData.fullDescription,
-            price: formData.price.replace(/,/g, ''),
+            price: formData.price.replace(/,/g, ""),
             currency: formData.currency,
             type: formData.type,
             bank: {
-              name: banks.find(bank => bank.id == formData.bankId)?.name || "",
-              logo: "/banks/default-bank.png"
+              name:
+                banks.find((bank) => bank.id == formData.bankId)?.name || "",
+              logo: "/banks/default-bank.png",
             },
             contact: {
               phone: formData.contactPhone,
-              email: formData.contactEmail,
-              address: formData.address
+              address: formData.address,
             },
             details: [
               { label: "نوع وام", value: formData.type },
-              { label: "مبلغ", value: formData.price + " " + formData.currency },
+              {
+                label: "مبلغ",
+                value: formData.price + " " + formData.currency,
+              },
               { label: "مدت بازپرداخت", value: formData.repaymentPeriod },
               { label: "نرخ سود", value: formData.interestRate },
-              { label: "محدوده سنی", value: `${formData.minAge} تا ${formData.maxAge} سال` },
-              { label: "مدارک", value: formData.documents }
+              {
+                label: "محدوده سنی",
+                value: `${formData.minAge} تا ${formData.maxAge} سال`,
+              },
+              { label: "مدارک", value: formData.documents },
             ],
-            location: formData.location
+            location: getLocationName(),
+            safetyTips: ["از قیمت بازار مطلع شوید", "قرارداد را حتما بخوانید"],
           }),
         });
 
@@ -209,8 +260,6 @@ export default function NewAd() {
           console.log("آگهی با موفقیت ثبت شد:", result.data);
           alert("آگهی با موفقیت ثبت شد!");
           setShowErrorBox(false);
-          
-          // ریست فرم
           setFormData({
             title: "",
             description: "",
@@ -220,10 +269,10 @@ export default function NewAd() {
             type: "",
             bankId: "",
             bankName: "",
-            location: "",
+            provinceId: "",
+            cityId: "",
             address: "",
             contactPhone: "",
-            contactEmail: "",
             loanType: "",
             repaymentPeriod: "",
             interestRate: "",
@@ -254,9 +303,12 @@ export default function NewAd() {
     { id: 1, name: "بانک سپه" },
     { id: 2, name: "بانک ملی" },
     { id: 3, name: "بانک ملت" },
-    { id: 4, name: "بانک صادرات" },
-    { id: 5, name: "بانک تجارت" },
-    { id: 6, name: "بانک رفاه" },
+    { id: 4, name: "بانک ایران زمین" },
+    { id: 5, name: "بانک صادرات" },
+    { id: 6, name: "بلو بانک" },
+    { id: 7, name: "بانک رفاه" },
+    { id: 8, name: "بانک مهر ایران" },
+    { id: 9, name: "بانک سامان"}
   ];
 
   const loanTypes = [
@@ -316,7 +368,6 @@ export default function NewAd() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* بقیه کد فرم بدون تغییر */}
             <div className="bg-gray-50 p-4 md:p-6 rounded-lg border border-blue-300">
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <FileTextIcon className="h-5 w-5" />
@@ -347,7 +398,7 @@ export default function NewAd() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    مبلغ وام <span className="text-[#a9020a]">*</span>
+                    مبلغ وام (تومان) <span className="text-[#a9020a]">*</span>
                   </label>
                   <input
                     type="text"
@@ -370,7 +421,6 @@ export default function NewAd() {
                   </p>
                 </div>
 
-                {/* بقیه فیلدهای فرم */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     نوع وام <span className="text-[#a9020a]">*</span>
@@ -471,7 +521,6 @@ export default function NewAd() {
               </div>
             </div>
 
-            {/* بخش‌های دیگر فرم */}
             <div className="bg-gray-50 p-4 md:p-6 rounded-lg border border-blue-300">
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <BanknoteIcon className="h-5 w-5" />
@@ -599,21 +648,55 @@ export default function NewAd() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    استان/شهر <span className="text-[#a9020a]">*</span>
+                    استان <span className="text-[#a9020a]">*</span>
                   </label>
-                  <input
-                    type="text"
-                    name="location"
-                    value={formData.location}
+                  <select
+                    name="provinceId"
+                    value={formData.provinceId}
                     onChange={handleInputChange}
-                    className={`w-full bg-white px-3 py-3 border-2 rounded-lg outline-0 text-sm font-bold placeholder:text-right ${
-                      errors.location ? "border-[#a9020a]" : "border-gray-200"
+                    className={`w-full bg-white px-3 py-3 border-2 rounded-lg outline-0 text-sm font-bold ${
+                      errors.provinceId ? "border-[#a9020a]" : "border-gray-200"
                     }`}
-                    placeholder="مثال: خراسان رضوی"
-                  />
-                  {errors.location && (
+                  >
+                    <option value="">انتخاب استان</option>
+                    {provinces.map((province) => (
+                      <option key={province.id} value={province.id}>
+                        {province.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.provinceId && (
                     <p className="text-[#a9020a] text-xs mt-1 text-right">
-                      {errors.location}
+                      {errors.provinceId}
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    شهر <span className="text-[#a9020a]">*</span>
+                  </label>
+                  <select
+                    name="cityId"
+                    value={formData.cityId}
+                    onChange={handleInputChange}
+                    disabled={!formData.provinceId}
+                    className={`w-full bg-white px-3 py-3 border-2 rounded-lg outline-0 text-sm font-bold ${
+                      errors.cityId ? "border-[#a9020a]" : "border-gray-200"
+                    } ${!formData.provinceId ? "opacity-50 cursor-not-allowed" : ""}`}
+                  >
+                    <option value="">
+                      {formData.provinceId ? "انتخاب شهر" : "ابتدا استان را انتخاب کنید"}
+                    </option>
+                    {filteredCities.map((city) => (
+                      <option key={city.id} value={city.id}>
+                        {city.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.cityId && (
+                    <p className="text-[#a9020a] text-xs mt-1 text-right">
+                      {errors.cityId}
                     </p>
                   )}
                 </div>
@@ -667,30 +750,6 @@ export default function NewAd() {
                   {errors.contactPhone && (
                     <p className="text-[#a9020a] text-xs mt-1 text-right">
                       {errors.contactPhone}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    ایمیل <span className="text-[#a9020a]">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    name="contactEmail"
-                    value={formData.contactEmail}
-                    onChange={handleInputChange}
-                    dir="ltr"
-                    className={`w-full bg-white px-3 py-3 border-2 rounded-lg outline-0 text-sm font-bold placeholder:text-right ${
-                      errors.contactEmail
-                        ? "border-[#a9020a]"
-                        : "border-gray-200"
-                    }`}
-                    placeholder="مثال: email@example.com"
-                  />
-                  {errors.contactEmail && (
-                    <p className="text-[#a9020a] text-xs mt-1 text-right">
-                      {errors.contactEmail}
                     </p>
                   )}
                 </div>

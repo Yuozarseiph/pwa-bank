@@ -1,20 +1,8 @@
 "use client";
-import { Clock, MapPin } from "lucide-react";
+
+import { CalendarIcon, MapPinIcon } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-
-// مپ کردن نام بانک‌ها به لوگوی آنها
-const bankLogoMap = {
-  "بانک سپه": "/banks/sepah-low.png",
-  "بانک ملی": "/banks/melli-low.png",
-  "بانک ملت": "/banks/mellat-low.png",
-  "بانک ایران زمین": "/banks/iran-zamin-low.png",
-  "بانک صادرات": "/banks/saderat-low.png",
-  "بلو بانک": "/banks/blu-bank-low.png",
-  "بانک رفاه": "/banks/bank-refah-low.png",
-  "بانک مهر ایران": "/banks/Bank-Mehr-Iran-low.png",
-  "بانک سامان": "/banks/bank-saman-low.png",
-};
 
 export default function AdsSection() {
   const [ads, setAds] = useState([]);
@@ -24,15 +12,127 @@ export default function AdsSection() {
     fetchAds();
   }, []);
 
-  const fetchAds = async () => {
+  // Helper function to extract percent and repayment period from details
+  const extractDetailsFromAd = async (adId) => {
     try {
-      const response = await fetch("/api/ads?limit=3");
+      const response = await fetch(`/api/ads/${adId}`);
       const result = await response.json();
 
-      if (result.success) {
-        setAds(result.data);
+      let percent = 4;
+      let repaymentPeriod = "نامشخص";
+
+      if (result.success && result.data && result.data.details) {
+        // Extract interest rate
+        const interestDetail = result.data.details.find(
+          (d) => d.label === "نرخ سود" || d.label === "کارمزد"
+        );
+
+        if (interestDetail && interestDetail.value) {
+          const match = interestDetail.value.match(/(\d+|[۰-۹]+)/);
+          if (match) {
+            const persianToEnglish = match[0]
+              .replace(/۰/g, "0")
+              .replace(/۱/g, "1")
+              .replace(/۲/g, "2")
+              .replace(/۳/g, "3")
+              .replace(/۴/g, "4")
+              .replace(/۵/g, "5")
+              .replace(/۶/g, "6")
+              .replace(/۷/g, "7")
+              .replace(/۸/g, "8")
+              .replace(/۹/g, "9");
+            percent = parseInt(persianToEnglish);
+          }
+        }
+
+        // Extract repayment period
+        const repaymentDetail = result.data.details.find(
+          (d) => d.label === "مدت بازپرداخت"
+        );
+
+        if (repaymentDetail && repaymentDetail.value) {
+          repaymentPeriod = repaymentDetail.value;
+        }
+      }
+
+      return { percent, repaymentPeriod };
+    } catch (error) {
+      console.error("خطا در دریافت جزئیات:", error);
+      return { percent: 4, repaymentPeriod: "نامشخص" };
+    }
+  };
+
+  // Helper function to parse price to number
+  const parsePriceToNumber = (priceStr) => {
+    if (typeof priceStr === "number") return priceStr;
+    if (typeof priceStr !== "string") return 0;
+
+    const cleaned = priceStr
+      .replace(/,/g, "")
+      .replace(/۰/g, "0")
+      .replace(/۱/g, "1")
+      .replace(/۲/g, "2")
+      .replace(/۳/g, "3")
+      .replace(/۴/g, "4")
+      .replace(/۵/g, "5")
+      .replace(/۶/g, "6")
+      .replace(/۷/g, "7")
+      .replace(/۸/g, "8")
+      .replace(/۹/g, "9");
+
+    const num = parseInt(cleaned);
+    return isNaN(num) ? 0 : num;
+  };
+
+  // Format date to Persian
+  const formatDate = (dateString) => {
+    if (!dateString) return "نامشخص";
+
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffInHours = Math.floor((now - date) / (1000 * 60 * 60));
+
+    if (diffInHours < 1) return "لحظاتی پیش";
+    if (diffInHours < 24) return `${diffInHours} ساعت پیش`;
+
+    const diffInDays = Math.floor(diffInHours / 24);
+    if (diffInDays === 1) return "دیروز";
+    if (diffInDays < 7) return `${diffInDays} روز پیش`;
+    if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} هفته پیش`;
+
+    return date.toLocaleDateString("fa-IR");
+  };
+
+  const fetchAds = async () => {
+    try {
+      const response = await fetch("/api/ads");
+      const result = await response.json();
+
+      if (result.success && Array.isArray(result.data)) {
+        // Process ads and fetch percent for each
+        const adsWithDetails = await Promise.all(
+          result.data.map(async (ad) => {
+            const { percent, repaymentPeriod } = await extractDetailsFromAd(
+              ad.id
+            );
+            return {
+              id: ad.id,
+              title: ad.title,
+              description: ad.description,
+              price: parsePriceToNumber(ad.price),
+              percent: percent,
+              repaymentPeriod: repaymentPeriod,
+              bank: ad.bank,
+              type: ad.type,
+              location: ad.location,
+              createdAt: ad.createdAt,
+            };
+          })
+        );
+
+        setAds(adsWithDetails);
       } else {
-        console.error("خطا در دریافت آگهی‌ها:", result.error);
+        console.error("خطا در دریافت آگهیها:", result.error);
       }
     } catch (error) {
       console.error("خطا در ارتباط با سرور:", error);
@@ -41,90 +141,113 @@ export default function AdsSection() {
     }
   };
 
-  // تابع برای گرفتن لوگوی بانک بر اساس نام
-  const getBankLogo = (bankName) => {
-    return bankLogoMap[bankName] || "/banks/default-bank.png";
-  };
-
   if (loading) {
     return (
-      <div className="mt-8">
-        <h2 className="mt-5 text-xl font-bold flex items-center gap-2">
-          <span className="h-2 w-2 bg-[#0094da] rounded-full inline-block"></span>
-          آگهی های فروش
-        </h2>
-        <div className="flex flex-col gap-4 mt-5">
-          {[1, 2, 3].map((item) => (
-            <div
-              key={item}
-              className="bg-white rounded-xl border border-gray-200 p-4 animate-pulse"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-gray-200 rounded-lg"></div>
-                <div className="flex-1">
-                  <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-                  <div className="h-3 bg-gray-200 rounded w-full mb-2"></div>
-                  <div className="h-3 bg-gray-200 rounded w-1/2"></div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+      <div className="text-center py-12">
+        <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        <p className="mt-4 text-slate-600">در حال بارگذاری آگهی‌ها...</p>
       </div>
     );
   }
 
   return (
-    <div className="mt-8">
-      <h2 className="mt-5 text-xl font-bold flex items-center gap-2">
-        <span className="h-2 w-2 bg-[#0094da] rounded-full inline-block"></span>
-        آگهی های فروش
-      </h2>
-      <div className="flex flex-col gap-4 mt-5">
-        {ads.map((ad) => {
-          const bankLogo = ad.bank?.logo || getBankLogo(ad.bank?.name);
+    <div className="space-y-3">
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-slate-800">جدیدترین آگهی‌ها</h2>
+        <span className="text-sm text-slate-600 bg-slate-100 px-4 py-2 rounded-full">
+          {ads.length} آگهی
+        </span>
+      </div>
 
-          return (
-            <Link href={`/ads/${ad.id}`} key={ad.id}>
-              <div className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-md transition-all duration-300 cursor-pointer">
-                <div className="flex items-center gap-3">
-                  <div className="flex shrink-0">
-                    <img
-                      src={bankLogo}
-                      alt={ad.bank?.name || "بانک"}
-                      className="w-12 h-12 rounded-lg object-contain bg-gray-50 p-1"
-                    />
-                  </div>
+      {ads.length > 0 ? (
+        ads.map((ad) => (
+          <div
+            key={ad.id}
+            className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all overflow-hidden"
+          >
+            {/* Main Row */}
+            <div className="grid grid-cols-12 gap-4 items-center p-4">
+              {/* Bank Logo */}
+              <div className="col-span-2 md:col-span-1 flex justify-center">
+                <img
+                  src={ad.bank?.logo || "/banks/default-bank.png"}
+                  alt={ad.bank?.name}
+                  className="w-12 h-12 md:w-14 md:h-14 object-contain"
+                />
+              </div>
 
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between mb-2">
-                      <h4 className="text-sm font-bold text-gray-800 line-clamp-1">
-                        {ad.title}
-                      </h4>
-                      <span className="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded-md whitespace-nowrap mr-2">
-                        {ad.type || "وام بانکی"}
-                      </span>
-                    </div>
-                    <p className="text-xs text-gray-600 mb-3 line-clamp-2">
-                      {ad.description}
-                    </p>
-                    <div className="flex items-center gap-4 text-xs text-gray-500">
-                      <div className="flex items-center gap-1">
-                        <Clock className="h-3 w-3" />
-                        <span>{ad.stats?.time || "همین الان"}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <MapPin className="h-3 w-3" />
-                        <span>{ad.location || ad.bank?.name || "تهران"}</span>
-                      </div>
-                    </div>
-                  </div>
+              {/* Percent */}
+              <div className="col-span-2 md:col-span-1 text-center">
+                <p className="text-xs text-slate-500 mb-1">درصد</p>
+                <div className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-bold inline-block">
+                  {ad.percent}%
                 </div>
               </div>
-            </Link>
-          );
-        })}
-      </div>
+
+              {/* Loan Type */}
+              <div className="col-span-3 md:col-span-2">
+                <p className="text-xs text-slate-500 mb-1">نوع وام</p>
+                <p className="text-slate-700 font-semibold text-sm md:text-base truncate">
+                  {ad.type}
+                </p>
+              </div>
+
+              {/* Repayment Period */}
+              <div className="col-span-3 md:col-span-2 text-center">
+                <p className="text-xs text-slate-500 mb-1">ماه اقساط</p>
+                <p className="text-slate-600 text-sm font-medium">
+                  {ad.repaymentPeriod}
+                </p>
+              </div>
+
+              {/* Price */}
+              <div className="col-span-4 md:col-span-3">
+                <p className="text-xs text-slate-500 mb-1">مبلغ وام</p>
+                <p className="text-blue-600 font-bold text-sm md:text-base">
+                  {ad.price.toLocaleString()} تومان
+                </p>
+              </div>
+
+              {/* Location */}
+              <div className="col-span-3 md:col-span-2">
+                <p className="text-xs text-slate-500 mb-1">شهر</p>
+                <div className="flex items-center gap-1 text-slate-600 text-sm">
+                  <MapPinIcon className="w-4 h-4" />
+                  <span className="truncate">{ad.location}</span>
+                </div>
+              </div>
+
+              {/* Details Button */}
+              <div className="col-span-3 md:col-span-1 flex justify-end">
+                <Link
+                  href={`/ads/${ad.id}`}
+                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                >
+                  جزئیات
+                </Link>
+              </div>
+            </div>
+
+            {/* Date Row */}
+            <div className="bg-slate-50 px-4 py-2 border-t border-slate-200">
+              <div className="flex items-center gap-2 text-slate-500 text-xs">
+                <CalendarIcon className="w-4 h-4" />
+                <span>تاریخ آگهی: {formatDate(ad.createdAt)}</span>
+              </div>
+            </div>
+          </div>
+        ))
+      ) : (
+        <div className="bg-white rounded-2xl p-12 text-center shadow-lg">
+          <div className="text-6xl mb-4">📭</div>
+          <h3 className="text-xl font-bold text-slate-800 mb-2">
+            هیچ آگهی‌ای موجود نیست
+          </h3>
+          <p className="text-slate-600">
+            در حال حاضر آگهی ثبت شده‌ای وجود ندارد
+          </p>
+        </div>
+      )}
     </div>
   );
 }

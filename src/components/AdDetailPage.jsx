@@ -32,7 +32,6 @@ const LoanType = function () {
   return <img className="p-2" src="/icons/loan-type.svg" alt="icon" />;
 };
 
-// تابع برای گرفتن آیکون بر اساس نوع فیلد
 const getDetailIcon = (label) => {
   switch (label) {
     case "نوع وام":
@@ -251,7 +250,6 @@ const AdDetailPage = ({ adId }) => {
               </div>
             </div>
 
-            {/* بخش جزئیات وام */}
             <div className="bg-white rounded-2xl p-6 border border-gray-100">
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
@@ -285,7 +283,6 @@ const AdDetailPage = ({ adId }) => {
               </div>
             </div>
 
-            {/* بخش توضیحات کامل */}
             <div className="bg-white rounded-3xl shadow-xl p-8 border-2 border-gray-100">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 rounded-xl bg-[#0094da] flex items-center justify-center">
@@ -301,7 +298,6 @@ const AdDetailPage = ({ adId }) => {
             </div>
           </div>
 
-          {/* سایدبار */}
           <div className="lg:col-span-4">
             <div className="hidden lg:block bg-linear-to-br from-white to-gray-50 rounded-3xl shadow-2xl p-6 border-2 border-gray-100 mb-4">
               <div className="flex items-center gap-3 mb-6">
@@ -355,7 +351,6 @@ const AdDetailPage = ({ adId }) => {
               </div>
             </div>
 
-            {/* بخش هشدار امنیتی */}
             <div className="bg-white rounded-3xl shadow-xl p-6 border-2 border-[#a9020a]/30">
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-10 h-10 rounded-xl bg-[#a9020a] flex items-center justify-center">
