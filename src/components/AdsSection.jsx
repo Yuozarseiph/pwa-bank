@@ -102,6 +102,27 @@ export default function AdsSection() {
 
     return date.toLocaleDateString("fa-IR");
   };
+  const formatPriceWithLabel = (price) => {
+    if (!price || price === 0) return "رایگان";
+
+    const numPrice =
+      typeof price === "string" ? parsePriceToNumber(price) : price;
+
+    if (numPrice >= 1000000000) {
+      const billions = (numPrice / 1000000000).toFixed(1);
+      const formattedBillions = billions.endsWith(".0")
+        ? billions.slice(0, -2)
+        : billions;
+      return `${formattedBillions.replace(".", "/")} میلیارد تومان`;
+    }
+
+    if (numPrice >= 1000000) {
+      const millions = (numPrice / 1000000).toFixed(0);
+      return `${millions} میلیون تومان`;
+    }
+
+    return `${numPrice.toLocaleString()} تومان`;
+  };
 
   const fetchAds = async () => {
     try {
@@ -204,7 +225,7 @@ export default function AdsSection() {
               <div className="col-span-4 md:col-span-3">
                 <p className="text-xs text-slate-500 mb-1">مبلغ وام</p>
                 <p className="text-blue-600 font-bold text-sm md:text-base">
-                  {ad.price.toLocaleString()} تومان
+                  {formatPriceWithLabel(ad.price)}
                 </p>
               </div>
 

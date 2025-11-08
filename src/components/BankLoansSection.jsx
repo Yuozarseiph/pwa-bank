@@ -70,8 +70,28 @@ const BankLoansSection = ({ bankSlug }) => {
     const num = parseInt(cleaned);
     return isNaN(num) ? 0 : num;
   };
+  const formatPriceWithLabel = (price) => {
+    if (!price || price === 0) return "رایگان";
 
-  // Helper function to extract percent and repayment period from details
+    const numPrice =
+      typeof price === "string" ? parsePriceToNumber(price) : price;
+
+    if (numPrice >= 1000000000) {
+      const billions = (numPrice / 1000000000).toFixed(1);
+      const formattedBillions = billions.endsWith(".0")
+        ? billions.slice(0, -2)
+        : billions;
+      return `${formattedBillions.replace(".", "/")} میلیارد تومان`;
+    }
+
+    if (numPrice >= 1000000) {
+      const millions = (numPrice / 1000000).toFixed(0);
+      return `${millions} میلیون تومان`;
+    }
+
+    return `${numPrice.toLocaleString()} تومان`;
+  };
+
   const extractDetailsFromAd = async (adId) => {
     try {
       const response = await fetch(`/api/ads/${adId}`);
@@ -426,8 +446,8 @@ const BankLoansSection = ({ bankSlug }) => {
                       {/* Price */}
                       <div className="col-span-4 md:col-span-3">
                         <p className="text-xs text-slate-500 mb-1">مبلغ وام</p>
-                        <p className="text-blue-600 font-bold text-sm md:text-base">
-                          {loan.price.toLocaleString()} تومان
+                        <p className="font-bold text-blue-600 text-sm truncate">
+                          {formatPriceWithLabel(loan.price)}
                         </p>
                       </div>
 
