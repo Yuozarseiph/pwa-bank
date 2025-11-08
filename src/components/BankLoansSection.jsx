@@ -414,7 +414,7 @@ const BankLoansSection = ({ bankSlug }) => {
                     key={loan.id}
                     className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all overflow-hidden"
                   >
-                    <Link  href={`/ads/${loan.id}`}>
+                    <Link href={`/ads/${loan.id}`}>
                       {/* Main Row */}
                       <div className="flex justify-between md:grid md:grid-cols-12 gap-4 items-center p-4">
                         {/* Bank Logo */}
@@ -422,7 +422,7 @@ const BankLoansSection = ({ bankSlug }) => {
                           <img
                             src={loan.bank?.logo || "/banks/default-bank.png"}
                             alt={loan.bank?.name}
-                            className="w-12 h-12 md:w-14 md:h-14 object-contain"
+                            className="w-12 h-12 min-w-12 min-h-12 md:w-14 md:h-14 object-contain"
                           />
                         </div>
 
@@ -442,7 +442,6 @@ const BankLoansSection = ({ bankSlug }) => {
 
                         {/* Repayment Period */}
                         <div className="col-span-3 md:col-span-2 text-center">
-                          
                           <p className="text-slate-600 text-sm font-medium">
                             {loan.repaymentPeriod}
                           </p>
@@ -479,9 +478,7 @@ const BankLoansSection = ({ bankSlug }) => {
                         <div className="flex justify-between items-center gap-2 text-slate-500 text-xs">
                           <div className="flex items-center gap-2">
                             <CalendarIcon className="w-4 h-4" />
-                            <span>
-                             {formatDate(loan.createdAt)}
-                            </span>
+                            <span>{formatDate(loan.createdAt)}</span>
                           </div>
                           <div className="flex items-center gap-2 md:hidden">
                             <div className="flex items-center gap-1 text-slate-600 text-sm">

@@ -194,7 +194,7 @@ export default function AdsSection() {
                   <img
                     src={ad.bank?.logo || "/banks/default-bank.png"}
                     alt={ad.bank?.name}
-                    className="w-12 h-12 md:w-14 md:h-14 object-contain"
+                    className="w-12 h-12 min-w-12 min-h-12 md:w-14 md:h-14 object-contain"
                   />
                 </div>
 
