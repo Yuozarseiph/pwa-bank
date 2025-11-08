@@ -244,7 +244,7 @@ export default function Auth() {
           <Link href="/">
             <img
               src="/icons/icon.svg"
-              className="h-30 w-30 bg-white rounded-full"
+              className="h-25 w-25 bg-white rounded-full p-4"
               alt="auth icon"
             />
           </Link>
