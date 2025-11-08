@@ -141,7 +141,7 @@ export default function Profile() {
             </div>
 
             {/* Contact Info */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-8">
               {/* Phone */}
               <div className="flex items-center gap-4 p-4 bg-blue-50 rounded-lg">
                 <div className="w-12 h-12 bg-[#0094da] rounded-full flex items-center justify-center">
@@ -154,7 +154,19 @@ export default function Profile() {
                   </p>
                 </div>
               </div>
-
+              {/* Ads Count Date */}
+              <div className="flex items-center gap-4 p-4 bg-green-50 rounded-lg">
+                <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
+                  <ShoppingBag className="text-white" size={32} />
+                </div>
+                <div className="text-right flex-1">
+                  <p className="text-sm text-gray-500 mb-1">تعداد آگهی‌ها</p>
+                <p className="text-lg font-semibold text-gray-800">
+                  {user.adsCount || 0}
+                </p>
+                </div>
+                
+              </div>
               {/* Join Date */}
               <div className="flex items-center gap-4 p-4 bg-orange-50 rounded-lg">
                 <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
