@@ -503,7 +503,7 @@ const BankLoansSection = ({ bankSlug }) => {
                 {!showAllLoans && filteredLoans.length > 5 && (
                   <button
                     onClick={handleShowMore}
-                    className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-4 rounded-2xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all shadow-md"
+                    className="w-full bg-linear-to-r from-blue-500 to-blue-600 text-white py-4 rounded-2xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all shadow-md"
                   >
                     نمایش {filteredLoans.length - 5} وام بیشتر
                   </button>

@@ -392,7 +392,7 @@ export default function NewAd() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Main Information Section */}
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 p-5 md:p-7 rounded-xl border-2 border-blue-200 shadow-sm">
+            <div className="bg-linear-to-br from-blue-50 to-blue-100/50 p-5 md:p-7 rounded-xl border-2 border-blue-200 shadow-sm">
               <h2 className="text-lg md:text-xl font-bold mb-5 flex items-center gap-2 text-gray-800">
                 <FileTextIcon className="h-6 w-6 text-blue-600" />
                 اطلاعات اصلی آگهی
@@ -620,7 +620,7 @@ export default function NewAd() {
             </div>
 
             {/* Loan Details Section */}
-            <div className="bg-gradient-to-br from-orange-50 to-orange-100/50 p-5 md:p-7 rounded-xl border-2 border-orange-200 shadow-sm">
+            <div className="bg-linear-to-br from-orange-50 to-orange-100/50 p-5 md:p-7 rounded-xl border-2 border-orange-200 shadow-sm">
               <h2 className="text-lg md:text-xl font-bold mb-5 flex items-center gap-2 text-gray-800">
                 <BanknoteIcon className="h-6 w-6 text-orange-600" />
                 جزئیات وام
@@ -800,7 +800,7 @@ export default function NewAd() {
             </div>
 
             {/* Location Section */}
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 p-5 md:p-7 rounded-xl border-2 border-blue-200 shadow-sm">
+            <div className="bg-linear-to-br from-blue-50 to-blue-100/50 p-5 md:p-7 rounded-xl border-2 border-blue-200 shadow-sm">
               <h2 className="text-lg md:text-xl font-bold mb-5 flex items-center gap-2 text-gray-800">
                 <MapPinIcon className="h-6 w-6 text-blue-600" />
                 موقعیت
@@ -931,7 +931,7 @@ export default function NewAd() {
             </div>
 
             {/* Contact Information Section */}
-            <div className="bg-gradient-to-br from-orange-50 to-orange-100/50 p-5 md:p-7 rounded-xl border-2 border-orange-200 shadow-sm">
+            <div className="bg-linear-to-br from-orange-50 to-orange-100/50 p-5 md:p-7 rounded-xl border-2 border-orange-200 shadow-sm">
               <h2 className="text-lg md:text-xl font-bold mb-5 flex items-center gap-2 text-gray-800">
                 <PhoneIcon className="h-6 w-6 text-orange-600" />
                 اطلاعات تماس
@@ -1004,7 +1004,7 @@ export default function NewAd() {
               </Link>
               <button
                 type="submit"
-                className="px-8 py-3.5 bg-gradient-to-l from-[#0094da] to-[#00b4ff] text-white font-bold rounded-xl hover:from-[#0083c0] hover:to-[#009de6] transition-all duration-300 text-sm shadow-md hover:shadow-lg"
+                className="px-8 py-3.5 bg-linear-to-l from-[#0094da] to-[#00b4ff] text-white font-bold rounded-xl hover:from-[#0083c0] hover:to-[#009de6] transition-all duration-300 text-sm shadow-md hover:shadow-lg"
               >
                 ثبت آگهی
               </button>
