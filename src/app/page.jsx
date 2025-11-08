@@ -69,7 +69,7 @@ export default function Home() {
       <Navbar />
       <Header />
       <div className="flex justify-center items-start flex-row-reverse  p-2 lg:gap-6 lg:p-5">
-        <div className="w-full md:w-[80%] max-w-[1080px] bg-white rounded-xl p-5 mb-22">
+        <div className="w-full md:w-[80%] max-w-[1080px] bg-white rounded-xl p-2 mb-22">
           <div className="h-fit  overscroll-contain touch-pan-y p-2">
             <BankList />
             <hr className="my-6 text-gray-300" />
