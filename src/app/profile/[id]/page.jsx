@@ -36,7 +36,11 @@ export default function Profile() {
         return;
       }
     }
+    // Handle logout and redirect
   }, [authUser, params.id, authLoading, router]);
+  const handleLogoutAndRedirect = () => {
+    logout(); // This clears localStorage and redirects to /auth
+  };
 
   async function fetchUser() {
     try {
@@ -46,6 +50,7 @@ export default function Profile() {
 
       if (result.success) {
         setUser(result.data);
+        setError("");
       } else {
         setError("کاربر یافت نشد");
       }
@@ -91,8 +96,8 @@ export default function Profile() {
               {error || "دسترسی غیرمجاز"}
             </p>
             <button
-              onClick={() => router.push("/auth")}
-              className="px-6 py-2 bg-[#0094da] text-white rounded-lg hover:bg-[#0083c0] transition-colors"
+              onClick={handleLogoutAndRedirect}
+              className="px-6 py-2 bg-[#0094da] text-white rounded-lg hover:bg-[#0083c0] transition-colors mt-4"
             >
               ورود به حساب کاربری
             </button>
@@ -160,11 +165,10 @@ export default function Profile() {
                 </div>
                 <div className="text-right flex-1">
                   <p className="text-sm text-gray-500 mb-1">تعداد آگهی‌ها</p>
-                <p className="text-lg font-semibold text-gray-800">
-                  {user.adsCount || 0}
-                </p>
+                  <p className="text-lg font-semibold text-gray-800">
+                    {user.adsCount || 0}
+                  </p>
                 </div>
-                
               </div>
               {/* Join Date */}
               <div className="flex items-center gap-4 p-4 bg-orange-50 rounded-lg">
