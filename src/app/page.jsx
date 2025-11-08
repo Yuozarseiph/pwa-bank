@@ -86,7 +86,7 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-            <hr className="mt-6 text-gray-300" />
+            <hr className="my-6 text-gray-300" />
             <AdsSection />
           </div>
         </div>
