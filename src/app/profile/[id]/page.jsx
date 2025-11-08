@@ -121,9 +121,9 @@ export default function Profile() {
       <div className="flex justify-center items-start flex-row-reverse p-2 lg:gap-6 lg:p-5">
         <div className="w-full md:w-[80%] max-w-[1080px] bg-white rounded-xl shadow-lg mb-22">
           {/* Profile Header */}
-          <div className="relative h-40 bg-gradient-to-r from-[#0094da] to-[#00c6ff] rounded-t-xl">
+          <div className="relative h-40 bg-linear-to-r from-[#0094da] to-[#00c6ff] rounded-t-xl">
             <div className="absolute -bottom-16 right-8">
-              <div className="w-32 h-32 rounded-full border-4 border-white bg-gradient-to-br from-blue-400 to-blue-600 overflow-hidden shadow-xl flex items-center justify-center">
+              <div className="w-32 h-32 rounded-full border-4 border-white bg-linear-to-br from-[#0094da] to-[#00c6ff] overflow-hidden shadow-xl flex items-center justify-center">
                 <User className="text-white" size={64} />
               </div>
             </div>

@@ -22,7 +22,7 @@ export default function Navbar() {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-gray-200 border-t-2 flex justify-around items-center px-6 py-3 lg:hidden z-60">
+    <div className="fixed bottom-0 left-0 right-0 bg-white flex justify-around items-center px-6 py-3 lg:hidden z-60">
       {navItems.map((item) => {
         const Icon = item.icon;
         const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));

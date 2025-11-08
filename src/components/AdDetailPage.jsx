@@ -158,7 +158,7 @@ const AdDetailPage = ({ adId }) => {
   }
 
   return (
-    <div className="min-h-screen lg:pt-20 pb-24 lg:pb-20">
+    <div className="min-h-screen lg:pt-20 pb-24 lg:pb-20 pt-15">
       <style jsx global>{`
         body.no-scroll {
           overflow: hidden;

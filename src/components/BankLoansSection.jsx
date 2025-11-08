@@ -308,7 +308,7 @@ const BankLoansSection = ({ bankSlug }) => {
     <>
       <Header />
       <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-slate-100">
-        <div className="max-w-[1080px] mt-20 rounded-xl mb-10 mx-auto px-4 py-8 bg-white">
+        <div className="max-w-[1080px] mt-20 rounded-xl mb-15 mx-auto px-4 py-8 bg-white">
           {/* Bank Header */}
           <div className="flex items-center gap-4 mb-8 bg-white rounded-2xl p-6 shadow-lg">
             <button
