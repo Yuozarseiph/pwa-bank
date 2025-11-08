@@ -1,6 +1,12 @@
 "use client";
 
-import { ArrowRight, SearchIcon, CalendarIcon, MapPinIcon } from "lucide-react";
+import {
+  ArrowRight,
+  SearchIcon,
+  CalendarIcon,
+  MapPinIcon,
+  ArrowUpLeftIcon,
+} from "lucide-react";
 import { useState, useEffect } from "react";
 import Header from "./Header";
 import Navbar from "./Navbar";
@@ -408,76 +414,100 @@ const BankLoansSection = ({ bankSlug }) => {
                     key={loan.id}
                     className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all overflow-hidden"
                   >
-                    {/* Main Row */}
-                    <div className="grid grid-cols-12 gap-4 items-center p-4">
-                      {/* Bank Logo */}
-                      <div className="col-span-2 md:col-span-1 flex justify-center">
-                        <img
-                          src={loan.bank?.logo || "/banks/default-bank.png"}
-                          alt={loan.bank?.name}
-                          className="w-12 h-12 md:w-14 md:h-14 object-contain"
-                        />
-                      </div>
+                    <Link  href={`/ads/${loan.id}`}>
+                      {/* Main Row */}
+                      <div className="flex justify-between md:grid md:grid-cols-12 gap-4 items-center p-4">
+                        {/* Bank Logo */}
+                        <div className="col-span-2 md:col-span-1 flex justify-center">
+                          <img
+                            src={loan.bank?.logo || "/banks/default-bank.png"}
+                            alt={loan.bank?.name}
+                            className="w-12 h-12 md:w-14 md:h-14 object-contain"
+                          />
+                        </div>
 
-                      {/* Percent */}
-                      <div className="col-span-2 md:col-span-1 text-center">
-                        <p className="text-xs text-slate-500 mb-1">درصد</p>
-                        <div className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-bold inline-block">
-                          {loan.percent}%
+                        {/* Percent */}
+                        <div className="col-span-2 md:col-span-1 text-center">
+                          <p className="text-xs text-slate-500 mb-1">درصد</p>
+                          <div className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-bold inline-block">
+                            {loan.percent}%
+                          </div>
+                        </div>
+
+                        {/* Loan Type */}
+                        <div className="col-span-3 md:col-span-2">
+                          <p className="text-xs text-slate-500 mb-1">نوع وام</p>
+                          <p className="text-slate-700 font-semibold text-sm md:text-base truncate">
+                            {loan.type}
+                          </p>
+                        </div>
+
+                        {/* Repayment Period */}
+                        <div className="col-span-3 md:col-span-2 text-center">
+                          <p className="text-xs text-slate-500 mb-1">
+                            ماه اقساط
+                          </p>
+                          <p className="text-slate-600 text-sm font-medium">
+                            {loan.repaymentPeriod}
+                          </p>
+                        </div>
+
+                        {/* Price */}
+                        <div className="col-span-4 md:col-span-3">
+                          <p className="text-xs text-slate-500 mb-1">
+                            مبلغ وام
+                          </p>
+                          <p className="font-bold text-blue-600 text-sm truncate">
+                            {formatPriceWithLabel(loan.price)}
+                          </p>
+                        </div>
+
+                        {/* Location */}
+                        <div className="col-span-3 md:col-span-2 md:block hidden">
+                          <p className="text-xs text-slate-500 mb-1">شهر</p>
+                          <div className="flex items-center gap-1 text-slate-600 text-sm">
+                            <MapPinIcon className="w-4 h-4" />
+                            <span className="truncate">{loan.location}</span>
+                          </div>
+                        </div>
+
+                        {/* Details Button */}
+                        <div className="col-span-3 hidden md:flex md:col-span-1  justify-end">
+                          <Link
+                            href={`/ads/${loan.id}`}
+                            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                          >
+                            جزئیات
+                          </Link>
                         </div>
                       </div>
 
-                      {/* Loan Type */}
-                      <div className="col-span-3 md:col-span-2">
-                        <p className="text-xs text-slate-500 mb-1">نوع وام</p>
-                        <p className="text-slate-700 font-semibold text-sm md:text-base truncate">
-                          {loan.type}
-                        </p>
-                      </div>
-
-                      {/* Repayment Period */}
-                      <div className="col-span-3 md:col-span-2 text-center">
-                        <p className="text-xs text-slate-500 mb-1">ماه اقساط</p>
-                        <p className="text-slate-600 text-sm font-medium">
-                          {loan.repaymentPeriod}
-                        </p>
-                      </div>
-
-                      {/* Price */}
-                      <div className="col-span-4 md:col-span-3">
-                        <p className="text-xs text-slate-500 mb-1">مبلغ وام</p>
-                        <p className="font-bold text-blue-600 text-sm truncate">
-                          {formatPriceWithLabel(loan.price)}
-                        </p>
-                      </div>
-
-                      {/* Location */}
-                      <div className="col-span-3 md:col-span-2">
-                        <p className="text-xs text-slate-500 mb-1">شهر</p>
-                        <div className="flex items-center gap-1 text-slate-600 text-sm">
-                          <MapPinIcon className="w-4 h-4" />
-                          <span className="truncate">{loan.location}</span>
+                      {/* Date Row */}
+                      <div className="bg-slate-50 px-4 py-2 border-t border-slate-200">
+                        <div className="flex justify-between items-center gap-2 text-slate-500 text-xs">
+                          <div className="flex items-center gap-2">
+                            <CalendarIcon className="w-4 h-4" />
+                            <span>
+                              تاریخ آگهی: {formatDate(loan.createdAt)}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2 md:hidden">
+                            <p className="text-xs text-slate-500 mb-1">شهر</p>
+                            <div className="flex items-center gap-1 text-slate-600 text-sm">
+                              <MapPinIcon className="w-4 h-4" />
+                              <span className="truncate">{loan.location}</span>
+                            </div>
+                          </div>
+                          <Link
+                            href={`/ads/${loan.id}`}
+                            className="text-blue-500 md:hidden px-4 py-2 rounded-lg text-sm font-medium flex flex-row-reverse justify-center items-center"
+                          >
+                            <ArrowUpLeftIcon className="w-4 h-4" />
+                            جزئیات
+                          </Link>
                         </div>
                       </div>
-
-                      {/* Details Button */}
-                      <div className="col-span-3 md:col-span-1 flex justify-end">
-                        <Link
-                          href={`/ads/${loan.id}`}
-                          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-                        >
-                          جزئیات
-                        </Link>
-                      </div>
-                    </div>
-
-                    {/* Date Row */}
-                    <div className="bg-slate-50 px-4 py-2 border-t border-slate-200">
-                      <div className="flex items-center gap-2 text-slate-500 text-xs">
-                        <CalendarIcon className="w-4 h-4" />
-                        <span>تاریخ آگهی: {formatDate(loan.createdAt)}</span>
-                      </div>
-                    </div>
+                    </Link>
                   </div>
                 ))}
 

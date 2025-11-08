@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarIcon, MapPinIcon } from "lucide-react";
+import { ArrowUpLeftIcon, CalendarIcon, MapPinIcon } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
@@ -186,76 +186,94 @@ export default function AdsSection() {
             key={ad.id}
             className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all overflow-hidden"
           >
-            {/* Main Row */}
-            <div className="grid grid-cols-12 gap-4 items-center p-4">
-              {/* Bank Logo */}
-              <div className="col-span-2 md:col-span-1 flex justify-center">
-                <img
-                  src={ad.bank?.logo || "/banks/default-bank.png"}
-                  alt={ad.bank?.name}
-                  className="w-12 h-12 md:w-14 md:h-14 object-contain"
-                />
-              </div>
+            <Link href={`/ads/${ad.id}`}>
+              {/* Main Row */}
+              <div className="flex justify-between md:grid md:grid-cols-12 gap-4 items-center p-4">
+                {/* Bank Logo */}
+                <div className="col-span-2 md:col-span-1 flex justify-center">
+                  <img
+                    src={ad.bank?.logo || "/banks/default-bank.png"}
+                    alt={ad.bank?.name}
+                    className="w-12 h-12 md:w-14 md:h-14 object-contain"
+                  />
+                </div>
 
-              {/* Percent */}
-              <div className="col-span-2 md:col-span-1 text-center">
-                <p className="text-xs text-slate-500 mb-1">درصد</p>
-                <div className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-bold inline-block">
-                  {ad.percent}%
+                {/* Percent */}
+                <div className="col-span-2 md:col-span-1 text-center">
+                  <p className="text-xs text-slate-500 mb-1">درصد</p>
+                  <div className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-bold inline-block">
+                    {ad.percent}%
+                  </div>
+                </div>
+
+                {/* Loan Type */}
+                <div className="col-span-3 md:col-span-2">
+                  <p className="text-xs text-slate-500 mb-1">نوع وام</p>
+                  <p className="text-slate-700 font-semibold text-sm md:text-base truncate">
+                    {ad.type}
+                  </p>
+                </div>
+
+                {/* Repayment Period */}
+                <div className="col-span-3 md:col-span-2 text-center">
+                  <p className="text-xs text-slate-500 mb-1">ماه اقساط</p>
+                  <p className="text-slate-600 text-sm font-medium">
+                    {ad.repaymentPeriod}
+                  </p>
+                </div>
+
+                {/* Price */}
+                <div className="col-span-4 md:col-span-3">
+                  <p className="text-xs text-slate-500 mb-1">مبلغ وام</p>
+                  <p className="text-blue-600 font-bold text-sm md:text-base">
+                    {formatPriceWithLabel(ad.price)}
+                  </p>
+                </div>
+
+                {/* Location */}
+                <div className="col-span-3 md:col-span-2 md:block hidden">
+                  <p className="text-xs text-slate-500 mb-1">شهر</p>
+                  <div className="flex items-center gap-1 text-slate-600 text-sm">
+                    <MapPinIcon className="w-4 h-4" />
+                    <span className="truncate">{ad.location}</span>
+                  </div>
+                </div>
+
+                {/* Details Button */}
+                <div className="col-span-3 hidden md:flex md:col-span-1  justify-end">
+                  <Link
+                    href={`/ads/${ad.id}`}
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                  >
+                    جزئیات
+                  </Link>
                 </div>
               </div>
 
-              {/* Loan Type */}
-              <div className="col-span-3 md:col-span-2">
-                <p className="text-xs text-slate-500 mb-1">نوع وام</p>
-                <p className="text-slate-700 font-semibold text-sm md:text-base truncate">
-                  {ad.type}
-                </p>
-              </div>
-
-              {/* Repayment Period */}
-              <div className="col-span-3 md:col-span-2 text-center">
-                <p className="text-xs text-slate-500 mb-1">ماه اقساط</p>
-                <p className="text-slate-600 text-sm font-medium">
-                  {ad.repaymentPeriod}
-                </p>
-              </div>
-
-              {/* Price */}
-              <div className="col-span-4 md:col-span-3">
-                <p className="text-xs text-slate-500 mb-1">مبلغ وام</p>
-                <p className="text-blue-600 font-bold text-sm md:text-base">
-                  {formatPriceWithLabel(ad.price)}
-                </p>
-              </div>
-
-              {/* Location */}
-              <div className="col-span-3 md:col-span-2">
-                <p className="text-xs text-slate-500 mb-1">شهر</p>
-                <div className="flex items-center gap-1 text-slate-600 text-sm">
-                  <MapPinIcon className="w-4 h-4" />
-                  <span className="truncate">{ad.location}</span>
+              {/* Date Row */}
+              <div className="bg-slate-50 px-4 py-2 border-t border-slate-200">
+                <div className="flex justify-between items-center gap-2 text-slate-500 text-xs">
+                  <div className="flex items-center gap-2">
+                    <CalendarIcon className="w-4 h-4" />
+                    <span>تاریخ آگهی: {formatDate(ad.createdAt)}</span>
+                  </div>
+                  <div className="flex items-center gap-2 md:hidden">
+                    <p className="text-xs text-slate-500 mb-1">شهر</p>
+                    <div className="flex items-center gap-1 text-slate-600 text-sm">
+                      <MapPinIcon className="w-4 h-4" />
+                      <span className="truncate">{ad.location}</span>
+                    </div>
+                  </div>
+                  <Link
+                    href={`/ads/${ad.id}`}
+                    className=" text-blue-500 md:hidden px-4 py-2 rounded-lg text-sm font-medium transition-colors flex flex-row-reverse justify-center items-center"
+                  >
+                    <ArrowUpLeftIcon className="w-4 h-4" />
+                    جزئیات
+                  </Link>
                 </div>
               </div>
-
-              {/* Details Button */}
-              <div className="col-span-3 md:col-span-1 flex justify-end">
-                <Link
-                  href={`/ads/${ad.id}`}
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-                >
-                  جزئیات
-                </Link>
-              </div>
-            </div>
-
-            {/* Date Row */}
-            <div className="bg-slate-50 px-4 py-2 border-t border-slate-200">
-              <div className="flex items-center gap-2 text-slate-500 text-xs">
-                <CalendarIcon className="w-4 h-4" />
-                <span>تاریخ آگهی: {formatDate(ad.createdAt)}</span>
-              </div>
-            </div>
+            </Link>
           </div>
         ))
       ) : (
