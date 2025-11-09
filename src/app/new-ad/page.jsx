@@ -13,8 +13,6 @@ import {
   XIcon,
 } from "lucide-react";
 import Link from "next/link";
-import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
 import SearchableSelect from "@/components/SearchableSelect";
 
 export default function NewAd() {
@@ -331,6 +329,7 @@ export default function NewAd() {
     "وام تحصیلی",
     "وام کسب و کار",
   ];
+  const loanTypeOptions = loanTypes.map(type => ({ id: type, name: type }));
 
   if (loading) {
     return <Loading />;
@@ -470,67 +469,53 @@ export default function NewAd() {
                     مبلغ باید مضرب ۱,۰۰۰ و حداقل ۱,۰۰۰,۰۰۰ تومان باشد
                   </p>
                 </div>
-
+                {/* نوع وام */}
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-2">
                     نوع وام <span className="text-red-600">*</span>
                   </label>
-                  <select
+                  <SearchableSelect
                     name="type"
                     value={formData.type}
                     onChange={handleInputChange}
-                    className={`w-full bg-white px-4 py-3.5 border-2 rounded-xl outline-none text-sm font-bold transition-all duration-200 ${
-                      errors.type
-                        ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
-                        : "border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
-                    }`}
-                  >
-                    <option value="">انتخاب کنید</option>
-                    {loanTypes.map((type) => (
-                      <option key={type} value={type}>
-                        {type}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.type && (
-                    <p className="text-red-600 text-xs mt-1.5 text-right flex items-center gap-1">
-                      <svg
-                        className="w-3.5 h-3.5"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                      {errors.type}
-                    </p>
-                  )}
+                    options={loanTypeOptions}
+                    placeholder="انتخاب کنید"
+                    error={!!errors.type}
+                    emptyMessage="نوع وامی یافت نشد"
+                  />
+                  <p className="text-red-600 text-xs mt-1.5 text-right flex items-center gap-1">
+                    <svg
+                      className="w-3.5 h-3.5"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    {errors.type}
+                  </p>
                 </div>
 
+                {/* بانک */}
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-2">
                     بانک <span className="text-red-600">*</span>
                   </label>
-                  <select
+                  <SearchableSelect
                     name="bankId"
                     value={formData.bankId}
                     onChange={handleInputChange}
-                    className={`w-full bg-white px-4 py-3.5 border-2 rounded-xl outline-none text-sm font-bold transition-all duration-200 ${
-                      errors.bankId
-                        ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
-                        : "border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
-                    }`}
-                  >
-                    <option value="">انتخاب بانک</option>
-                    {banks.map((bank) => (
-                      <option key={bank.id} value={bank.id}>
-                        {bank.name}
-                      </option>
-                    ))}
-                  </select>
+                    options={banks.map((bank) => ({
+                      id: bank.id,
+                      name: bank.name,
+                    }))}
+                    placeholder="انتخاب بانک"
+                    error={!!errors.bankId}
+                    emptyMessage="بانکی یافت نشد"
+                  />
                   {errors.bankId && (
                     <p className="text-red-600 text-xs mt-1.5 text-right flex items-center gap-1">
                       <svg
@@ -544,7 +529,7 @@ export default function NewAd() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      {errors.bankId}
+                      {errors.type}
                     </p>
                   )}
                 </div>
