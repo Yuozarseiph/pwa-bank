@@ -15,7 +15,7 @@ import {
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-
+import SearchableSelect from "@/components/SearchableSelect";
 
 export default function NewAd() {
   const [loading, setLoading] = useState(true);
@@ -805,29 +805,20 @@ export default function NewAd() {
                 <MapPinIcon className="h-6 w-6 text-blue-600" />
                 موقعیت
               </h2>
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-2">
                     استان <span className="text-red-600">*</span>
                   </label>
-                  <select
+                  <SearchableSelect
                     name="provinceId"
                     value={formData.provinceId}
                     onChange={handleInputChange}
-                    className={`w-full bg-white px-4 py-3.5 border-2 rounded-xl outline-none text-sm font-bold transition-all duration-200 ${
-                      errors.provinceId
-                        ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
-                        : "border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
-                    }`}
-                  >
-                    <option value="">انتخاب استان</option>
-                    {provinces.map((province) => (
-                      <option key={province.id} value={province.id}>
-                        {province.name}
-                      </option>
-                    ))}
-                  </select>
+                    options={provinces}
+                    placeholder="انتخاب استان"
+                    error={!!errors.provinceId}
+                    emptyMessage="استانی یافت نشد"
+                  />
                   {errors.provinceId && (
                     <p className="text-red-600 text-xs mt-1.5 text-right flex items-center gap-1">
                       <svg
@@ -850,32 +841,20 @@ export default function NewAd() {
                   <label className="block text-sm font-bold text-gray-700 mb-2">
                     شهر <span className="text-red-600">*</span>
                   </label>
-                  <select
+                  <SearchableSelect
                     name="cityId"
                     value={formData.cityId}
                     onChange={handleInputChange}
-                    disabled={!formData.provinceId}
-                    className={`w-full bg-white px-4 py-3.5 border-2 rounded-xl outline-none text-sm font-bold transition-all duration-200 ${
-                      errors.cityId
-                        ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
-                        : "border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
-                    } ${
-                      !formData.provinceId
-                        ? "opacity-50 cursor-not-allowed bg-gray-50"
-                        : ""
-                    }`}
-                  >
-                    <option value="">
-                      {formData.provinceId
+                    options={filteredCities}
+                    placeholder={
+                      formData.provinceId
                         ? "انتخاب شهر"
-                        : "ابتدا استان را انتخاب کنید"}
-                    </option>
-                    {filteredCities.map((city) => (
-                      <option key={city.id} value={city.id}>
-                        {city.name}
-                      </option>
-                    ))}
-                  </select>
+                        : "ابتدا استان را انتخاب کنید"
+                    }
+                    disabled={!formData.provinceId}
+                    error={!!errors.cityId}
+                    emptyMessage="شهری یافت نشد"
+                  />
                   {errors.cityId && (
                     <p className="text-red-600 text-xs mt-1.5 text-right flex items-center gap-1">
                       <svg
@@ -893,7 +872,6 @@ export default function NewAd() {
                     </p>
                   )}
                 </div>
-
                 <div className="md:col-span-2">
                   <label className="block text-sm font-bold text-gray-700 mb-2">
                     آدرس کامل <span className="text-red-600">*</span>
