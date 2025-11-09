@@ -1,8 +1,10 @@
 "use client";
 
-import { ArrowUpLeftIcon, CalendarIcon, MapPinIcon } from "lucide-react";
+import { ArrowUpLeftIcon, CalendarIcon, MapPinIcon, Route } from "lucide-react";
+import { navigate } from "next/dist/client/components/segment-cache-impl/navigation";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import Loading from "./Loading";
 
 export default function AdsSection() {
   const [ads, setAds] = useState([]);
@@ -162,12 +164,7 @@ export default function AdsSection() {
   };
 
   if (loading) {
-    return (
-      <div className="text-center py-12">
-        <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-        <p className="mt-4 text-slate-600">در حال بارگذاری آگهی‌ها...</p>
-      </div>
-    );
+    return <Loading />;
   }
 
   return (
@@ -235,12 +232,14 @@ export default function AdsSection() {
 
                 {/* Details Button */}
                 <div className="col-span-3 hidden md:flex md:col-span-1  justify-end">
-                  <Link
-                    href={`/ads/${ad.id}`}
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                  <button
+                    onClick={() => {
+                      navigate(`/ads/${ad.id}`);
+                    }}
+                    className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                   >
                     جزئیات
-                  </Link>
+                  </button>
                 </div>
               </div>
 
@@ -257,13 +256,15 @@ export default function AdsSection() {
                       <span className="truncate">{ad.location}</span>
                     </div>
                   </div>
-                  <Link
-                    href={`/ads/${ad.id}`}
-                    className=" text-blue-500 md:hidden px-4 py-2 rounded-lg text-sm font-medium transition-colors flex flex-row-reverse justify-center items-center"
+                  <button
+                    onClick={() => {
+                      navigate(`/ads/${ad.id}`);
+                    }}
+                    className="cursor-pointer text-blue-500 md:hidden px-4 py-2 rounded-lg text-sm font-medium transition-colors flex flex-row-reverse justify-center items-center"
                   >
                     <ArrowUpLeftIcon className="w-4 h-4" />
                     جزئیات
-                  </Link>
+                  </button>
                 </div>
               </div>
             </Link>
